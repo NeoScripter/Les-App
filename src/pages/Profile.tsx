@@ -1,12 +1,14 @@
-import Button from '@/features/profile/components/Button';
 import Nav from '@/features/profile/components/layout/Nav';
+import Button from '@/features/profile/components/ui/Button';
+import ContactItem from '@/features/profile/components/ui/ContactItem';
+import { contacts } from '@/features/profile/data/contacts';
 import { navItems } from '@/features/profile/data/navItems';
 import ChatLayout from '@/layouts/ChatLayout';
 import { Ellipsis, Plus } from 'lucide-preact';
 
 const Profile = () => {
     return (
-        <ChatLayout>
+        <ChatLayout className="flex h-[calc(100svh-(var(--margin)*2))] flex-col [--margin:0.5rem] sm:[--margin:1rem]">
             <header class="mt-1 flex items-center justify-between gap-2 sm:mt-2">
                 <Button>
                     <Ellipsis class="translate-x-[5%]" />
@@ -26,7 +28,13 @@ const Profile = () => {
 
                 <Nav items={navItems} />
             </div>
-            <span>hi</span>
+            <ul class="overflow-y-auto">
+                {contacts
+                    .toSorted((a, b) => b.time.localeCompare(a.time))
+                    .map((contact) => (
+                        <ContactItem key={contact.id} contact={contact} />
+                    ))}
+            </ul>
         </ChatLayout>
     );
 };
