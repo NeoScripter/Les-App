@@ -1,3 +1,4 @@
+import cn from '@/utils/cn';
 import type { FC } from 'preact/compat';
 import type { Contact } from '../../data/contacts';
 
@@ -7,8 +8,13 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
 }) => {
     return (
         <li key={contact.id}>
-            <article className="flex items-center gap-3 p-3 hover:bg-gray-50">
-                <figure className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200">
+            <article
+                className={cn(
+                    'relative flex items-center gap-3 p-3',
+                    className,
+                )}
+            >
+                <figure className="hexagon flex h-11 w-10 shrink-0 items-center justify-center bg-primary">
                     <abbr title={contact.name} className="text-sm font-medium">
                         {contact.initials}
                     </abbr>
@@ -34,6 +40,7 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                         </span>
                     )}
                 </div>
+                <button class="absolute inset-x-1 inset-y-0 rounded-sm border-dotted transition-[border] hover:border"></button>
             </article>
         </li>
     );
