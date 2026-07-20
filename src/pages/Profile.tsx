@@ -1,6 +1,10 @@
-
 const Profile = () => {
-    return <>This is a profile page</>;
+    return (
+        <>
+            <div>На русском</div>
+            This is a profile page
+        </>
+    );
 };
 
 export default Profile;
