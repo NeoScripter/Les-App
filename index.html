@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html
+    lang="ru"
+    class="overflow-x-clip"
+>
     <head>
         <meta charset="UTF-8" />
         <link
@@ -11,6 +14,22 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0"
         />
+
+        <link
+            rel="preload"
+            href="/fonts/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/JTUSjIg1_i6t8kCHKm459W1hyzbi.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+
         <style>
             @font-face {
                 font-family: 'Montserrat';
@@ -37,8 +56,12 @@
         </style>
         <title>Les</title>
     </head>
-    <body class="font-sans">
-        <div id="app"></div>
+    <body class="font-sans overflow-x-clip">
+        <div
+            id="app"
+            class="min-h-screen"
+        ></div>
+        <div id="portals"></div>
         <script
             type="module"
             src="/src/main.tsx"

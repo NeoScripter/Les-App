@@ -4,4 +4,22 @@
     --font-sans:
         'Montserrat', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --breakpoint-xs: 29.25rem;
+
+    --color-background: oklch(0.22 0 90);
+    --color-foreground: oklch(1 0 90);
+    --color-primary: oklch(0.51 0.219 264);
+    --color-primary-muted: oklch(0.63 0.186 260);
+    --color-foreground-muted: oklch(1 0 90 / 20%);
+}
+
+@layer base {
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    button {
+        @apply cursor-pointer;
+    }
 }
