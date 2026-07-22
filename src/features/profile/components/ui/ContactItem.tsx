@@ -17,7 +17,12 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                     className,
                 )}
             >
-                <figure className="hexagon bg-primary xs:h-13 xs:w-12 flex h-11 w-10 shrink-0 items-center justify-center">
+                <figure className="hexagon bg-primary xs:h-14 xs:w-12 relative flex h-12 w-10 shrink-0 items-center justify-center">
+                    {/* for Firfox clip path */}
+                    <span
+                        class="bg-background absolute inset-y-0 right-0 block w-px"
+                        aria-hidden="true"
+                    ></span>
                     <span
                         class="hexagon flex size-[96%] shrink-0 items-center justify-center"
                         style={{ ...colors }}
