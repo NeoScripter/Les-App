@@ -1,9 +1,9 @@
 import Headline from '@/components/Headline';
-import NavMenu from '@/features/profile/components/layout/NavMenu';
+import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import { contacts } from '@/features/profile/data/contacts';
-import { navItems } from '@/features/profile/data/navItems';
+import { navItems } from '@/features/profile/data/secondaryNavItems';
 import ChatLayout from '@/layouts/ChatLayout';
 import { Ellipsis, Plus } from 'lucide-preact';
 
@@ -23,7 +23,7 @@ const Profile = () => {
                     placeholder="Поиск по чатам..."
                 />
 
-                <NavMenu items={navItems} />
+                <SecondaryNav items={navItems} />
             </div>
             <ul class="scrollbar-hidden overflow-y-auto">
                 {contacts
