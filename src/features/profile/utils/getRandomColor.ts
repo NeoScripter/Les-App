@@ -24,6 +24,10 @@ const colors: Color[] = [
         color: '#000',
         backgroundColor: 'rgb(255 116 1 / 1)',
     },
+    {
+        color: '#000',
+        backgroundColor: 'rgb(232 255 138 / 1)',
+    },
 ];
 
 export default function getRandomColor() {

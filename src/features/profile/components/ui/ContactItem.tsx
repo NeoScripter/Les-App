@@ -29,9 +29,9 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                 </figure>
 
                 <div className="min-w-0 flex-1">
-                    <h3 className="xs:text-lg truncate font-medium">
+                    <h2 className="xs:text-lg truncate font-medium">
                         {contact.name}
-                    </h3>
+                    </h2>
                     <p className="xs:text-base truncate text-sm text-gray-400">
                         {contact.summary}
                     </p>

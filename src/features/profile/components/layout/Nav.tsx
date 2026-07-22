@@ -21,9 +21,9 @@ const Nav: FC<{ className?: string; items: NavItem[] }> = ({
                     <li
                         key={item.id}
                         class={cn(
-                            'px-3 py-1 transition-[background-color,color] rounded-primary',
+                            'px-3 py-1 transition-[background-color,color,box-shadow] rounded-primary',
                             item.id === activeId &&
-                                'bg-accent text-foreground-accent font-medium',
+                                'bg-accent text-foreground-accent font-medium shadow-accent',
                         )}
                     >
                         <button

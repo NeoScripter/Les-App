@@ -16,6 +16,10 @@
     --color-accent: oklch(0.71 0.195 48);
     --color-primary-muted: oklch(0.63 0.186 260);
     --color-foreground-muted: oklch(1 0 90 / 20%);
+
+    --shadow-accent:
+        0 0 #0000, 0 0 #0000,
+        0 0 14px color-mix(in srgb, oklch(0.71 0.195 48) 55%, transparent);
 }
 
 @layer base {

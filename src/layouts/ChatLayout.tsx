@@ -3,6 +3,7 @@ import Home from '@/features/profile/assets/svgs/Home';
 import Screen from '@/features/profile/assets/svgs/Screen';
 import Speaker from '@/features/profile/assets/svgs/Speaker';
 import User from '@/features/profile/assets/svgs/User';
+import Logo from '@/features/profile/components/ui/Logo';
 import cn from '@/utils/cn';
 import type { ComponentChildren, ComponentType } from 'preact';
 import type { FC } from 'preact/compat';
@@ -22,13 +23,9 @@ const ChatLayout: FC<{ children: ComponentChildren; className?: string }> = ({
         >
             {children}
 
-            <nav class="from-primary text-foreground-accent via-primary to-accent rounded-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 items-center justify-between gap-5 bg-red-400 bg-linear-to-r px-4">
-                <ol class="flex flex-1 items-center justify-between gap-2">
-                    <span class="xs:text-lg font-black">
-                        <span class="text-xl">/</span>
-                        les
-                    </span>
-
+            <nav class="from-primary text-foreground-accent via-primary to-accent rounded-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 bg-red-400 bg-linear-to-r px-4">
+                <Logo />
+                <ol class="flex basis-4/5 items-center justify-between gap-2">
                     {tabs.map((tab, idx) => (
                         <Tab key={idx} svg={tab} />
                     ))}
