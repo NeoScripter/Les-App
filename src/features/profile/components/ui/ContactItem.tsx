@@ -1,5 +1,5 @@
 import cn from '@/utils/cn';
-import type { FC } from 'preact/compat';
+import { useMemo, type FC } from 'preact/compat';
 import type { Contact } from '../../data/contacts';
 import getRandomColor from '../../utils/getRandomColor';
 
@@ -7,7 +7,7 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
     contact,
     className,
 }) => {
-    const colors = getRandomColor();
+    const colors = useMemo(() => getRandomColor(), []);
 
     return (
         <li key={contact.id}>
