@@ -12,17 +12,18 @@ const Nav: FC<{ className?: string; items: NavItem[] }> = ({
     return (
         <nav
             class={cn(
-                'border-foreground-muted w-full rounded-sm border',
+                'border-foreground-muted w-full overflow-clip rounded-primary border',
                 className,
             )}
         >
-            <ol class="flex flex-col justify-between xs:items-baseline xs:flex-row">
+            <ol class="grid grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] xs:flex xs:justify-between">
                 {items.map((item) => (
                     <li
                         key={item.id}
                         class={cn(
-                            'px-2 py-1 transition-[background-color,font-weight]',
-                            item.id === activeId && 'bg-primary font-semibold',
+                            'px-3 py-1 transition-[background-color,color] text-sm rounded-primary',
+                            item.id === activeId &&
+                                'bg-accent text-foreground-accent font-medium',
                         )}
                     >
                         <button
