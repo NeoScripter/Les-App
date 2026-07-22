@@ -13,7 +13,7 @@ const Profile = () => {
                 <Button>
                     <Ellipsis class="translate-x-[5%]" />
                 </Button>
-                <h1 class="text-lg font-semibold sm:text-xl">Личка</h1>
+                <h1 class="text-xl font-semibold">Личка</h1>
                 <Button type="filled">
                     <Plus />
                 </Button>

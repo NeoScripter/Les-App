@@ -1,33 +1,38 @@
 import cn from '@/utils/cn';
 import type { FC } from 'preact/compat';
 import type { Contact } from '../../data/contacts';
+import getRandomColor from '../../utils/getRandomColor';
 
 const ContactItem: FC<{ contact: Contact; className?: string }> = ({
     contact,
     className,
 }) => {
+    const colors = getRandomColor();
+
     return (
         <li key={contact.id}>
             <article
                 className={cn(
-                    'relative flex items-center gap-3 p-3',
+                    'xs:gap-4 relative flex items-center gap-3 p-3',
                     className,
                 )}
             >
-                <figure className="hexagon bg-primary flex aspect-8/9 w-10 shrink-0 items-center justify-center">
-                    <span class="hexagon bg-accent flex size-[92%] shrink-0 items-center justify-center">
-                        <abbr
-                            title={contact.name}
-                            className="text-sm font-medium"
-                        >
+                <figure className="hexagon bg-primary xs:h-13 xs:w-12 flex h-11 w-10 shrink-0 items-center justify-center">
+                    <span
+                        class="hexagon flex size-[96%] shrink-0 items-center justify-center"
+                        style={{ ...colors }}
+                    >
+                        <span className="xs:text-sm text-xs font-bold">
                             {contact.initials}
-                        </abbr>
+                        </span>
                     </span>
                 </figure>
 
                 <div className="min-w-0 flex-1">
-                    <h3 className="truncate font-medium">{contact.name}</h3>
-                    <p className="truncate text-sm text-gray-500">
+                    <h3 className="xs:text-lg truncate font-medium">
+                        {contact.name}
+                    </h3>
+                    <p className="xs:text-base truncate text-sm text-gray-400">
                         {contact.summary}
                     </p>
                 </div>
@@ -45,7 +50,7 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                         </span>
                     )}
                 </div>
-                <button class="absolute inset-x-1 inset-y-0 rounded-primary border-dotted transition-[border] hover:border"></button>
+                <button class="rounded-primary absolute inset-x-1 inset-y-0 border-dotted transition-[border] hover:border"></button>
             </article>
         </li>
     );
