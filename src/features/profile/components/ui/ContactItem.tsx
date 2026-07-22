@@ -14,10 +14,15 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                     className,
                 )}
             >
-                <figure className="hexagon flex h-11 w-10 shrink-0 items-center justify-center bg-primary">
-                    <abbr title={contact.name} className="text-sm font-medium">
-                        {contact.initials}
-                    </abbr>
+                <figure className="hexagon bg-primary flex aspect-8/9 w-10 shrink-0 items-center justify-center">
+                    <span class="hexagon bg-accent flex size-[92%] shrink-0 items-center justify-center">
+                        <abbr
+                            title={contact.name}
+                            className="text-sm font-medium"
+                        >
+                            {contact.initials}
+                        </abbr>
+                    </span>
                 </figure>
 
                 <div className="min-w-0 flex-1">
@@ -27,20 +32,20 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                     </p>
                 </div>
 
-                <div className="flex flex-col items-end gap-1">
+                <div className="flex flex-col items-center justify-between gap-1">
                     <time
                         dateTime={contact.time}
-                        className="text-xs text-gray-400"
+                        className="text-sm font-medium text-gray-400"
                     >
                         {contact.time}
                     </time>
                     {contact.numMessages > 0 && (
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-xs text-white">
+                        <span className="bg-primary text-foreground-accent flex h-5 w-10 items-center justify-center rounded-full text-xs font-semibold">
                             {contact.numMessages}
                         </span>
                     )}
                 </div>
-                <button class="absolute inset-x-1 inset-y-0 rounded-sm border-dotted transition-[border] hover:border"></button>
+                <button class="absolute inset-x-1 inset-y-0 rounded-primary border-dotted transition-[border] hover:border"></button>
             </article>
         </li>
     );

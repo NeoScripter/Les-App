@@ -13,7 +13,7 @@ const Profile = () => {
                 <Button>
                     <Ellipsis class="translate-x-[5%]" />
                 </Button>
-                <h1 class="text-lg font-semibold">Личка</h1>
+                <h1 class="text-lg font-semibold sm:text-xl">Личка</h1>
                 <Button type="filled">
                     <Plus />
                 </Button>
@@ -22,13 +22,13 @@ const Profile = () => {
             <div>
                 <input
                     type="search"
-                    class="border-foreground-muted mb-2 w-full rounded-sm border px-2 py-1"
+                    class="border-foreground-muted mb-2 w-full rounded-primary border px-2 py-1"
                     placeholder="Поиск по чатам..."
                 />
 
                 <Nav items={navItems} />
             </div>
-            <ul class="overflow-y-auto">
+            <ul class="overflow-y-auto scrollbar-hidden">
                 {contacts
                     .toSorted((a, b) => b.time.localeCompare(a.time))
                     .map((contact) => (
