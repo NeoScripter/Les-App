@@ -13,18 +13,13 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
         <li key={contact.id}>
             <article
                 className={cn(
-                    'xs:gap-4 relative flex items-center gap-3 p-3',
+                    'xs:gap-5 relative flex items-center gap-4 px-3 py-2',
                     className,
                 )}
             >
-                <figure className="hexagon bg-primary xs:h-14 xs:w-12 relative flex h-12 w-10 shrink-0 items-center justify-center">
-                    {/* for Firfox clip path */}
-                    {/* <span */}
-                    {/*     class="bg-background absolute inset-y-0 right-0 block w-px" */}
-                    {/*     aria-hidden="true" */}
-                    {/* ></span> */}
+                <figure className="hexagon bg-primary xs:h-16 xs:w-14 relative flex h-14 w-12 shrink-0 items-center justify-center">
                     <span
-                        class="hexagon flex size-[96%] shrink-0 items-center justify-center"
+                        class="hexagon flex size-[92%] shrink-0 items-center justify-center"
                         style={{ ...colors }}
                     >
                         <span className="xs:text-sm text-xs font-bold">
@@ -50,7 +45,7 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                         {contact.time}
                     </time>
                     {contact.numMessages > 0 && (
-                        <span className="bg-primary text-foreground-accent flex h-5 w-10 items-center justify-center rounded-full text-xs font-semibold">
+                        <span className="bg-primary text-foreground-accent flex aspect-3/1 h-4 items-center justify-center rounded-full text-xs font-semibold">
                             {contact.numMessages}
                         </span>
                     )}

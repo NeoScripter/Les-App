@@ -24,7 +24,10 @@ const ChatLayout: FC<{ children: ComponentChildren; className?: string }> = ({
 
             <nav class="from-primary text-foreground-accent via-primary to-accent rounded-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 items-center justify-between gap-5 bg-red-400 bg-linear-to-r px-4">
                 <ol class="flex flex-1 items-center justify-between gap-2">
-                    <span class="xs:text-lg font-black">/les</span>
+                    <span class="xs:text-lg font-black">
+                        <span class="text-xl">/</span>
+                        les
+                    </span>
 
                     {tabs.map((tab, idx) => (
                         <Tab key={idx} svg={tab} />

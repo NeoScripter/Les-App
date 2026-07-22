@@ -12,11 +12,11 @@ const Nav: FC<{ className?: string; items: NavItem[] }> = ({
     return (
         <nav
             class={cn(
-                'border-foreground-muted w-full overflow-clip rounded-primary border',
+                'border-foreground-muted overflow-x-auto scrollbar-hidden w-full rounded-primary border',
                 className,
             )}
         >
-            <ol class="grid grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] xs:flex xs:justify-between">
+            <ol class="min-w-max flex xs:justify-between">
                 {items.map((item) => (
                     <li
                         key={item.id}
