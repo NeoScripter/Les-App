@@ -55,7 +55,7 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                         {contact.time}
                     </time>
                     {contact.numMessages > 0 && (
-                        <span className="bg-primary text-foreground-accent flex aspect-3/1 h-4 items-center justify-center rounded-full text-xs font-semibold">
+                        <span className="bg-primary text-foreground-accent flex aspect-3/1 h-4 items-center justify-center rounded-sm text-xs font-semibold">
                             {contact.numMessages}
                         </span>
                     )}
