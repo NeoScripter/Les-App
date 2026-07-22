@@ -1,13 +1,17 @@
 import cn from '@/utils/cn';
 import { useMemo, type FC } from 'preact/compat';
 import type { Contact } from '../../data/contacts';
-import getRandomColor from '../../utils/getRandomColor';
+import getAvatarStyle from '../../utils/getAvatarStyle';
 
 const ContactItem: FC<{ contact: Contact; className?: string }> = ({
     contact,
     className,
 }) => {
-    const colors = useMemo(() => getRandomColor(), []);
+    const styles = useMemo(() => getAvatarStyle(), []);
+    const colors = {
+        color: styles.color,
+        backgroundColor: styles.backgroundColor,
+    };
 
     return (
         <li key={contact.id}>
@@ -17,7 +21,13 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                     className,
                 )}
             >
-                <figure className="hexagon bg-primary xs:h-16 xs:w-14 relative flex h-14 w-12 shrink-0 items-center justify-center">
+                <figure
+                    className={cn(
+                        'hexagon xs:h-17 xs:w-14 relative flex h-14 w-12 shrink-0 items-center justify-center',
+                        styles.hasBorder && 'bg-primary',
+                    )}
+                    style={styles.hasBorder ? {} : { ...colors }}
+                >
                     <span
                         class="hexagon flex size-[92%] shrink-0 items-center justify-center"
                         style={{ ...colors }}

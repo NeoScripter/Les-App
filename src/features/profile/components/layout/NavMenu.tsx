@@ -3,7 +3,7 @@ import type { FC } from 'preact/compat';
 import { useState } from 'preact/hooks';
 import type { NavItem } from '../../data/navItems';
 
-const Nav: FC<{ className?: string; items: NavItem[] }> = ({
+const NavMenu: FC<{ className?: string; items: NavItem[] }> = ({
     className,
     items,
 }) => {
@@ -40,4 +40,4 @@ const Nav: FC<{ className?: string; items: NavItem[] }> = ({
     );
 };
 
-export default Nav;
+export default NavMenu;

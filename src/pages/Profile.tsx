@@ -1,5 +1,5 @@
 import Headline from '@/components/Headline';
-import Nav from '@/features/profile/components/layout/Nav';
+import NavMenu from '@/features/profile/components/layout/NavMenu';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import { contacts } from '@/features/profile/data/contacts';
@@ -23,7 +23,7 @@ const Profile = () => {
                     placeholder="Поиск по чатам..."
                 />
 
-                <Nav items={navItems} />
+                <NavMenu items={navItems} />
             </div>
             <ul class="scrollbar-hidden overflow-y-auto">
                 {contacts
