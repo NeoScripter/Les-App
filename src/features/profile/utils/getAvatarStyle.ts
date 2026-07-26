@@ -37,7 +37,37 @@ const styles: Styles[] = [
     },
     {
         color: '#000',
-        backgroundColor: 'rgb(232 255 138 / 1)',
+        backgroundColor: 'oklch(0.96 0.145 119 / 1)',
+        hasBorder: false,
+    },
+    {
+        color: '#fff',
+        backgroundColor: 'oklch(0.82 0.145 216)',
+        hasBorder: false,
+    },
+    {
+        color: '#fff',
+        backgroundColor: 'oklch(0.65 0.267 355)',
+        hasBorder: false,
+    },
+    {
+        color: '#fff',
+        backgroundColor: 'oklch(0.91 0.109 200)',
+        hasBorder: false,
+    },
+    {
+        color: '#fff',
+        backgroundColor: 'oklch(0.87 0.286 142)',
+        hasBorder: false,
+    },
+    {
+        color: '#fff',
+        backgroundColor: 'oklch(0.93 0.192 103)',
+        hasBorder: false,
+    },
+    {
+        color: '#fff',
+        backgroundColor: 'oklch(0.97 0.206 110)',
         hasBorder: false,
     },
 ];
