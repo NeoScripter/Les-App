@@ -1,14 +1,14 @@
 import ContactList from '@/components/ContactList';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Headline from '@/components/Headline';
+import { ChatListSkeleton } from '@/features/profile/components/layout/ChatList';
 import MenuHeader from '@/features/profile/components/layout/MenuHeader';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
-import NewContactDialog from '@/features/profile/components/ui/NewContactDialog';
+import NewChatDialog from '@/features/profile/components/ui/NewChatDialog';
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
-import DialogLayout from '@/layouts/DialogLayout';
 import MenuLayout from '@/layouts/MenuLayout';
 import { useSignal } from '@preact/signals';
 import { Ellipsis, Plus } from 'lucide-preact';
@@ -35,17 +35,12 @@ const Profile = () => {
                     <SecondaryNav items={navItems} />
                 </div>
                 <ErrorBoundary>
-                    <Suspense fallback={<div>Загрузка...</div>}>
+                    <Suspense fallback={<ChatListSkeleton withTime={true} />}>
                         <ContactList />
                     </Suspense>
                 </ErrorBoundary>
 
-                <DialogLayout
-                    show={showChatMenu.value}
-                    onClose={() => (showChatMenu.value = false)}
-                >
-                    <NewContactDialog />
-                </DialogLayout>
+                <NewChatDialog show={showChatMenu} />
 
                 <PrimaryNav />
             </MenuLayout>

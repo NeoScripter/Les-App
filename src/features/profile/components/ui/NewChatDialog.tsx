@@ -1,0 +1,63 @@
+import Headline from '@/components/Headline';
+import DialogLayout from '@/layouts/DialogLayout';
+import MenuLayout from '@/layouts/MenuLayout';
+import cn from '@/utils/cn';
+import type { Signal } from '@preact/signals';
+import { ChevronLeft } from 'lucide-preact';
+import type { FC } from 'preact/compat';
+import { contacts } from '../../data/contacts';
+import ChatList from '../layout/ChatList';
+import MenuHeader from '../layout/MenuHeader';
+import ContactItem from './ContactItem';
+import FramedIconBtn from './FramedIconBtn';
+import SearchInput from './SearchInput';
+
+type Props = {
+    className?: string;
+    show: Signal<boolean>;
+};
+
+const NewChatDialog: FC<Props> = ({ className, show }) => {
+    return (
+        <DialogLayout show={show.value} onClose={() => (show.value = false)}>
+            <MenuLayout
+                className={cn(
+                    'bg-background-accent rounded-modal! h-[90vh] w-screen',
+                    className,
+                )}
+            >
+                <MenuHeader>
+                    <span class="flex-1">
+                        <FramedIconBtn
+                            onClick={() => (show.value = false)}
+                            icon={ChevronLeft}
+                            className="[&_svg:last-of-type]:size-6 [&_svg:last-of-type]:-translate-x-1/20"
+                            variant="ghost"
+                        />
+                    </span>
+                    <Headline as="h3">Новый чат</Headline>
+                    <span class="flex-1" />
+                </MenuHeader>
+
+                <div>
+                    <SearchInput placeholder="Поиск по всем..." />
+                    <hr class="text-foreground-muted -mx-(--px) mt-2" />
+                </div>
+
+                <p class="text-foreground/50 font-medium">Контакты</p>
+
+                <ChatList>
+                    {contacts.map((contact) => (
+                        <ContactItem
+                            className="bg-background rounded-md"
+                            key={contact.id}
+                            {...contact}
+                        />
+                    ))}
+                </ChatList>
+            </MenuLayout>
+        </DialogLayout>
+    );
+};
+
+export default NewChatDialog;

@@ -36,6 +36,10 @@
     .bg-linear-primary {
         @apply from-primary via-primary to-accent bg-linear-to-r;
     }
+
+    .skeleton {
+        @apply animate-pulse bg-gray-300 rounded-sm text-transparent;
+    }
 }
 
 .hexagon {

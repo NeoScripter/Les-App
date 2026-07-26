@@ -1,4 +1,5 @@
 import { CACHE_LIFETIME_MS } from '@/data/constants';
+import ChatList from '@/features/profile/components/layout/ChatList';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import { chats } from '@/features/profile/data/chats';
 import { apiPostOrFail } from '@/lib/apiPostOrFail';
@@ -8,7 +9,6 @@ import {
     type UserPrivateChatsResponse,
 } from '@/services/api/privateChatSecond';
 import { getUserProfileIds, useUserProfiles } from '@/services/api/profile';
-import cn from '@/utils/cn';
 import { useSuspenseQuery } from '@tanstack/preact-query';
 import { type FC } from 'preact/compat';
 
@@ -32,24 +32,19 @@ function useMyChats() {
     });
 }
 
-const ContactList: FC<{ className?: string }> = ({ className }) => {
+const ContactList = () => {
     const { data: chatData } = useMyChats();
 
     console.log(chatData);
 
     return (
-        <ul
-            class={cn(
-                'scrollbar-hidden space-y-3 overflow-y-auto py-px',
-                className,
-            )}
-        >
+        <ChatList>
             {chats
                 .toSorted((a, b) => b.time.localeCompare(a.time))
                 .map((chat) => (
                     <ContactItem key={chat.id} {...chat} />
                 ))}
-        </ul>
+        </ChatList>
     );
 };
 

@@ -5,7 +5,7 @@ import {
 } from './apiPostResult';
 
 export type NamingInput = {
-    long_text_only: boolean;
+    long_text_only: boolean; // Имя, фамилия, описание, имя фамилия необязательны
     first_name: string;
     last_name: string;
     short_description: string;

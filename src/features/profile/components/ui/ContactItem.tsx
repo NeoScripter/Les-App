@@ -81,3 +81,37 @@ const ContactItem: FC<Props> = ({
 };
 
 export default ContactItem;
+
+export function ContactItemSkeleton({ withTime }: { withTime: boolean }) {
+    return (
+        <li>
+            <article className="xs:gap-5 xs:[--avatar-w:3.5rem] relative flex items-center gap-4 pr-3 [--avatar-w:3rem]">
+                <figure
+                    className={cn(
+                        'hexagon skeleton relative flex h-[calc(var(--avatar-w)/6*7)] w-(--avatar-w) shrink-0 items-center justify-center',
+                    )}
+                ></figure>
+
+                <div className="min-w-0 flex-1">
+                    <h2 className="xs:text-lg skeleton truncate font-medium">
+                        Lorem ipsum Lorem
+                    </h2>
+                    <p className="xs:text-base skeleton truncate text-sm">
+                        Lorem ipsum, dolor sit amet consectetur
+                    </p>
+                </div>
+
+                {withTime && (
+                    <div className="flex flex-col items-center justify-between gap-1">
+                        <time className="skeleton text-sm font-medium">
+                            19:20
+                        </time>
+                        <span className="skeleton flex aspect-3/1 h-4 items-center justify-center rounded-sm text-xs font-semibold">
+                            5
+                        </span>
+                    </div>
+                )}
+            </article>
+        </li>
+    );
+}

@@ -1,8 +1,4 @@
-import {
-    apiPostResult,
-    type ApiPostOptions,
-    type ApiResult,
-} from './apiPostResult';
+import { apiPostResult, type ApiPostOptions, type ApiResult } from "./apiPostResult";
 
 export type ContainerCreateV0Request = {
     max_file_count: number;
@@ -108,87 +104,55 @@ export type AllowedContentTypeGetListV0Response = {
 
 export async function containerCreateV0(
     body: ContainerCreateV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<ContainerCreateV0Response>> {
-    return apiPostResult<ContainerCreateV0Response>(
-        '/api/fileStorage/container/create/v0',
-        body,
-        options,
-    );
+    return apiPostResult<ContainerCreateV0Response>('/api/fileStorage/container/create/v0', body, options);
 }
 
 export async function containerAddFileV0(
     body: ContainerAddFileV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<ContainerAddFileV0Response>> {
-    return apiPostResult<ContainerAddFileV0Response>(
-        '/api/fileStorage/container/addFile/v0',
-        body,
-        options,
-    );
+    return apiPostResult<ContainerAddFileV0Response>('/api/fileStorage/container/addFile/v0', body, options);
 }
 
 export async function containerGetFileListV0(
     body: ContainerGetFileListV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<ContainerGetFileListV0Response>> {
-    return apiPostResult<ContainerGetFileListV0Response>(
-        '/api/fileStorage/container/getFileList/v0',
-        body,
-        options,
-    );
+    return apiPostResult<ContainerGetFileListV0Response>('/api/fileStorage/container/getFileList/v0', body, options);
 }
 
 export async function containerGetFileV0(
     body: ContainerGetFileV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<ContainerGetFileV0Response>> {
-    return apiPostResult<ContainerGetFileV0Response>(
-        '/api/fileStorage/container/getFile/v0',
-        body,
-        options,
-    );
+    return apiPostResult<ContainerGetFileV0Response>('/api/fileStorage/container/getFile/v0', body, options);
 }
 
 export async function containerDeleteFileV0(
     body: ContainerDeleteFileV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<ContainerDeleteFileV0Response>> {
-    return apiPostResult<ContainerDeleteFileV0Response>(
-        '/api/fileStorage/container/deleteFile/v0',
-        body,
-        options,
-    );
+    return apiPostResult<ContainerDeleteFileV0Response>('/api/fileStorage/container/deleteFile/v0', body, options);
 }
 
 export async function fileGetContentByUniqueKeyV0(
     body: FileGetContentByUniqueKeyV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<FileGetContentByUniqueKeyV0Response>> {
-    return apiPostResult<FileGetContentByUniqueKeyV0Response>(
-        '/api/fileStorage/file/getContentByUniqueKey/v0',
-        body,
-        options,
-    );
+    return apiPostResult<FileGetContentByUniqueKeyV0Response>('/api/fileStorage/file/getContentByUniqueKey/v0', body, options);
 }
 
 export async function containerGetInfoV0(
     body: ContainerGetInfoV0Request,
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<ContainerGetInfoV0Response>> {
-    return apiPostResult<ContainerGetInfoV0Response>(
-        '/api/fileStorage/container/getInfo/v0',
-        body,
-        options,
-    );
+    return apiPostResult<ContainerGetInfoV0Response>('/api/fileStorage/container/getInfo/v0', body, options);
 }
 
 export async function allowedContentTypeGetListV0(
-    options?: ApiPostOptions,
+    options?: ApiPostOptions
 ): Promise<ApiResult<AllowedContentTypeGetListV0Response>> {
-    return apiPostResult<AllowedContentTypeGetListV0Response>(
-        '/api/fileStorage/allowedContentType/getList/v0',
-        {},
-        options,
-    );
+    return apiPostResult<AllowedContentTypeGetListV0Response>('/api/fileStorage/allowedContentType/getList/v0', {}, options);
 }
