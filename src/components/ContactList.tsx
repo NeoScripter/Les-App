@@ -1,6 +1,6 @@
 import { CACHE_LIFETIME_MS } from '@/data/constants';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
-import { contacts } from '@/features/profile/data/contacts';
+import { chats } from '@/features/profile/data/chats';
 import { apiPostOrFail } from '@/lib/apiPostOrFail';
 import {
     userPrivateChatsUrl,
@@ -38,11 +38,16 @@ const ContactList: FC<{ className?: string }> = ({ className }) => {
     console.log(chatData);
 
     return (
-        <ul class={cn('scrollbar-hidden space-y-3 overflow-y-auto', className)}>
-            {contacts
+        <ul
+            class={cn(
+                'scrollbar-hidden space-y-3 overflow-y-auto py-px',
+                className,
+            )}
+        >
+            {chats
                 .toSorted((a, b) => b.time.localeCompare(a.time))
-                .map((contact) => (
-                    <ContactItem key={contact.id} contact={contact} />
+                .map((chat) => (
+                    <ContactItem key={chat.id} {...chat} />
                 ))}
         </ul>
     );

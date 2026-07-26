@@ -1,12 +1,19 @@
 import cn from '@/utils/cn';
 import { Scan, type LucideIcon } from 'lucide-preact';
-import type { FC } from 'preact/compat';
+import { type ComponentProps, type FC } from 'preact/compat';
 
-const FramedIconBtn: FC<{
+type FramedIconBtnProps = {
     className?: string;
     icon: LucideIcon;
     variant?: 'ghost' | 'default';
-}> = ({ className, icon, variant = 'default' }) => {
+} & ComponentProps<'button'>;
+
+const FramedIconBtn: FC<FramedIconBtnProps> = ({
+    className,
+    icon,
+    variant = 'default',
+    ...props
+}) => {
     const Icon = icon;
 
     return (
@@ -18,6 +25,7 @@ const FramedIconBtn: FC<{
                     : 'bg-white/10',
                 className,
             )}
+            {...props}
         >
             <Scan class="absolute inset-0 size-full" stroke-width={1} />
             <Icon class="block size-1/2 [&>svg]:size-full" />

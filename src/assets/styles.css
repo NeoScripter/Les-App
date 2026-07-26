@@ -8,8 +8,10 @@
     --breakpoint-xs: 29.25rem;
 
     --radius-primary: 1.25rem;
+    --radius-modal: calc(sign(100cqi - 100%) * var(--radius-primary));
 
     --color-background: oklch(0.14 0.01 273);
+    --color-background-accent: oklch(0.18 0.008 274);
     --color-foreground: oklch(1 0 90);
     --color-foreground-accent: oklch(0.14 0.01 273);
     --color-primary: oklch(0.91 0.237 129);
@@ -29,6 +31,10 @@
 
     button {
         @apply cursor-pointer;
+    }
+
+    .bg-linear-primary {
+        @apply from-primary via-primary to-accent bg-linear-to-r;
     }
 }
 

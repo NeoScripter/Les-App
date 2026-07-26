@@ -8,7 +8,7 @@ const PrimaryNav: FC<{ className?: string }> = ({ className }) => {
     return (
         <nav
             class={cn(
-                'from-primary text-foreground-accent via-primary to-accent rounded-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 bg-red-400 bg-linear-to-r px-4',
+                'text-foreground-accent rounded-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 px-4 bg-linear-primary',
                 className,
             )}
         >
