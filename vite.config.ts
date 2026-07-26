@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 import fs from 'fs';
 import { defineConfig } from 'vite';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [preact(), tailwindcss()],
@@ -22,9 +24,11 @@ export default defineConfig({
                 },
             },
         },
-        https: {
-            key: fs.readFileSync('./localhost+2-key.pem'),
-            cert: fs.readFileSync('./localhost+2.pem'),
-        },
+        https: isDev
+            ? {
+                  key: fs.readFileSync('./localhost+2-key.pem'),
+                  cert: fs.readFileSync('./localhost+2.pem'),
+              }
+            : undefined,
     },
 });

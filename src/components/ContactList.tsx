@@ -49,11 +49,7 @@ const ContactList: FC<{ className?: string }> = ({ className }) => {
 
     let profileIds = [];
 
-    if (
-        profileData &&
-        profileData.profiles &&
-        profileData.profiles.length > 0
-    ) {
+    if (profileData) {
         profileIds.push(profileData.profiles[0].profile_id);
     }
 
