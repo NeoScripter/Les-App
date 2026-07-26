@@ -66,7 +66,7 @@ const ContactItem: FC<Props> = ({
                             {time}
                         </time>
                         {numMessages > 0 && (
-                            <span className="bg-primary text-foreground-accent flex aspect-3/1 h-4 items-center justify-center rounded-sm text-xs font-semibold">
+                            <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold">
                                 {numMessages}
                             </span>
                         )}
@@ -106,7 +106,7 @@ export function ContactItemSkeleton({ withTime }: { withTime: boolean }) {
                         <time className="skeleton text-sm font-medium">
                             19:20
                         </time>
-                        <span className="skeleton flex aspect-3/1 h-4 items-center justify-center rounded-sm text-xs font-semibold">
+                        <span className="skeleton flex w-10 items-center justify-center rounded-sm text-xs font-semibold">
                             5
                         </span>
                     </div>
