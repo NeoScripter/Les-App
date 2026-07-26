@@ -9,7 +9,7 @@ const MenuLayout: FC<{ children: ComponentChildren; className?: string }> = ({
     return (
         <article
             class={cn(
-                'border-foreground-muted rounded-primary relative m-2 flex h-full max-w-md flex-col gap-4 border px-(--px) py-2 [--px:0.75rem] sm:m-4',
+                'border-foreground-muted rounded-primary relative m-2 flex h-full max-w-md flex-col gap-4 border px-(--px) py-(--py) [--px:0.75rem] [--py:0.5rem] sm:m-4',
                 className,
             )}
         >

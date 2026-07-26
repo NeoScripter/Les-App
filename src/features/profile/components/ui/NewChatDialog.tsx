@@ -22,7 +22,7 @@ const NewChatDialog: FC<Props> = ({ className, show }) => {
         <DialogLayout show={show.value} onClose={() => (show.value = false)}>
             <MenuLayout
                 className={cn(
-                    'bg-background-accent rounded-modal! h-[90vh] w-screen',
+                    'bg-background-accent rounded-modal! h-[calc(100svh-(var(--py)*2))] w-[calc(100vw-(var(--px)*2))] md:h-[90vh]',
                     className,
                 )}
             >
