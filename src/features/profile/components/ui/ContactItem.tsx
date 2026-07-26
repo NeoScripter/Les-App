@@ -17,19 +17,19 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
         <li key={contact.id}>
             <article
                 className={cn(
-                    'xs:gap-5 relative flex items-center gap-4 px-3 py-2',
+                    'xs:gap-5 xs:[--avatar-w:3.5rem] relative flex items-center gap-4 pr-3 [--avatar-w:3rem]',
                     className,
                 )}
             >
                 <figure
                     className={cn(
-                        'hexagon xs:h-17 xs:w-14 relative flex h-14 w-12 shrink-0 items-center justify-center',
+                        'hexagon relative flex w-(--avatar-w) h-[calc(var(--avatar-w)/6*7)] shrink-0 items-center justify-center',
                         styles.hasBorder && 'bg-primary',
                     )}
                     style={styles.hasBorder ? {} : { ...colors }}
                 >
                     <span
-                        class="hexagon flex size-[92%] shrink-0 items-center justify-center"
+                        class="hexagon flex h-[92%] w-[92%] shrink-0 items-center justify-center"
                         style={{ ...colors }}
                     >
                         <span className="xs:text-sm text-xs font-bold">
@@ -60,7 +60,9 @@ const ContactItem: FC<{ contact: Contact; className?: string }> = ({
                         </span>
                     )}
                 </div>
-                <button class="rounded-primary absolute inset-x-1 inset-y-0 border-dotted transition-[border] hover:border"></button>
+                <button class="group absolute inset-x-1 inset-y-0 rounded-md">
+                    <span class="absolute -inset-y-px right-0 left-[calc(var(--avatar-w)/2-0.25rem)] rounded-r-md border-white/30 border-l-transparent transition-[border] group-hover:border" />
+                </button>
             </article>
         </li>
     );

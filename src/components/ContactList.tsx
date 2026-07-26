@@ -76,7 +76,7 @@ const ContactList: FC<{ className?: string }> = ({ className }) => {
     console.log(chatData);
 
     return (
-        <ul class={cn('scrollbar-hidden overflow-y-auto', className)}>
+        <ul class={cn('scrollbar-hidden overflow-y-auto space-y-3', className)}>
             {contacts
                 .toSorted((a, b) => b.time.localeCompare(a.time))
                 .map((contact) => (

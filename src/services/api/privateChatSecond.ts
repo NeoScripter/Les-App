@@ -184,6 +184,7 @@ export type PrivateChatSecondGetChatsOneVOneV0Response = {
     chats: ChatInfo[]; // список чатов
 };
 
+// TODO: 4 Create a new chat
 // privateChatSecondGetOrCreate1v1V0 — получение существующего или создание нового чата 1-на-1 с собеседником
 // POST /api/privateChatSecond/getOrCreate/1v1/v0
 export async function privateChatSecondGetOrCreate1v1V0(
@@ -236,6 +237,7 @@ export async function privateChatSecondMessageEditV0(
     );
 }
 
+// TODO: 3 The handle for getting messages from a particular chat
 // privateChatSecondMessageGetIdsV0 — получение ID сообщений в чате с информацией о позиционировании (текущее, последнее прочитанное, сколько осталось прочитать)
 // POST /api/privateChatSecond/message/getIds/v0
 export async function privateChatSecondMessageGetIdsV0(
