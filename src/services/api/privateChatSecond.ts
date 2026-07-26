@@ -26,14 +26,14 @@ export type VisibilityInput = {
     all: boolean; // видно всем (для 1v1 всегда true)
 };
 
-// PrivateChatSecondGetOrCreate1v1V0Request — запрос на получение или создание чата 1-на-1
-export type PrivateChatSecondGetOrCreate1v1V0Request = {
+// CreateNewChatRequest — запрос на получение или создание чата 1-на-1
+export type CreateNewChatRequest = {
     profile_id: string; // ID профиля, под которым действует пользователь
     target_profile_id: string; // ID профиля собеседника
 };
 
-// PrivateChatSecondGetOrCreate1v1V0Response — ответ с ID чата (существующего или созданного)
-export type PrivateChatSecondGetOrCreate1v1V0Response = {
+// CreateNewChatResponse — ответ с ID чата (существующего или созданного)
+export type CreateNewChatResponse = {
     chat_id: string; // ID чата
 };
 
@@ -75,8 +75,8 @@ export type PrivateChatSecondMessageEditV0Response = {
     ok: boolean; // признак успешности операции
 };
 
-// PrivateChatSecondMessageGetIdsV0Request — запрос на получение ID сообщений в чате с позиционированием
-export type PrivateChatSecondMessageGetIdsV0Request = {
+// ChatMessagesRequest — запрос на получение ID сообщений в чате с позиционированием
+export type ChatMessagesRequest = {
     profile_id: string; // ID профиля, под которым действует пользователь
     chat_id: string; // ID чата
     current_read_message_id?: string | null; // ID сообщения текущего чтения (null — последнее в чате, пустая строка — не валидно)
@@ -100,8 +100,8 @@ export type ReadInfo = {
     sender_profile_id?: string | null; // ID профиля отправителя (null если deleted)
 };
 
-// PrivateChatSecondMessageGetIdsV0Response — ответ с информацией о позиционировании в чате
-export type PrivateChatSecondMessageGetIdsV0Response = {
+// ChatMessagesResponse — ответ с информацией о позиционировании в чате
+export type ChatMessagesResponse = {
     messages_in_between: MessageIdInfo[]; // сообщения в диапазоне
     current_read: ReadInfo; // текущее читаемое сообщение
     last_read: ReadInfo; // последнее прочитанное сообщение
@@ -166,8 +166,8 @@ export type PrivateChatSecondMessageGetByIdsV0Response = {
     files: FileInfo[]; // информация о файлах, используемых в сообщениях
 };
 
-// PrivateChatSecondGetChatsOneVOneV0Request — запрос на получение списка чатов 1-на-1 для профилей пользователя
-export type PrivateChatSecondGetChatsOneVOneV0Request = {
+// UserPrivateChatsRequest — запрос на получение списка чатов 1-на-1 для профилей пользователя
+export type UserPrivateChatsRequest = {
     current_profiles: string[]; // список ID профилей пользователя
 };
 
@@ -179,24 +179,26 @@ export type ChatInfo = {
     last_read_message_id?: string | null; // ID последнего прочитанного сообщения (null если нет)
 };
 
-// PrivateChatSecondGetChatsOneVOneV0Response — ответ со списком чатов, отсортированным по времени последнего сообщения
-export type PrivateChatSecondGetChatsOneVOneV0Response = {
+// UserPrivateChatsResponse — ответ со списком чатов, отсортированным по времени последнего сообщения
+export type UserPrivateChatsResponse = {
     chats: ChatInfo[]; // список чатов
 };
 
 // TODO: 4 Create a new chat
-// privateChatSecondGetOrCreate1v1V0 — получение существующего или создание нового чата 1-на-1 с собеседником
+// createNewChat — получение существующего или создание нового чата 1-на-1 с собеседником
 // POST /api/privateChatSecond/getOrCreate/1v1/v0
-export async function privateChatSecondGetOrCreate1v1V0(
-    body: PrivateChatSecondGetOrCreate1v1V0Request,
+export async function createNewChat(
+    body: CreateNewChatRequest,
     options?: ApiPostOptions,
-): Promise<ApiResult<PrivateChatSecondGetOrCreate1v1V0Response>> {
-    return apiPostResult<PrivateChatSecondGetOrCreate1v1V0Response>(
+): Promise<ApiResult<CreateNewChatResponse>> {
+    return apiPostResult<CreateNewChatResponse>(
         '/api/privateChatSecond/getOrCreate/1v1/v0',
         body,
         options,
     );
 }
+
+export const createNewChatUrl = '/api/privateChatSecond/getOrCreate/1v1/v0';
 
 // privateChatSecondMessageSendV0 — отправка сообщения в чат
 // POST /api/privateChatSecond/message/send/v0
@@ -238,18 +240,20 @@ export async function privateChatSecondMessageEditV0(
 }
 
 // TODO: 3 The handle for getting messages from a particular chat
-// privateChatSecondMessageGetIdsV0 — получение ID сообщений в чате с информацией о позиционировании (текущее, последнее прочитанное, сколько осталось прочитать)
+// getChatMessages — получение ID сообщений в чате с информацией о позиционировании (текущее, последнее прочитанное, сколько осталось прочитать)
 // POST /api/privateChatSecond/message/getIds/v0
-export async function privateChatSecondMessageGetIdsV0(
-    body: PrivateChatSecondMessageGetIdsV0Request,
+export async function getChatMessages(
+    body: ChatMessagesRequest,
     options?: ApiPostOptions,
-): Promise<ApiResult<PrivateChatSecondMessageGetIdsV0Response>> {
-    return apiPostResult<PrivateChatSecondMessageGetIdsV0Response>(
+): Promise<ApiResult<ChatMessagesResponse>> {
+    return apiPostResult<ChatMessagesResponse>(
         '/api/privateChatSecond/message/getIds/v0',
         body,
         options,
     );
 }
+
+export const chatMessagesUrl = '/api/privateChatSecond/message/getIds/v0';
 
 // privateChatSecondMessageGetByIdsV0 — получение сообщений по списку ID с полной информацией и данными о файлах
 // POST /api/privateChatSecond/message/getByIds/v0
@@ -267,15 +271,15 @@ export async function privateChatSecondMessageGetByIdsV0(
 // TODO: 2. Get all the current user's chats
 // privateChatSecondGetChatsOneVOneV0 — получение списка всех чатов 1-на-1 для профилей пользователя, отсортированных по времени последнего сообщения
 // POST /api/privateChatSecond/getChats/oneVOne/v0
-export async function privateChatSecondGetChatsOneVOneV0(
-    body: PrivateChatSecondGetChatsOneVOneV0Request,
+export async function getUserPrivateChats(
+    body: UserPrivateChatsRequest,
     options?: ApiPostOptions,
-): Promise<ApiResult<PrivateChatSecondGetChatsOneVOneV0Response>> {
-    return apiPostResult<PrivateChatSecondGetChatsOneVOneV0Response>(
+): Promise<ApiResult<UserPrivateChatsResponse>> {
+    return apiPostResult<UserPrivateChatsResponse>(
         '/api/privateChatSecond/getChats/oneVOne/v0',
         body,
         options,
     );
 }
 
-export const privateChatSecondGetChatsOneVOneV0Url = '/api/privateChatSecond/getChats/oneVOne/v0';
+export const userPrivateChatsUrl = '/api/privateChatSecond/getChats/oneVOne/v0';

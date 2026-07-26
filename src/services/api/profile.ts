@@ -1,8 +1,11 @@
+import { useSuspenseQuery } from '@tanstack/preact-query';
 import {
     apiPostResult,
     type ApiPostOptions,
     type ApiResult,
 } from './apiPostResult';
+import { apiPostOrFail } from '@/lib/apiPostOrFail';
+import { CACHE_LIFETIME_MS } from '@/data/constants';
 
 // CreateProfileV0Request — запрос на создание профиля
 export type CreateProfileV0Request = {
@@ -19,8 +22,8 @@ export type CreateProfileV0Response = {
     ok: boolean; // признак успешности операции
 };
 
-// GetMyProfilesV0Request — запрос на получение списка профилей текущего пользователя
-export type GetMyProfilesV0Request = {};
+// UserProfilesResponse — запрос на получение списка профилей текущего пользователя
+export type UserProfilesRequest = {};
 
 // ProfileShortInfo — краткая информация о профиле
 export type ProfileShortInfo = {
@@ -45,8 +48,8 @@ export type ProfileAvatarFileInfo = {
     file_info: AvatarFileInfo; // информация о файле аватара
 };
 
-// GetMyProfilesV0Response — ответ со списком профилей текущего пользователя
-export type GetMyProfilesV0Response = {
+// UserProfilesResponse — ответ со списком профилей текущего пользователя
+export type UserProfilesResponse = {
     profiles: ProfileShortInfo[]; // список профилей пользователя
     file_info_by_profile_id: ProfileAvatarFileInfo[]; // информация о файлах аватаров для каждого профиля
     ok: boolean; // признак успешности операции
@@ -337,20 +340,36 @@ export async function createProfileV0(
     );
 }
 
-// getMyProfilesV0 — получение списка профилей текущего пользователя
 // TODO: 1. Get all the current user profiles
-// POST /api/profile/getMy/v0
-export async function getMyProfilesV0(
+export async function getUserProfiles(
     options?: ApiPostOptions,
-): Promise<ApiResult<GetMyProfilesV0Response>> {
-    return apiPostResult<GetMyProfilesV0Response>(
+): Promise<ApiResult<UserProfilesResponse>> {
+    return apiPostResult<UserProfilesResponse>(
         '/api/profile/getMy/v0',
         {},
         options,
     );
 }
 
-export const getMyProfilesV0Url = '/api/profile/getMy/v0';
+const userProfilesUrl = '/api/profile/getMy/v0';
+
+export function useUserProfiles() {
+    return useSuspenseQuery({
+        queryKey: ['user-profiles'],
+        queryFn: () =>
+            apiPostOrFail<UserProfilesResponse, UserProfilesRequest>(
+                userProfilesUrl,
+                {},
+            ),
+        staleTime: CACHE_LIFETIME_MS,
+    });
+}
+
+export function getUserProfileIds(profileData: UserProfilesResponse): string[] {
+    if (!profileData?.profiles?.length) return [];
+    return profileData.profiles.map((profile) => profile.profile_id);
+}
+
 
 // updateProfileV0 — обновление данных профиля
 // POST /api/profile/update/v0

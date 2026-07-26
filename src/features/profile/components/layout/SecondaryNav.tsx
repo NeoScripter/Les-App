@@ -12,18 +12,18 @@ const SecondaryNav: FC<{ className?: string; items: NavItem[] }> = ({
     return (
         <nav
             class={cn(
-                'border-foreground-muted overflow-x-auto scrollbar-hidden w-full rounded-primary border',
+                'border-foreground-muted scrollbar-hidden rounded-primary w-full overflow-x-auto border',
                 className,
             )}
         >
-            <ol class="min-w-max flex xs:justify-between">
+            <ol class="xs:justify-between flex min-w-max">
                 {items.map((item) => (
                     <li
                         key={item.id}
                         class={cn(
-                            'px-3 py-1 transition-[background-color,color,box-shadow] rounded-primary',
+                            'rounded-primary px-3 py-1 transition-[background-color,color,box-shadow]',
                             item.id === activeId &&
-                                'bg-accent text-foreground-accent font-medium shadow-accent',
+                                'bg-accent text-foreground-accent shadow-accent font-medium',
                         )}
                     >
                         <button

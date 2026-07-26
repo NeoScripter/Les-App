@@ -1,10 +1,12 @@
 import ChatList from '@/components/ContactList';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import Headline from '@/components/Headline';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
 import ChatLayout from '@/layouts/ChatLayout';
 import { Ellipsis, Plus } from 'lucide-preact';
+import { Suspense } from 'preact/compat';
 
 const Profile = () => {
     return (
@@ -24,7 +26,11 @@ const Profile = () => {
 
                 <SecondaryNav items={navItems} />
             </div>
-            <ChatList />
+            <ErrorBoundary>
+                <Suspense fallback={<div>Загрузка...</div>}>
+                    <ChatList />
+                </Suspense>
+            </ErrorBoundary>
         </ChatLayout>
     );
 };

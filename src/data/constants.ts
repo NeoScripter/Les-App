@@ -4,3 +4,5 @@ export const baseUrl = import.meta.env.DEV
 
     // ? 'https://les.myfantasy.ru'
 
+
+export const CACHE_LIFETIME_MS = 0;
