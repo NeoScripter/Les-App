@@ -29,13 +29,13 @@ const ContactItem: FC<Props> = ({
         <li>
             <article
                 className={cn(
-                    'xs:gap-5 xs:[--avatar-w:3.5rem] relative flex items-center gap-4 pr-3 [--avatar-w:3rem]',
+                    'xs:gap-5 isolate xs:[--avatar-w:3.5rem] relative flex items-center gap-4 p-1 pr-3 [--avatar-w:3rem]',
                     className,
                 )}
             >
                 <figure
                     className={cn(
-                        'hexagon relative flex h-[calc(var(--avatar-w)/6*7)] w-(--avatar-w) shrink-0 items-center justify-center',
+                        'hexagon relative flex h-[calc(var(--avatar-w)/6*7)] z-10 w-(--avatar-w) shrink-0 items-center justify-center',
                         styles.hasBorder && 'bg-primary',
                     )}
                     style={styles.hasBorder ? {} : { ...colors }}
@@ -72,8 +72,9 @@ const ContactItem: FC<Props> = ({
                         )}
                     </div>
                 )}
-                <button class="group absolute inset-x-px inset-y-0 rounded-md">
-                    <span class="absolute -inset-y-px right-0 left-[calc(var(--avatar-w)/2-0.25rem)] rounded-r-md border-white/30 border-l-transparent transition-[border] group-hover:border" />
+                <button class="group absolute inset-x-1 inset-y-0 isolate flex items-center justify-center rounded-md">
+                    <span class="border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc(var(--avatar-w)/2)] block group-hover:border border-l-transparent" />
+                    <span class="hex-border group-hover:bg-foreground-muted"></span>
                 </button>
             </article>
         </li>

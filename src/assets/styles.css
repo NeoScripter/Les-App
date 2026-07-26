@@ -38,20 +38,43 @@
     }
 
     .skeleton {
-        @apply animate-pulse rounded-sm bg-gray-300 text-transparent;
+        @apply animate-pulse bg-gray-300 text-transparent;
     }
 }
 
 .hexagon {
-    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-    -webkit-clip-path: polygon(
-        0% 25%,
-        0% 75%,
-        50% 100%,
-        100% 75%,
-        100% 25%,
-        50% 0%
-    );
+    --hex: 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%;
+    clip-path: polygon(var(--hex));
+    -webkit-clip-path: polygon(var(--hex));
+}
+
+/* Better class names */
+.hex-border {
+    --semi-hex: 0% 25%, 0% 75%, 50% 100%, 50% 75%, 50% 25%, 50% 0%;
+    --size: calc(var(--avatar-w) + 0.5rem);
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    left: -0.25rem;
+    height: calc(var(--size) / 6 * 7);
+    width: var(--size);
+
+    clip-path: polygon(var(--semi-hex));
+    -webkit-clip-path: polygon(var(--semi-hex));
+}
+
+.hex-border::before {
+    content: '';
+    position: absolute;
+    inset-block: 1px;
+    left: 1px;
+    inset-block: 1px;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    @apply bg-background;
+
+    clip-path: polygon(var(--semi-hex));
+    -webkit-clip-path: polygon(var(--semi-hex));
 }
 
 .scrollbar-hidden {

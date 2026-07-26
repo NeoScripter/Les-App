@@ -48,11 +48,7 @@ const NewChatDialog: FC<Props> = ({ className, show }) => {
 
                 <ChatList>
                     {contacts.map((contact) => (
-                        <ContactItem
-                            className="bg-background rounded-md"
-                            key={contact.id}
-                            {...contact}
-                        />
+                        <ContactItem key={contact.id} {...contact} />
                     ))}
                 </ChatList>
             </MenuLayout>
