@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://les.myfantasy.ru/api/:path*"
+        }
+    ]
+}
