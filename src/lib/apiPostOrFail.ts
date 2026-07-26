@@ -14,9 +14,9 @@ export class ApiRequestError extends Error {
     }
 }
 
-export async function apiPostOrThrow<T>(
+export async function apiPostOrFail<T, B extends object = object>(
     url: string,
-    body: object,
+    body: B,
     options?: ApiPostOptions,
 ): Promise<T> {
     const result = await apiPostResult<T>(url, body, options);
@@ -26,7 +26,7 @@ export async function apiPostOrThrow<T>(
     }
 
     if (result.backErr) {
-        throw new ApiRequestError(result, result.backErr.message);
+        throw new ApiRequestError(result, result.backErr.infoText);
     }
 
     if (!result.ok) {

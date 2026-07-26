@@ -7,7 +7,7 @@ import { setApiHost } from './services/api/apiPostResult';
 const queryClient = new QueryClient();
 
 export function App() {
-    setApiHost(baseUrl);
+    // setApiHost(baseUrl);
 
     return (
         <QueryClientProvider client={queryClient}>

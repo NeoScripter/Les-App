@@ -338,7 +338,7 @@ export async function createProfileV0(
 }
 
 // getMyProfilesV0 — получение списка профилей текущего пользователя
-// TODO: 1. Get all the current user's profiles
+// TODO: 1. Get all the current user profiles
 // POST /api/profile/getMy/v0
 export async function getMyProfilesV0(
     options?: ApiPostOptions,
@@ -349,6 +349,8 @@ export async function getMyProfilesV0(
         options,
     );
 }
+
+export const getMyProfilesV0Url = '/api/profile/getMy/v0';
 
 // updateProfileV0 — обновление данных профиля
 // POST /api/profile/update/v0

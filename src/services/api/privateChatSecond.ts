@@ -275,3 +275,5 @@ export async function privateChatSecondGetChatsOneVOneV0(
         options,
     );
 }
+
+export const privateChatSecondGetChatsOneVOneV0Url = '/api/privateChatSecond/getChats/oneVOne/v0';
