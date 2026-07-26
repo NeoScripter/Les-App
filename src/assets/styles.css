@@ -7,7 +7,7 @@
 
     --breakpoint-xs: 29.25rem;
 
-    --radius-primary: 1.25rem;
+    --radius-primary: 0.25rem;
     --radius-modal: calc(sign(100cqi - 100%) * var(--radius-primary));
 
     --color-background: oklch(0.14 0.01 273);
@@ -38,7 +38,7 @@
     }
 
     .skeleton {
-        @apply animate-pulse bg-gray-300 rounded-sm text-transparent;
+        @apply animate-pulse rounded-sm bg-gray-300 text-transparent;
     }
 }
 
