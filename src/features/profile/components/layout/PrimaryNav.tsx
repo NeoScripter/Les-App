@@ -9,7 +9,7 @@ const PrimaryNav: FC<{ className?: string }> = ({ className }) => {
     return (
         <nav
             class={cn(
-                'text-foreground-accent rounded-primary bg-linear-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 px-4',
+                'text-foreground-accent rounded-primary bg-primary-gradient absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 px-4',
                 className,
             )}
         >
@@ -40,7 +40,7 @@ const NavItem: FC<{ item: PrimaryNavItemType }> = ({ item }) => {
             )}
         >
             {isActive && (
-                <Hex className="bg-background absolute -translate-1/2 inset-1/2 -z-1 h-10" />
+                <Hex className="bg-background absolute inset-1/2 -z-1 h-10 -translate-1/2" />
             )}
             <Icon />
         </button>

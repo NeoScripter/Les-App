@@ -6,6 +6,7 @@ import {
     type ChatTabProps,
     type TabType,
 } from '../layout/NewChatDialog';
+import { Button } from './Button';
 import ContactItem from './ContactItem';
 import SearchInput from './SearchInput';
 
@@ -48,10 +49,13 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
                             key={tab.path}
                             onClick={() => (currentTab.value = tab.path)}
                         >
-                            <button class="rounded-primary border-foreground-muted group hover:text-foreground-accent relative isolate w-full border px-3 py-2 text-left text-sm font-medium transition-colors">
+                            <Button
+                                size="sm"
+                                variant="outline"
+                                class="w-full text-left"
+                            >
                                 {tab.label}
-                                <span class="bg-linear-primary absolute inset-0 -z-1 opacity-0 transition-opacity group-hover:opacity-100" />
-                            </button>
+                            </Button>
                         </li>
                     ))}
                 </ul>

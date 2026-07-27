@@ -24,6 +24,15 @@
         0 0 14px color-mix(in srgb, oklch(0.71 0.195 48) 55%, transparent);
 }
 
+@utility bg-primary-gradient {
+    background-image: linear-gradient(
+        to right,
+        oklch(0.91 0.237 129) 0%,
+        oklch(0.91 0.237 129) 50%,
+        oklch(0.71 0.195 48) 100%
+    );
+}
+
 @layer base {
     body {
         @apply bg-background text-foreground;
@@ -31,10 +40,6 @@
 
     button {
         @apply cursor-pointer;
-    }
-
-    .bg-linear-primary {
-        @apply from-primary via-primary to-accent bg-linear-to-r;
     }
 
     .skeleton {
