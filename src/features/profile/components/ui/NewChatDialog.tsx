@@ -6,7 +6,7 @@ import type { Signal } from '@preact/signals';
 import { ChevronLeft } from 'lucide-preact';
 import type { FC } from 'preact/compat';
 import { contacts } from '../../data/contacts';
-import ChatList from '../layout/ChatList';
+import ChatShell from '../layout/ChatShell';
 import MenuHeader from '../layout/MenuHeader';
 import ContactItem from './ContactItem';
 import FramedIconBtn from './FramedIconBtn';
@@ -46,14 +46,15 @@ const NewChatDialog: FC<Props> = ({ className, show }) => {
 
                 <p class="text-foreground/50 font-medium">Контакты</p>
 
-                <ChatList>
+                <ChatShell>
                     {contacts.map((contact) => (
                         <ContactItem
                             key={contact.id}
+                            bg="bg-background"
                             {...contact}
                         />
                     ))}
-                </ChatList>
+                </ChatShell>
             </MenuLayout>
         </DialogLayout>
     );

@@ -1,5 +1,5 @@
 import { CACHE_LIFETIME_MS } from '@/data/constants';
-import ChatList from '@/features/profile/components/layout/ChatList';
+import ChatShell from '@/features/profile/components/layout/ChatShell';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import { chats } from '@/features/profile/data/chats';
 import { apiPostOrFail } from '@/lib/apiPostOrFail';
@@ -32,20 +32,20 @@ function useMyChats() {
     });
 }
 
-const ContactList = () => {
+const ChatList = () => {
     // const { data: chatData } = useMyChats();
 
     // console.log(chatData);
 
     return (
-        <ChatList>
+        <ChatShell>
             {chats
                 .toSorted((a, b) => b.time.localeCompare(a.time))
                 .map((chat) => (
                     <ContactItem key={chat.id} {...chat} />
                 ))}
-        </ChatList>
+        </ChatShell>
     );
 };
 
-export default ContactList;
+export default ChatList;

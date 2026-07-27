@@ -45,7 +45,7 @@
 .hex-border {
     --stroke: 1px;
     aspect-ratio: cos(30deg);
-    clip-path: polygon(
+    --pattern: polygon(
         50% 0,
         -50% 50%,
         50% 100%,
@@ -61,11 +61,51 @@
         calc(var(--stroke) * sin(60deg)) calc(25% + var(--stroke) * cos(60deg)),
         50% var(--stroke)
     );
+    clip-path: var(--pattern);
+    -webkit-clip-path: var(--pattern);
 }
 
-.hex {
+.hex-border.hex-border--left {
+    --pattern: polygon(
+        /* outer boundary: top -> left tip -> bottom -> straight back up to top */
+        50% 0,
+        -50% 50%,
+        50% 100%,
+        50% 0,
+
+        /* inner boundary: top -> straight down to bottom -> left-bottom -> left-top -> back to top */
+        50% var(--stroke),
+        50% calc(100% - var(--stroke)),
+        calc(var(--stroke) * sin(60deg)) calc(75% - var(--stroke) * cos(60deg)),
+        calc(var(--stroke) * sin(60deg)) calc(25% + var(--stroke) * cos(60deg)),
+        50% var(--stroke)
+    );
+}
+
+.hex-border.hex-border--right {
+    --pattern: clip-path: polygon(
+            /* outer boundary: top -> right tip -> bottom -> straight back up to top */
+            50% 0,
+            150% 50%,
+            50% 100%,
+            50% 0,
+
+            /* inner boundary: top -> straight down to bottom -> right-bottom -> right-top -> back to top */
+            50% var(--stroke),
+            50% calc(100% - var(--stroke)),
+            calc(100% - var(--stroke) * sin(60deg))
+                calc(75% - var(--stroke) * cos(60deg)),
+            calc(100% - var(--stroke) * sin(60deg))
+                calc(25% + var(--stroke) * cos(60deg)),
+            50% var(--stroke)
+        );
+}
+
+.hexagon {
     aspect-ratio: cos(30deg);
-    clip-path: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
+    --pattern: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
+    clip-path: var(--pattern);
+    -webkit-clip-path: var(--pattern);
 }
 
 .scrollbar-hidden {

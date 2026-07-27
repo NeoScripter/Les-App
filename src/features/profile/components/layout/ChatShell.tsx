@@ -4,7 +4,7 @@ import type { ComponentChildren } from 'preact';
 import type { FC } from 'preact/compat';
 import { ContactItemSkeleton } from '../ui/ContactItem';
 
-const ChatList: FC<{ className?: string; children: ComponentChildren }> = ({
+const ChatShell: FC<{ className?: string; children: ComponentChildren }> = ({
     className,
     children,
 }) => {
@@ -20,14 +20,14 @@ const ChatList: FC<{ className?: string; children: ComponentChildren }> = ({
     );
 };
 
-export default ChatList;
+export default ChatShell;
 
-export function ChatListSkeleton({ withTime }: { withTime: boolean }) {
+export function ChatShellSkeleton({ withTime }: { withTime: boolean }) {
     return (
-        <ChatList>
+        <ChatShell>
             {range(1, 8).map((idx) => (
                 <ContactItemSkeleton key={idx} withTime={withTime} />
             ))}
-        </ChatList>
+        </ChatShell>
     );
 }

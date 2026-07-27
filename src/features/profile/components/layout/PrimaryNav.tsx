@@ -34,14 +34,14 @@ const NavItem: FC<{ item: PrimaryNavItemType }> = ({ item }) => {
     return (
         <button
             class={cn(
-                'xs:size-6 size-5',
+                'xs:size-6 relative size-5',
                 isActive &&
                     'bg-background relative isolate flex items-center justify-center text-white',
             )}
         >
-            {/* {isActive && ( */}
-            {/*     <Hex className="bg-background absolute -inset-1 h-10 -z-1" /> */}
-            {/* )} */}
+            {isActive && (
+                <Hex className="bg-background absolute -translate-1/2 inset-1/2 -z-1 h-10" />
+            )}
             <Icon />
         </button>
     );

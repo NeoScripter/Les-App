@@ -1,7 +1,7 @@
-import ContactList from '@/components/ContactList';
+import ChatList from '@/components/ChatList';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Headline from '@/components/Headline';
-import { ChatListSkeleton } from '@/features/profile/components/layout/ChatList';
+import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
 import MenuHeader from '@/features/profile/components/layout/MenuHeader';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
@@ -35,8 +35,8 @@ const Profile = () => {
                     <SecondaryNav items={navItems} />
                 </div>
                 <ErrorBoundary>
-                    <Suspense fallback={<ChatListSkeleton withTime={true} />}>
-                        <ContactList />
+                    <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
+                        <ChatList />
                     </Suspense>
                 </ErrorBoundary>
 

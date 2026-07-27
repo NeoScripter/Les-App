@@ -10,6 +10,7 @@ type Props = {
     time?: string;
     summary: string;
     numMessages?: number;
+    bg?: string;
 };
 
 const ContactItem: FC<Props> = ({
@@ -19,6 +20,7 @@ const ContactItem: FC<Props> = ({
     summary,
     numMessages,
     className,
+    bg,
 }) => {
     const styles = useMemo(() => getAvatarStyle(), []);
     const colors = {
@@ -30,53 +32,66 @@ const ContactItem: FC<Props> = ({
         <li>
             <article
                 className={cn(
-                    'xs:gap-5 xs:[--hex-size:3.5rem] relative isolate flex items-center gap-4 p-1 pr-3 [--hex-size:3rem]',
+                    'xs:[--hex-size:3.5rem] relative isolate p-1 pr-3 [--hex-size:3rem]',
                     className,
                 )}
             >
-                <Hex
-                    styles={{ ...colors }}
-                    className="h-(--hex-size)"
-                    as="figure"
-                >
-                    <span className="xs:text-sm text-xs font-bold">
-                        {initials}
-                    </span>
-                    {styles.hasBorder && (
-                        <Hex.Border
-                            styles={{ '--stroke': '3px' }}
-                            className="bg-primary"
-                        />
-                    )}
-                </Hex>
-
-                <div className="relative min-w-0 flex-1">
-                    <h2 className="xs:text-lg truncate font-medium">{name}</h2>
-                    <p className="xs:text-base truncate text-sm text-gray-400">
-                        {summary}
-                    </p>
-                </div>
-
-                {time && numMessages && (
-                    <div className="relative flex flex-col items-center justify-between gap-1">
-                        <time
-                            dateTime={time}
-                            className="text-sm font-medium text-gray-400"
-                        >
-                            {time}
-                        </time>
-                        {numMessages > 0 && (
-                            <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold">
-                                {numMessages}
-                            </span>
+                <div class="xs:gap-5 pointer-events-none relative z-1 flex items-center gap-4">
+                    <Hex
+                        styles={{ ...colors }}
+                        className="relative h-(--hex-size)"
+                        as="figure"
+                    >
+                        <span className="xs:text-sm text-xs font-bold">
+                            {initials}
+                        </span>
+                        {styles.hasBorder && (
+                            <Hex.Border
+                                styles={{ '--stroke': '3px' }}
+                                className="bg-primary"
+                            />
                         )}
+                    </Hex>
+
+                    <div className="relative min-w-0 flex-1">
+                        <h2 className="xs:text-lg truncate font-medium">
+                            {name}
+                        </h2>
+                        <p className="xs:text-base truncate text-sm text-gray-400">
+                            {summary}
+                        </p>
                     </div>
-                )}
+
+                    {time && numMessages && (
+                        <div className="relative flex flex-col items-center justify-between gap-1">
+                            <time
+                                dateTime={time}
+                                className="text-sm font-medium text-gray-400"
+                            >
+                                {time}
+                            </time>
+                            {numMessages > 0 && (
+                                <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold">
+                                    {numMessages}
+                                </span>
+                            )}
+                        </div>
+                    )}
+                </div>
                 <button class="group absolute inset-x-1 -inset-y-px isolate flex items-center justify-center rounded-md">
-                    <span class="border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc((var(--hex-size)/10*8.66/2))] -z-1 block border border-l-transparent" />
-                    <Hex as="span" className="absolute inset-y-0 -left-1">
+                    <span
+                        class={cn(
+                            'border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc((var(--hex-size)/10*8.66/2))] -z-1 block border-l-transparent group-hover:border',
+                            bg,
+                        )}
+                    />
+                    <Hex
+                        as="span"
+                        className={cn('absolute inset-y-0 -left-1 -z-1', bg)}
+                    >
                         <Hex.Border
-                            className="bg-foreground-muted"
+                            className="group-hover:bg-foreground-muted"
+                            variant="left-half"
                         />
                     </Hex>
                 </button>

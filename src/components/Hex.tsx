@@ -17,7 +17,7 @@ export default function Hex({
     return (
         <Tag
             class={cn(
-                'hex relative flex items-center justify-center',
+                'hexagon relative flex items-center justify-center',
                 className,
             )}
             style={styles}
@@ -30,12 +30,16 @@ export default function Hex({
 type BorderProps = {
     className?: string;
     styles?: CSSProperties;
+    variant?: 'left-half' | 'right-half';
 };
 
-export function HexBorder({ className, styles }: BorderProps) {
+export function HexBorder({ className, styles, variant }: BorderProps) {
     return (
         <span
-            class={cn('hex-border absolute inset-0 h-full', className)}
+            class={cn('hex-border absolute inset-0 h-full', className, {
+                'hex-border--left': variant === 'left-half',
+                'hex-border--right': variant === 'right-half',
+            })}
             style={styles}
         />
     );
