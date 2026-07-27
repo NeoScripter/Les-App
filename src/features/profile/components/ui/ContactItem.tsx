@@ -81,7 +81,7 @@ const ContactItem: FC<Props> = ({
                 <button class="group absolute inset-x-1 -inset-y-px isolate flex items-center justify-center rounded-md">
                     <span
                         class={cn(
-                            'border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc((var(--hex-size)/10*8.66/2))] -z-1 block border-l-transparent group-hover:border',
+                            'border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc((var(--hex-size)/10*8.66/2))] -z-1 block border-l-transparent group-hover:border-2',
                             bg,
                         )}
                     />
@@ -92,6 +92,7 @@ const ContactItem: FC<Props> = ({
                         <Hex.Border
                             className="group-hover:bg-foreground-muted"
                             variant="left-half"
+                            styles={{ '--stroke': '2px' }}
                         />
                     </Hex>
                 </button>
