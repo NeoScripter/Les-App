@@ -52,7 +52,7 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
                             <Button
                                 size="sm"
                                 variant="outline"
-                                class="w-full text-left"
+                                className="w-full text-left"
                             >
                                 {tab.label}
                             </Button>
