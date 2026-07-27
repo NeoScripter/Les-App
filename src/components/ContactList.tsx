@@ -33,9 +33,9 @@ function useMyChats() {
 }
 
 const ContactList = () => {
-    const { data: chatData } = useMyChats();
+    // const { data: chatData } = useMyChats();
 
-    console.log(chatData);
+    // console.log(chatData);
 
     return (
         <ChatList>

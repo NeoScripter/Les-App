@@ -48,7 +48,10 @@ const NewChatDialog: FC<Props> = ({ className, show }) => {
 
                 <ChatList>
                     {contacts.map((contact) => (
-                        <ContactItem key={contact.id} {...contact} />
+                        <ContactItem
+                            key={contact.id}
+                            {...contact}
+                        />
                     ))}
                 </ChatList>
             </MenuLayout>

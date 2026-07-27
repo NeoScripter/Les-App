@@ -42,39 +42,30 @@
     }
 }
 
-.hexagon {
-    --hex: 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%;
-    clip-path: polygon(var(--hex));
-    -webkit-clip-path: polygon(var(--hex));
-}
-
-/* Better class names */
 .hex-border {
-    --semi-hex: 0% 25%, 0% 75%, 50% 100%, 50% 75%, 50% 25%, 50% 0%;
-    --size: calc(var(--avatar-w) + 0.4rem);
-    position: absolute;
-    z-index: -1;
-    inset-block: 0;
-    left: -0.2rem;
-    height: calc(var(--size) / 6 * 7);
-    width: var(--size);
-
-    clip-path: polygon(var(--semi-hex));
-    -webkit-clip-path: polygon(var(--semi-hex));
+    --stroke: 1px;
+    aspect-ratio: cos(30deg);
+    clip-path: polygon(
+        50% 0,
+        -50% 50%,
+        50% 100%,
+        150% 50%,
+        50% 0,
+        50% var(--stroke),
+        calc(100% - var(--stroke) * sin(60deg))
+            calc(25% + var(--stroke) * cos(60deg)),
+        calc(100% - var(--stroke) * sin(60deg))
+            calc(75% - var(--stroke) * cos(60deg)),
+        50% calc(100% - var(--stroke)),
+        calc(var(--stroke) * sin(60deg)) calc(75% - var(--stroke) * cos(60deg)),
+        calc(var(--stroke) * sin(60deg)) calc(25% + var(--stroke) * cos(60deg)),
+        50% var(--stroke)
+    );
 }
 
-.hex-border::before {
-    content: '';
-    position: absolute;
-    inset-block: 1px;
-    left: 1px;
-    inset-block: 1px;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
-    @apply bg-background;
-
-    clip-path: polygon(var(--semi-hex));
-    -webkit-clip-path: polygon(var(--semi-hex));
+.hex {
+    aspect-ratio: cos(30deg);
+    clip-path: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
 }
 
 .scrollbar-hidden {

@@ -1,3 +1,4 @@
+import Hex from '@/components/Hex';
 import cn from '@/utils/cn';
 import { useMemo, type FC } from 'preact/compat';
 import getAvatarStyle from '../../utils/getAvatarStyle';
@@ -29,28 +30,27 @@ const ContactItem: FC<Props> = ({
         <li>
             <article
                 className={cn(
-                    'xs:gap-5 isolate xs:[--avatar-w:3.5rem] relative flex items-center gap-4 p-1 pr-3 [--avatar-w:3rem]',
+                    'xs:gap-5 xs:[--hex-size:3.5rem] relative isolate flex items-center gap-4 p-1 pr-3 [--hex-size:3rem]',
                     className,
                 )}
             >
-                <figure
-                    className={cn(
-                        'hexagon relative flex h-[calc(var(--avatar-w)/6*7)] z-10 w-(--avatar-w) shrink-0 items-center justify-center',
-                        styles.hasBorder && 'bg-primary',
-                    )}
-                    style={styles.hasBorder ? {} : { ...colors }}
+                <Hex
+                    styles={{ ...colors }}
+                    className="h-(--hex-size)"
+                    as="figure"
                 >
-                    <span
-                        class="hexagon flex h-[92%] w-[92%] shrink-0 items-center justify-center"
-                        style={{ ...colors }}
-                    >
-                        <span className="xs:text-sm text-xs font-bold">
-                            {initials}
-                        </span>
+                    <span className="xs:text-sm text-xs font-bold">
+                        {initials}
                     </span>
-                </figure>
+                    {styles.hasBorder && (
+                        <Hex.Border
+                            styles={{ '--stroke': '3px' }}
+                            className="bg-primary"
+                        />
+                    )}
+                </Hex>
 
-                <div className="min-w-0 flex-1">
+                <div className="relative min-w-0 flex-1">
                     <h2 className="xs:text-lg truncate font-medium">{name}</h2>
                     <p className="xs:text-base truncate text-sm text-gray-400">
                         {summary}
@@ -58,7 +58,7 @@ const ContactItem: FC<Props> = ({
                 </div>
 
                 {time && numMessages && (
-                    <div className="flex flex-col items-center justify-between gap-1">
+                    <div className="relative flex flex-col items-center justify-between gap-1">
                         <time
                             dateTime={time}
                             className="text-sm font-medium text-gray-400"
@@ -72,9 +72,13 @@ const ContactItem: FC<Props> = ({
                         )}
                     </div>
                 )}
-                <button class="group absolute inset-x-1 inset-y-0 isolate flex items-center justify-center rounded-md">
-                    <span class="border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc(var(--avatar-w)/2)] block group-hover:border border-l-transparent" />
-                    <span class="hex-border group-hover:bg-foreground-muted"></span>
+                <button class="group absolute inset-x-1 -inset-y-px isolate flex items-center justify-center rounded-md">
+                    <span class="border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc((var(--hex-size)/10*8.66/2))] -z-1 block border border-l-transparent" />
+                    <Hex as="span" className="absolute inset-y-0 -left-1">
+                        <Hex.Border
+                            className="bg-foreground-muted"
+                        />
+                    </Hex>
                 </button>
             </article>
         </li>

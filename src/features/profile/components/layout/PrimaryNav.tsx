@@ -1,3 +1,4 @@
+import Hex from '@/components/Hex';
 import cn from '@/utils/cn';
 import { useLocation } from 'preact-iso';
 import type { FC } from 'preact/compat';
@@ -8,7 +9,7 @@ const PrimaryNav: FC<{ className?: string }> = ({ className }) => {
     return (
         <nav
             class={cn(
-                'text-foreground-accent rounded-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 px-4 bg-linear-primary',
+                'text-foreground-accent rounded-primary bg-linear-primary absolute inset-x-0 bottom-4 mx-auto flex h-10 w-9/10 basis-1/5 items-center justify-between gap-2 px-4',
                 className,
             )}
         >
@@ -38,9 +39,9 @@ const NavItem: FC<{ item: PrimaryNavItemType }> = ({ item }) => {
                     'bg-background relative isolate flex items-center justify-center text-white',
             )}
         >
-            {isActive && (
-                <span class="bg-background hexagon absolute -z-1 size-10"></span>
-            )}
+            {/* {isActive && ( */}
+            {/*     <Hex className="bg-background absolute -inset-1 h-10 -z-1" /> */}
+            {/* )} */}
             <Icon />
         </button>
     );
