@@ -1,21 +1,28 @@
+import Headline from '@/components/Headline';
 import DialogLayout from '@/layouts/DialogLayout';
 import MenuLayout from '@/layouts/MenuLayout';
 import cn from '@/utils/cn';
 import type { Signal } from '@preact/signals';
 import { useSignal } from '@preact/signals';
+import { ChevronLeft } from 'lucide-preact';
 import type { FC } from 'preact/compat';
-import NewChat  from '../ui/NewChat';
-import SecretChat from '../ui/SecretChat';
 import CreateContact from '../ui/CreateContact';
+import FramedIconBtn from '../ui/FramedIconBtn';
 import InviteToLes from '../ui/InviteToLes';
 import MiniChat from '../ui/MiniChat';
+import NewChat from '../ui/NewChat';
+import SecretChat from '../ui/SecretChat';
+import MenuHeader from './MenuHeader';
 
 type Props = {
     className?: string;
     show: Signal<boolean>;
 };
 
-export type ChatTabProps = { show: Signal<boolean>, currentTab: Signal<TabType> };
+export type ChatTabProps = {
+    show: Signal<boolean>;
+    currentTab: Signal<TabType>;
+};
 
 export type TabType =
     | 'new_chat'
@@ -52,3 +59,26 @@ const NewChatDialog: FC<Props> = ({ className, show }) => {
 };
 
 export default NewChatDialog;
+
+export function NewChatHeader({
+    onClick,
+    headline,
+}: {
+    onClick: () => void;
+    headline: string;
+}) {
+    return (
+        <MenuHeader>
+            <span class="flex-1">
+                <FramedIconBtn
+                    onClick={onClick}
+                    icon={ChevronLeft}
+                    className="[&_svg:last-of-type]:size-6 [&_svg:last-of-type]:-translate-x-1/20"
+                    variant="ghost"
+                />
+            </span>
+            <Headline as="h3">{headline}</Headline>
+            <span class="flex-1" />
+        </MenuHeader>
+    );
+}

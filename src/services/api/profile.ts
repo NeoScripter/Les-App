@@ -179,8 +179,8 @@ export type GetProfileSettingsV0Response = {
     max_profile_count: number; // максимальное количество профилей, которое может создать пользователь
 };
 
-// ProfileGetPublicByIDsV0Request — запрос на получение публичной информации о профилях по списку ID
-export type ProfileGetPublicByIDsV0Request = {
+// ProfilesInfoRequest — запрос на получение публичной информации о профилях по списку ID
+export type ProfilesInfoRequest = {
     profile_ids: string[]; // список ID запрашиваемых профилей
 };
 
@@ -194,8 +194,8 @@ export type ProfilePublicInfo = {
     deleted_at: string; // дата удаления профиля (если удалён)
 };
 
-// ProfileGetPublicByIDsV0Response — ответ с публичной информацией о запрошенных профилях
-export type ProfileGetPublicByIDsV0Response = {
+// ProfilesInfoResponse — ответ с публичной информацией о запрошенных профилях
+export type ProfilesInfoResponse = {
     profiles: ProfilePublicInfo[]; // список профилей с публичной информацией
     file_info_by_profile_id: ProfileAvatarFileInfo[]; // информация о файлах аватаров
     ok: boolean; // признак успешности операции
@@ -473,18 +473,22 @@ export async function getProfileSettingsV0(
     );
 }
 
-// profileGetPublicByIDsV0 — получение публичной информации о профилях по списку ID
+// getProfilesInfo — получение публичной информации о профилях по списку ID
 // POST /api/profile/getPulicByIDs/v0
-export async function profileGetPublicByIDsV0(
-    body: ProfileGetPublicByIDsV0Request,
+// TODO 7 handle for getting profile information
+export async function getProfilesInfo(
+    body: ProfilesInfoRequest,
     options?: ApiPostOptions,
-): Promise<ApiResult<ProfileGetPublicByIDsV0Response>> {
-    return apiPostResult<ProfileGetPublicByIDsV0Response>(
-        '/api/profile/getPulicByIDs/v0',
+): Promise<ApiResult<ProfilesInfoResponse>> {
+    return apiPostResult<ProfilesInfoResponse>(
+        '/api/profile/getPublicByIDs/v0',
         body,
         options,
     );
 }
+
+export const getProfilesInfoUrl = '/api/profile/getPublicByIDs/v0';
+
 
 // activeProfilesGetV0 — получение списка активных профилей (доступные, выбранные, скомпилированные)
 // POST /api/activeProfiles/get/v0
@@ -564,6 +568,7 @@ export async function profilesRightsGetV0(
 
 // profileSearchV0 — поиск профилей по никнейму или фрагменту номера телефона
 // POST /api/profile/search/v0
+// TODO: 6 find a profile by nickname
 export async function profileSearchV0(
     body: ProfileSearchV0Request,
     options?: ApiPostOptions,
@@ -574,3 +579,35 @@ export async function profileSearchV0(
         options,
     );
 }
+
+// // ProfileSearchV0Request — запрос на поиск профилей по никнейму и номеру телефона
+// message ProfileSearchV0Request {
+//   string search = 1; // строка поиска (никнейм или фрагмент номера телефона)
+//   int64 search_limit = 2; // максимальное количество результатов
+// }
+
+// // ProfileSearchV0Response — ответ с результатами поиска
+// message ProfileSearchV0Response {
+//   // ProfileSearchInfo — информация о найденном профиле
+//   message ProfileSearchInfo {
+//     string profile_id = 1; // ID профиля
+//     string nickname = 2; // никнейм профиля
+//     string name = 3; // имя профиля
+//     string self_description = 4; // описание профиля (о себе)
+//   }
+//   // AvatarFileInfo информация для получения файла аватара
+//   message AvatarFileInfo {
+//     string unique_key_hash = 2; // хешированный уникальный ключ файла
+//     string comphash = 3; // композитный хеш файла
+//     string file_id = 4; // ID файла в file-storage
+//   }
+//   // ProfileAvatarFileInfo связка профиля и информации об аватаре
+//   message ProfileAvatarFileInfo {
+//     string profile_id = 1; // ID профиля
+//     AvatarFileInfo file_info = 2; // информация о файле
+//   }
+//   repeated ProfileSearchInfo profiles = 1; // список найденных профилей
+//   repeated ProfileAvatarFileInfo file_info_by_profile_id = 2; // информация о файлах аватаров
+//   bool ok = 3; // признак успешности операции
+// }
+
