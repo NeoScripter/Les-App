@@ -8,8 +8,9 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 primary: '',
+                ghost: 'hover:bg-foreground-muted/50 focus-visible:bg-foreground-muted/50',
                 outline:
-                    'border-foreground-muted overflow-clip focus-visible:text-foreground-accent hover:text-foreground-accent border font-medium before:absolute before:inset-0 before:-z-1 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:bg-primary-gradient',
+                    'border-foreground-muted overflow-clip focus-visible:text-foreground-accent hover:text-foreground-accent border font-medium before:absolute before:inset-0 before:-z-1 focus-visible:before:opacity-100 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:bg-primary-gradient',
             },
             size: {
                 sm: 'text-sm',
@@ -32,7 +33,7 @@ type ButtonProps = Omit<
     };
 
 const Button = ({
-    class: className,
+    className,
     children,
     variant,
     size,

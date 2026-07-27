@@ -1,14 +1,16 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/preact-query';
 import { ErrorBoundary, LocationProvider, Route, Router } from 'preact-iso';
 import './assets/styles.css';
-import { baseUrl } from './data/constants';
 import { routes } from './data/routes';
-import { setApiHost } from './services/api/apiPostResult';
 const queryClient = new QueryClient();
 
-export function App() {
-    // setApiHost(baseUrl);
+if (!('anchorName' in document.documentElement.style)) {
+    import('@oddbird/css-anchor-positioning/fn').then((module) => {
+        module.default();
+    });
+}
 
+export function App() {
     return (
         <QueryClientProvider client={queryClient}>
             <LocationProvider>
