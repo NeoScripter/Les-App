@@ -11,31 +11,60 @@ import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
 import MenuLayout from '@/layouts/MenuLayout';
-import { useSignal } from '@preact/signals';
-import { Ellipsis, Plus } from 'lucide-preact';
+import { Signal, useSignal } from '@preact/signals';
+import { CheckCheck, CheckSquare, Ellipsis, Plus, Trash2 } from 'lucide-preact';
 import { Suspense } from 'preact/compat';
 
 const Profile = () => {
     const showChatMenu = useSignal(false);
+    const selectedChatIds = useSignal<number[] | null>(null);
+
+    const selectedIds = selectedChatIds.value;
+    const isSelecting = selectedIds !== null;
 
     return (
         <main className="h-full">
             <MenuLayout className="h-[calc(100svh-(var(--margin)*2))] [--margin:0.5rem] sm:[--margin:1rem]">
                 <MenuHeader>
-                    <FramedIconBtn
-                        popovertarget="profile-popover"
-                        style="anchor-name: --profile;"
-                        icon={Ellipsis}
-                        variant="ghost"
-                    />
-                    <Headline as="h1">Личка</Headline>
-                    <FramedIconBtn
-                        icon={Plus}
-                        onClick={() => (showChatMenu.value = true)}
-                    />
+                    {isSelecting ? (
+                        <>
+                            <Button
+                                disabled={selectedIds.length === 0}
+                                className="bg-accent"
+                                variant="icon"
+                            >
+                                <Trash2 />
+                            </Button>
+                            <Headline as="h1">
+                                Выбрано: {selectedIds.length}
+                            </Headline>
+                            <Button
+                                disabled={selectedIds.length === 0}
+                                onClick={() => (selectedChatIds.value = null)}
+                                className="bg-primary"
+                                variant="icon"
+                            >
+                                <CheckCheck />
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <FramedIconBtn
+                                popovertarget="profile-popover"
+                                style="anchor-name: --profile;"
+                                icon={Ellipsis}
+                                variant="ghost"
+                            />
+                            <Headline as="h1">Личка</Headline>
+                            <FramedIconBtn
+                                icon={Plus}
+                                onClick={() => (showChatMenu.value = true)}
+                            />
+                        </>
+                    )}
                 </MenuHeader>
 
-                <Popover />
+                {!isSelecting && <Popover chatIds={selectedChatIds} />}
 
                 <div>
                     <SearchInput placeholder="Поиск по чатам..." />
@@ -44,7 +73,7 @@ const Profile = () => {
                 </div>
                 <ErrorBoundary>
                     <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
-                        <ChatList />
+                        <ChatList selectedChatIds={selectedChatIds} />
                     </Suspense>
                 </ErrorBoundary>
 
@@ -58,7 +87,11 @@ const Profile = () => {
 
 export default Profile;
 
-function Popover() {
+type PopoverProps = {
+    chatIds: Signal<number[] | null>;
+};
+
+function Popover({ chatIds }: PopoverProps) {
     return (
         <div
             id="profile-popover"
@@ -67,7 +100,12 @@ function Popover() {
         >
             <ul class="divide-foreground-muted/50 divide-y">
                 <li>
-                    <Button className="w-full" size="sm" variant="ghost">
+                    <Button
+                        onClick={() => (chatIds.value = [])}
+                        className="w-full"
+                        size="sm"
+                        variant="ghost"
+                    >
                         Выбрать
                     </Button>
                 </li>

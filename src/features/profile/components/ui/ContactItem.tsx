@@ -1,5 +1,6 @@
 import Hex from '@/components/Hex';
 import cn from '@/utils/cn';
+import { Check } from 'lucide-preact';
 import { useMemo, type FC } from 'preact/compat';
 import getAvatarStyle from '../../utils/getAvatarStyle';
 
@@ -11,6 +12,8 @@ type Props = {
     summary: string;
     numMessages?: number;
     bg?: string;
+    onClick?: () => void;
+    isSelected?: boolean;
 };
 
 const ContactItem: FC<Props> = ({
@@ -21,6 +24,8 @@ const ContactItem: FC<Props> = ({
     numMessages,
     className,
     bg,
+    onClick,
+    isSelected = false,
 }) => {
     const styles = useMemo(() => getAvatarStyle(), []);
     const colors = {
@@ -36,7 +41,14 @@ const ContactItem: FC<Props> = ({
                     className,
                 )}
             >
-                <div class="xs:gap-5 pointer-events-none relative z-1 flex items-center gap-4">
+                <SelectedMark show={isSelected} />
+
+                <div
+                    class={cn(
+                        'xs:gap-5 pointer-events-none relative z-1 flex items-center gap-4 transition-transform',
+                        isSelected && 'translate-x-(--hex-size)',
+                    )}
+                >
                     <Hex
                         styles={{ ...colors }}
                         className="relative h-(--hex-size)"
@@ -78,7 +90,10 @@ const ContactItem: FC<Props> = ({
                         </div>
                     )}
                 </div>
-                <button class="group absolute inset-x-1 -inset-y-px isolate flex items-center justify-center rounded-md">
+                <button
+                    onClick={onClick}
+                    class="group absolute inset-x-1 -inset-y-px isolate flex items-center justify-center rounded-md"
+                >
                     <span
                         class={cn(
                             'border-foreground-muted rounded-r-primary absolute inset-y-0 right-0 left-[calc((var(--hex-size)/10*8.66/2))] -z-1 block border-l-transparent group-hover:border-2',
@@ -136,3 +151,20 @@ export function ContactItemSkeleton({ withTime }: { withTime: boolean }) {
         </li>
     );
 }
+
+const SelectedMark = ({ show }: { show: boolean }) => {
+    if (!show) return null;
+
+    return (
+        <Hex className="text-primary absolute left-0 h-(--hex-size)">
+            <Check className="size-4" />
+            <Hex.Border styles={{ '--stroke': '8px' }} className="bg-black" />
+            <Hex className="absolute h-[calc(var(--hex-size)-16px)]">
+                <Hex.Border
+                    styles={{ '--stroke': '2px' }}
+                    className="bg-primary"
+                />
+            </Hex>
+        </Hex>
+    );
+};
