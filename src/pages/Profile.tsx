@@ -12,7 +12,7 @@ import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
 import MenuLayout from '@/layouts/MenuLayout';
 import { Signal, useSignal } from '@preact/signals';
-import { CheckCheck, CheckSquare, Ellipsis, Plus, Trash2 } from 'lucide-preact';
+import { CheckCheck, Ellipsis, Plus, Trash2 } from 'lucide-preact';
 import { Suspense } from 'preact/compat';
 
 const Profile = () => {
@@ -21,6 +21,11 @@ const Profile = () => {
 
     const selectedIds = selectedChatIds.value;
     const isSelecting = selectedIds !== null;
+
+    const handleDeleteSelectedChats = () => {
+        alert('Not implemented yet');
+        selectedChatIds.value = null;
+    };
 
     return (
         <main className="h-full">
@@ -31,6 +36,7 @@ const Profile = () => {
                             <Button
                                 disabled={selectedIds.length === 0}
                                 className="bg-accent"
+                                onClick={handleDeleteSelectedChats}
                                 variant="icon"
                             >
                                 <Trash2 />
@@ -39,7 +45,6 @@ const Profile = () => {
                                 Выбрано: {selectedIds.length}
                             </Headline>
                             <Button
-                                disabled={selectedIds.length === 0}
                                 onClick={() => (selectedChatIds.value = null)}
                                 className="bg-primary"
                                 variant="icon"
@@ -92,6 +97,11 @@ type PopoverProps = {
 };
 
 function Popover({ chatIds }: PopoverProps) {
+    const handleReadAllChats = () => {
+        alert('Not implemented yet');
+        chatIds.value = null;
+    };
+
     return (
         <div
             id="profile-popover"
@@ -110,7 +120,12 @@ function Popover({ chatIds }: PopoverProps) {
                     </Button>
                 </li>
                 <li>
-                    <Button className="w-full" size="sm" variant="ghost">
+                    <Button
+                        onClick={handleReadAllChats}
+                        className="w-full"
+                        size="sm"
+                        variant="ghost"
+                    >
                         Прочитать все
                     </Button>
                 </li>
