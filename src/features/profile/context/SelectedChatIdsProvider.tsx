@@ -2,25 +2,25 @@ import { createContext } from 'preact';
 import { useContext } from 'preact/hooks';
 import { Signal, signal } from '@preact/signals';
 
-interface SelectedChatIdsContextValue {
-    showSelectedChatIds: Signal<boolean>;
+interface ModalContextValue {
+    showModal: Signal<boolean>;
 }
 
-const SelectedChatIdsContext = createContext<SelectedChatIdsContextValue | null>(null);
+const ModalContext = createContext<ModalContextValue | null>(null);
 
-export function useSelectedChatIds() {
-    const ctx = useContext(SelectedChatIdsContext);
+export function useModal() {
+    const ctx = useContext(ModalContext);
     if (!ctx) {
-        throw new Error('useSelectedChatIds must be used within SelectedChatIdsProvider');
+        throw new Error('useModal must be used within ModalProvider');
     }
     return ctx;
 }
 
-export function SelectedChatIdsProvider({ children }: { children: preact.ComponentChildren }) {
-    const showSelectedChatIds = signal(false);
+export function ModalProvider({ children }: { children: preact.ComponentChildren }) {
+    const showModal = signal(false);
     return (
-        <SelectedChatIdsContext.Provider value={{ showSelectedChatIds }}>
+        <ModalContext.Provider value={{ showModal }}>
             {children}
-        </SelectedChatIdsContext.Provider>
+        </ModalContext.Provider>
     );
 }
