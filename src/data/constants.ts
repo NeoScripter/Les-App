@@ -6,3 +6,7 @@ export const baseUrl = import.meta.env.DEV
 
 
 export const CACHE_LIFETIME_MS = 0;
+
+export const QUERY_CACHE_KEYS = {
+    USER_CHAT_IDS: 'user_chat_ids',
+}

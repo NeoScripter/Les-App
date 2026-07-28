@@ -1,9 +1,10 @@
 import type {
+    ProfileSearchV0Request,
     ProfileSearchV0Response,
     ProfileSearchV0Result,
     ProfileViewOthersRequiredFieldsV0Request,
     ProfileViewOthersRequiredFieldsV0Response,
-    profileViewOthersRequiredFieldsV0Result,
+    ProfileViewOthersRequiredFieldsV0Result,
 } from '../public-api-union/authorization_profile';
 import type {
     ProfileRelationshipContactAddV0Request,
@@ -19,6 +20,7 @@ import type {
     PrivateChatSecondGetChatsOneVOneV0Result,
 } from '../public-api-union/chat_private_chat_second';
 import { apiPostResult, type ApiPostOptions } from './apiPostResult';
+
 
 export type GetUserChatIdsResult = PrivateChatSecondGetChatsOneVOneV0Result;
 export type GetUserChatIdsRequest = PrivateChatSecondGetChatsOneVOneV0Request;
@@ -38,7 +40,7 @@ export async function getUserChatIds(
 export const getUserChatIdsUrl = '/api/privateChatSecond/getChats/oneVOne/v0';
 
 type GetProfileFieldsChatsRequest = ProfileViewOthersRequiredFieldsV0Request;
-type GetProfileFieldsChatsResult = profileViewOthersRequiredFieldsV0Result;
+type GetProfileFieldsChatsResult = ProfileViewOthersRequiredFieldsV0Result;
 type GetProfileFieldsChatsResponse = ProfileViewOthersRequiredFieldsV0Response;
 
 export async function getProfileFields(
@@ -60,11 +62,12 @@ export const getProfileFileldsUrl = '/api/profile/view/others/requiredFields/v0'
 
 /// Don't forget to cache each separate response for unique contact id manually
 
+type FindUserByNicknameRequest = ProfileSearchV0Request;
 type FindUserByNicknameResult = ProfileSearchV0Result;
 type FindUserByNicknameResponse = ProfileSearchV0Response;
 
 export async function findUsersByNickname(
-    body: FindUserByNicknameResponse,
+    body: FindUserByNicknameRequest,
     options: ApiPostOptions = {},
 ): Promise<FindUserByNicknameResult> {
     return apiPostResult<FindUserByNicknameResponse>(

@@ -1,32 +1,41 @@
-import { CACHE_LIFETIME_MS } from '@/data/constants';
+import { CACHE_LIFETIME_MS, QUERY_CACHE_KEYS } from '@/data/constants';
 import ChatShell from '@/features/profile/components/layout/ChatShell';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import { chats } from '@/features/profile/data/chats';
 import { apiPostOrFail } from '@/lib/apiPostOrFail';
-import { userChatsUrl, type UserChatsResponse } from '@/services/api/chats';
+import { getUserChatIdsUrl, type GetUserChatIdsResponse } from '@/services/api/chats';
 import type { Signal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
 
 function useMyChats() {
-    return useSuspenseQuery({
-        queryKey: ['user-chats'],
-        queryFn: () => {
-            return apiPostOrFail<UserChatsResponse>(userChatsUrl, {});
-        },
-        staleTime: CACHE_LIFETIME_MS,
-    });
+	return useSuspenseQuery({
+		queryKey: [QUERY_CACHE_KEYS.USER_CHAT_IDS],
+		queryFn: () => apiPostOrFail<GetUserChatIdsResponse>(getUserChatIdsUrl, {}),
+		staleTime: CACHE_LIFETIME_MS,
+	});
+}
+
+function useChatProfiles(chatIds: number[]) {
+	return useSuspenseQuery({
+		queryKey: [QUERY_CACHE_KEYS.CHAT_PROFILES, chatIds],
+		queryFn: () =>
+			apiPostOrFail<GetProfileFieldsChatsResponse>(getProfileFieldsUrl, {
+				ids: chatIds, // whatever shape the endpoint expects
+			}),
+		staleTime: CACHE_LIFETIME_MS,
+	});
 }
 
 type Props = {
-    selectedChatIds: Signal<number[] | null>;
+    selectedChatIds: Signal<string[] | null>;
 };
 
 const ChatList = ({ selectedChatIds }: Props) => {
-    // const { data: chatData } = useMyChats();
+    const { data: chatData } = useMyChats();
 
-    // console.log(chatData);
+    console.log(chatData);
 
-    const handleChatClick = (id: number) => {
+    const handleChatClick = (id: string) => {
         if (selectedChatIds.value === null) {
             // TODO: open the chat messages
             return;
