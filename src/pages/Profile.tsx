@@ -102,6 +102,27 @@ function Popover({ chatIds }: PopoverProps) {
         chatIds.value = null;
     };
 
+    const ActionButton = ({
+        onClick,
+        label,
+    }: {
+        label: string;
+        onClick: () => void;
+    }) => {
+        return (
+            <li>
+                <Button
+                    onClick={onClick}
+                    className="w-full"
+                    size="sm"
+                    variant="ghost"
+                >
+                    {label}
+                </Button>
+            </li>
+        );
+    };
+
     return (
         <div
             id="profile-popover"
@@ -109,26 +130,14 @@ function Popover({ chatIds }: PopoverProps) {
             class="bg-background-accent rounded-primary border-foreground-muted w-full max-w-40 border text-inherit shadow-md"
         >
             <ul class="divide-foreground-muted/50 divide-y">
-                <li>
-                    <Button
-                        onClick={() => (chatIds.value = [])}
-                        className="w-full"
-                        size="sm"
-                        variant="ghost"
-                    >
-                        Выбрать
-                    </Button>
-                </li>
-                <li>
-                    <Button
-                        onClick={handleReadAllChats}
-                        className="w-full"
-                        size="sm"
-                        variant="ghost"
-                    >
-                        Прочитать все
-                    </Button>
-                </li>
+                <ActionButton
+                    onClick={() => (chatIds.value = [])}
+                    label="Выбрать"
+                />
+                <ActionButton
+                    onClick={handleReadAllChats}
+                    label="Прочитать все"
+                />
             </ul>
         </div>
     );
