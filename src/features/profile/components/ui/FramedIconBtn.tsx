@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import { cn  }from '@/lib/utils';
 import { Scan, type LucideIcon } from 'lucide-preact';
 import { type ComponentProps, type FC } from 'preact/compat';
 

@@ -1,5 +1,5 @@
-import ChatList from '@/components/ChatList';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import ChatList from '@/components/ui/ChatList';
+import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
 import MenuHeader from '@/features/profile/components/layout/MenuHeader';
 import NewChatDialog from '@/features/profile/components/layout/NewChatDialog';
@@ -10,7 +10,7 @@ import Popover from '@/features/profile/components/ui/Popover';
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import SelectionToolbar from '@/features/profile/components/ui/SelectionToolbar';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
-import MenuLayout from '@/layouts/MenuLayout';
+import MenuLayout from '@/components/layout/MenuLayout';
 import { useSignal } from '@preact/signals';
 import { Suspense } from 'preact/compat';
 

@@ -1,5 +1,5 @@
 import { lazy } from 'preact-iso';
-const Profile = lazy(() => import('@/pages/Profile'));
+const Profile = lazy(() => import('@/app/[profile]/Profile'));
 
 const NotFound = () => '404, sorry';
 

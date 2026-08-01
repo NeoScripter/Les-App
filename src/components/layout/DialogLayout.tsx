@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import { cn  }from '@/lib/utils';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import type { ComponentChild } from 'preact';
 

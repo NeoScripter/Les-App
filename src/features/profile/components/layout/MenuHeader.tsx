@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import { cn  }from '@/lib/utils';
 import type { ComponentChildren } from 'preact';
 import type { FC } from 'preact/compat';
 

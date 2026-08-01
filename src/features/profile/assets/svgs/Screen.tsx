@@ -14,7 +14,7 @@ const Screen: FC<{ className?: string }> = ({ className }) => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-            ></path>
+            />
         </svg>
     );
 };

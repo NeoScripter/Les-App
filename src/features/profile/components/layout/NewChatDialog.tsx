@@ -1,7 +1,7 @@
-import Headline from '@/components/Headline';
-import DialogLayout from '@/layouts/DialogLayout';
-import MenuLayout from '@/layouts/MenuLayout';
-import cn from '@/utils/cn';
+import Headline from '@/components/ui/Headline';
+import DialogLayout from '@/components/layout/DialogLayout';
+import MenuLayout from '@/components/layout/MenuLayout';
+import { cn  }from '@/lib/utils';
 import type { Signal } from '@preact/signals';
 import { useSignal } from '@preact/signals';
 import { ChevronLeft } from 'lucide-preact';

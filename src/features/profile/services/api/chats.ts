@@ -4,13 +4,14 @@ import type {
     ProfileSearchV0Result,
     ProfileViewOthersRequiredFieldsV0Request,
     ProfileViewOthersRequiredFieldsV0Response,
+    ProfileViewOthersRequiredFieldsV0ResponseProfileLook,
     ProfileViewOthersRequiredFieldsV0Result,
-} from '../public-api-union/authorization_profile';
+} from '../../../../services/public-api-union/authorization_profile';
 import type {
     ProfileRelationshipContactAddV0Request,
     ProfileRelationshipContactAddV0Response,
     ProfileRelationshipContactAddV0Result,
-} from '../public-api-union/authorization_profiles_relationship';
+} from '../../../../services/public-api-union/authorization_profiles_relationship';
 import type {
     PrivateChatSecondDeleteChatsOneVOneV0Request,
     PrivateChatSecondDeleteChatsOneVOneV0Response,
@@ -18,8 +19,8 @@ import type {
     PrivateChatSecondGetChatsOneVOneV0Request,
     PrivateChatSecondGetChatsOneVOneV0Response,
     PrivateChatSecondGetChatsOneVOneV0Result,
-} from '../public-api-union/chat_private_chat_second';
-import { apiPostResult, type ApiPostOptions } from './apiPostResult';
+} from '../../../../services/public-api-union/chat_private_chat_second';
+import { apiPostResult, type ApiPostOptions } from '../../../../services/api/apiPostResult';
 
 
 export type GetUserChatIdsResult = PrivateChatSecondGetChatsOneVOneV0Result;
@@ -39,15 +40,16 @@ export async function getUserChatIds(
 
 export const getUserChatIdsUrl = '/api/privateChatSecond/getChats/oneVOne/v0';
 
-type GetProfileFieldsChatsRequest = ProfileViewOthersRequiredFieldsV0Request;
-type GetProfileFieldsChatsResult = ProfileViewOthersRequiredFieldsV0Result;
-type GetProfileFieldsChatsResponse = ProfileViewOthersRequiredFieldsV0Response;
+export type GetProfileFieldsRequest = ProfileViewOthersRequiredFieldsV0Request;
+export type GetProfileFieldsResult = ProfileViewOthersRequiredFieldsV0Result;
+export type GetProfileFieldsResponse = ProfileViewOthersRequiredFieldsV0Response;
+export type ProfileFields = ProfileViewOthersRequiredFieldsV0ResponseProfileLook;
 
 export async function getProfileFields(
-    body: GetProfileFieldsChatsRequest,
+    body: GetProfileFieldsRequest,
     options: ApiPostOptions = {},
-): Promise<GetProfileFieldsChatsResult> {
-    return apiPostResult<GetProfileFieldsChatsResponse>(
+): Promise<GetProfileFieldsResult> {
+    return apiPostResult<GetProfileFieldsResponse>(
         '/api/profile/view/others/requiredFields/v0',
         body,
         options,
@@ -62,9 +64,9 @@ export const getProfileFileldsUrl = '/api/profile/view/others/requiredFields/v0'
 
 /// Don't forget to cache each separate response for unique contact id manually
 
-type FindUserByNicknameRequest = ProfileSearchV0Request;
-type FindUserByNicknameResult = ProfileSearchV0Result;
-type FindUserByNicknameResponse = ProfileSearchV0Response;
+export type FindUserByNicknameRequest = ProfileSearchV0Request;
+export type FindUserByNicknameResult = ProfileSearchV0Result;
+export type FindUserByNicknameResponse = ProfileSearchV0Response;
 
 export async function findUsersByNickname(
     body: FindUserByNicknameRequest,
@@ -77,9 +79,9 @@ export async function findUsersByNickname(
     );
 }
 
-type AddUserToContactsRequest = ProfileRelationshipContactAddV0Request;
-type AddUserToContactsResult = ProfileRelationshipContactAddV0Result;
-type AddUserToContactsResponse = ProfileRelationshipContactAddV0Response;
+export type AddUserToContactsRequest = ProfileRelationshipContactAddV0Request;
+export type AddUserToContactsResult = ProfileRelationshipContactAddV0Result;
+export type AddUserToContactsResponse = ProfileRelationshipContactAddV0Response;
 
 export async function addUsersToContacts(
     body: AddUserToContactsRequest,
@@ -92,9 +94,9 @@ export async function addUsersToContacts(
     );
 }
 
-type DeleteUserChatsRequest = PrivateChatSecondDeleteChatsOneVOneV0Request;
-type DeleteUserChatsResult = PrivateChatSecondDeleteChatsOneVOneV0Result;
-type DeleteUserChatsResponse = PrivateChatSecondDeleteChatsOneVOneV0Response;
+export type DeleteUserChatsRequest = PrivateChatSecondDeleteChatsOneVOneV0Request;
+export type DeleteUserChatsResult = PrivateChatSecondDeleteChatsOneVOneV0Result;
+export type DeleteUserChatsResponse = PrivateChatSecondDeleteChatsOneVOneV0Response;
 
 export async function deleteUserChats(
     body: DeleteUserChatsRequest,

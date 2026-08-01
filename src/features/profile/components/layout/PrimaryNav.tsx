@@ -1,5 +1,5 @@
-import Hex from '@/components/Hex';
-import cn from '@/utils/cn';
+import Hex from '@/components/ui/Hex';
+import { cn  }from '@/lib/utils';
 import { useLocation } from 'preact-iso';
 import type { FC } from 'preact/compat';
 import { navItems, type PrimaryNavItemType } from '../../data/primaryNavItems';

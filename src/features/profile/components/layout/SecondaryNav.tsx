@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import { cn  }from '@/lib/utils';
 import type { FC } from 'preact/compat';
 import { useState } from 'preact/hooks';
 import type { NavItem } from '../../data/secondaryNavItems';

@@ -1,4 +1,4 @@
-import Headline from '@/components/Headline';
+import Headline from '@/components/ui/Headline';
 import { Button } from '@/features/profile/components/ui/Button';
 import type { Signal } from '@preact/signals';
 import { CheckCheck, Trash2 } from 'lucide-preact';

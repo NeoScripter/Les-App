@@ -1,27 +1,20 @@
-import Hex from '@/components/Hex';
-import cn from '@/utils/cn';
+import Hex from '@/components/ui/Hex';
+import type { ProfileFields } from '@/features/profile/services/api/chats';
+import getAvatarStyle from '@/features/profile/utils/getAvatarStyle';
+import { cn } from '@/lib/utils';
 import { Check } from 'lucide-preact';
 import { useMemo, type FC } from 'preact/compat';
-import getAvatarStyle from '../../utils/getAvatarStyle';
 
 type Props = {
+    chat: ProfileFields;
     className?: string;
-    name: string;
-    initials: string;
-    time?: string;
-    summary: string;
-    numMessages?: number;
     bg?: string;
     onClick?: () => void;
     isSelected?: boolean;
 };
 
 const ContactItem: FC<Props> = ({
-    name,
-    initials,
-    time,
-    summary,
-    numMessages,
+    chat,
     className,
     bg,
     onClick,
@@ -32,6 +25,28 @@ const ContactItem: FC<Props> = ({
         color: styles.color,
         backgroundColor: styles.backgroundColor,
     };
+
+    let isBlocked = chat.name === null;
+
+    if (isBlocked) {
+        return <li>User is blocked</li>;
+    }
+
+    const relation = chat.relationship_state;
+
+    isBlocked = relation.block.negative || relation.block.positive;
+
+    if (isBlocked) {
+        return <li>User is blocked</li>;
+    }
+
+    const hasContact = relation.contact.has;
+
+    if (!hasContact) {
+        return <li>You don't have contact</li>;
+    }
+
+    const person = relation.contact.contact;
 
     return (
         <li>
@@ -55,7 +70,8 @@ const ContactItem: FC<Props> = ({
                         as="figure"
                     >
                         <span className="xs:text-sm text-xs font-bold">
-                            {initials}
+                            {person.first_name.charAt(0) +
+                                person.last_name.charAt(0)}
                         </span>
                         {styles.hasBorder && (
                             <Hex.Border
@@ -67,28 +83,28 @@ const ContactItem: FC<Props> = ({
 
                     <div className="relative min-w-0 flex-1">
                         <h2 className="xs:text-lg truncate font-medium">
-                            {name}
+                            {`${person.first_name} ${person.last_name}`}
                         </h2>
                         <p className="xs:text-base truncate text-sm text-gray-400">
-                            {summary}
+                            {person.short_description}
                         </p>
                     </div>
 
-                    {time && numMessages && (
-                        <div className="relative flex flex-col items-center justify-between gap-1">
-                            <time
-                                dateTime={time}
-                                className="text-sm font-medium text-gray-400"
-                            >
-                                {time}
-                            </time>
-                            {numMessages > 0 && (
-                                <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold">
-                                    {numMessages}
-                                </span>
-                            )}
-                        </div>
-                    )}
+                    {/* {time && numMessages && ( */}
+                    {/*     <div className="relative flex flex-col items-center justify-between gap-1"> */}
+                    {/*         <time */}
+                    {/*             dateTime={time} */}
+                    {/*             className="text-sm font-medium text-gray-400" */}
+                    {/*         > */}
+                    {/*             {time} */}
+                    {/*         </time> */}
+                    {/*         {numMessages > 0 && ( */}
+                    {/*             <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold"> */}
+                    {/*                 {numMessages} */}
+                    {/*             </span> */}
+                    {/*         )} */}
+                    {/*     </div> */}
+                    {/* )} */}
                 </div>
                 <button
                     onClick={onClick}

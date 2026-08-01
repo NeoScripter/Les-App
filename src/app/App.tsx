@@ -1,7 +1,7 @@
+import { routes } from '@/app/lib/routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/preact-query';
 import { ErrorBoundary, LocationProvider, Route, Router } from 'preact-iso';
-import './assets/styles.css';
-import { routes } from './data/routes';
+import './lib/styles.css';
 const queryClient = new QueryClient();
 
 if (!('anchorName' in document.documentElement.style)) {
@@ -16,8 +16,9 @@ export function App() {
             <LocationProvider>
                 <ErrorBoundary>
                     <Router>
-                        {routes.map((route) => (
+                        {routes.map((route, idx) => (
                             <Route
+                                key={idx}
                                 path={route.path}
                                 component={route.component}
                             />

@@ -1,4 +1,4 @@
-import Headline from '@/components/Headline';
+import Headline from '@/components/ui/Headline';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import type { Signal } from '@preact/signals';
 import { Ellipsis, Plus } from 'lucide-preact';

@@ -1,4 +1,4 @@
-import type { ApiRequestError } from '@/lib/apiPostOrFail';
+import type { ApiRequestError } from '@/lib/api';
 import { Component } from 'preact';
 
 export default class ErrorBoundary extends Component {
