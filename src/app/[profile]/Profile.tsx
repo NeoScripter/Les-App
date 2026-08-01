@@ -1,4 +1,4 @@
-import ChatList from '@/components/ui/ChatList';
+import ChatList from '@/features/profile/components/ui/ChatList';
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
 import MenuHeader from '@/features/profile/components/layout/MenuHeader';

@@ -1,3 +1,4 @@
+
 type Styles = {
     color: string;
     backgroundColor: string;

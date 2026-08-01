@@ -4,6 +4,7 @@ import type {
     ProfileSearchV0Result,
     ProfileViewOthersRequiredFieldsV0Request,
     ProfileViewOthersRequiredFieldsV0Response,
+    ProfileViewOthersRequiredFieldsV0ResponseNamingData,
     ProfileViewOthersRequiredFieldsV0ResponseProfileLook,
     ProfileViewOthersRequiredFieldsV0Result,
 } from '../../../../services/public-api-union/authorization_profile';
@@ -44,6 +45,7 @@ export type GetProfileFieldsRequest = ProfileViewOthersRequiredFieldsV0Request;
 export type GetProfileFieldsResult = ProfileViewOthersRequiredFieldsV0Result;
 export type GetProfileFieldsResponse = ProfileViewOthersRequiredFieldsV0Response;
 export type ProfileFields = ProfileViewOthersRequiredFieldsV0ResponseProfileLook;
+export type ContactInfo = ProfileViewOthersRequiredFieldsV0ResponseNamingData;
 
 export async function getProfileFields(
     body: GetProfileFieldsRequest,

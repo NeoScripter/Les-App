@@ -1,12 +1,12 @@
 import Hex from '@/components/ui/Hex';
-import type { ProfileFields } from '@/features/profile/services/api/chats';
-import getAvatarStyle from '@/features/profile/utils/getAvatarStyle';
+import getAvatarStyle from '@/features/profile/data/avatarStyles';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-preact';
 import { useMemo, type FC } from 'preact/compat';
+import type { ContactItemDTO } from '../../services/DTO/contactItemDTO';
 
 type Props = {
-    chat: ProfileFields;
+    contact: ContactItemDTO;
     className?: string;
     bg?: string;
     onClick?: () => void;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const ContactItem: FC<Props> = ({
-    chat,
+    contact,
     className,
     bg,
     onClick,
@@ -26,27 +26,9 @@ const ContactItem: FC<Props> = ({
         backgroundColor: styles.backgroundColor,
     };
 
-    let isBlocked = chat.name === null;
-
-    if (isBlocked) {
-        return <li>User is blocked</li>;
+    if (contact == null) {
+        return 'You are blocked, my friend';
     }
-
-    const relation = chat.relationship_state;
-
-    isBlocked = relation.block.negative || relation.block.positive;
-
-    if (isBlocked) {
-        return <li>User is blocked</li>;
-    }
-
-    const hasContact = relation.contact.has;
-
-    if (!hasContact) {
-        return <li>You don't have contact</li>;
-    }
-
-    const person = relation.contact.contact;
 
     return (
         <li>
@@ -69,42 +51,42 @@ const ContactItem: FC<Props> = ({
                         className="relative h-(--hex-size)"
                         as="figure"
                     >
-                        <span className="xs:text-sm text-xs font-bold">
-                            {person.first_name.charAt(0) +
-                                person.last_name.charAt(0)}
-                        </span>
-                        {styles.hasBorder && (
-                            <Hex.Border
-                                styles={{ '--stroke': '3px' }}
-                                className="bg-primary"
-                            />
+                        {contact.avatar ? (
+                            <figure class="size-full">
+                                <img
+                                    src={contact.avatar}
+                                    alt=""
+                                    class="size-full object-contain object-center"
+                                />
+                            </figure>
+                        ) : (
+                            <span className="xs:text-sm text-xs font-bold">
+                                {contact.initials}
+                            </span>
                         )}
                     </Hex>
 
                     <div className="relative min-w-0 flex-1">
                         <h2 className="xs:text-lg truncate font-medium">
-                            {`${person.first_name} ${person.last_name}`}
+                            {contact.name}
                         </h2>
-                        <p className="xs:text-base truncate text-sm text-gray-400">
-                            {person.short_description}
-                        </p>
+                        {contact.lastMessage && (
+                            <p className="xs:text-base truncate text-sm text-gray-400">
+                                {contact.lastMessage}
+                            </p>
+                        )}
                     </div>
 
-                    {/* {time && numMessages && ( */}
-                    {/*     <div className="relative flex flex-col items-center justify-between gap-1"> */}
-                    {/*         <time */}
-                    {/*             dateTime={time} */}
-                    {/*             className="text-sm font-medium text-gray-400" */}
-                    {/*         > */}
-                    {/*             {time} */}
-                    {/*         </time> */}
-                    {/*         {numMessages > 0 && ( */}
-                    {/*             <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold"> */}
-                    {/*                 {numMessages} */}
-                    {/*             </span> */}
-                    {/*         )} */}
-                    {/*     </div> */}
-                    {/* )} */}
+                    <div className="relative flex flex-col items-center justify-between gap-1">
+                        <span className="text-sm font-medium text-gray-400">
+                            Только что
+                        </span>
+                        {contact.unread > 0 && (
+                            <span className="bg-primary text-foreground-accent flex w-10 items-center justify-center rounded-sm text-xs font-semibold">
+                                {contact.unread}
+                            </span>
+                        )}
+                    </div>
                 </div>
                 <button
                     onClick={onClick}

@@ -11,6 +11,7 @@ import {
 } from '@/features/profile/services/api/chats';
 import type { Signal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
+import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
 
 function useMyChats() {
     return useSuspenseQuery({
@@ -73,7 +74,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
             {profileData.profile_looks.map((chat) => (
                 <ContactItem
                     key={chat.target_profile_id}
-                    chat={chat}
+                    contact={convertToContactItemDTO(chat)}
                     onClick={() => handleChatClick(chat.target_profile_id)}
                     isSelected={selectedChatIds.value?.includes(
                         chat.target_profile_id,
