@@ -1,7 +1,6 @@
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import ChatShell from '@/features/profile/components/layout/ChatShell';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
-import { apiPostOrFail } from '@/lib/api';
 import {
     getProfileFileldsUrl,
     getUserChatIdsUrl,
@@ -9,6 +8,7 @@ import {
     type GetProfileFieldsResponse,
     type GetUserChatIdsResponse,
 } from '@/features/profile/services/api/chats';
+import { apiPostOrFail } from '@/lib/api';
 import type { Signal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
