@@ -1,11 +1,12 @@
-import { useEffect } from 'preact/hooks';
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { CACHE_KEYS } from '@/data/constants';
 import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { apiPostOrFail } from '@/lib/api';
+import { Signal, useSignal } from '@preact/signals';
 import { useMutation, useQueryClient } from '@tanstack/preact-query';
 import { Suspense, useState, type FC } from 'preact/compat';
+import { useEffect } from 'preact/hooks';
 import useChatProfiles from '../../hooks/useChatProfiles';
 import {
     searchNewChatProfilesUrl,
@@ -67,13 +68,16 @@ function useMyContacts() {
     });
 }
 
-function ChatWrapper() {
+type WrapperProps = {
+    query: Signal<string>;
+};
+
+function ChatWrapper({ query }: WrapperProps) {
     const { mutate: fetchContacts, isPending } = useMyContacts();
-    const [query, setQuery] = useState('');
     const [searchedProfileIds, setSearchedProfileIds] = useState<string[]>([]);
 
     const handleSearchContacts = () => {
-        fetchContacts(query, {
+        fetchContacts(query.value, {
             onSuccess: (data) => {
                 setSearchedProfileIds(data.contact_profile_ids);
             },
@@ -81,11 +85,9 @@ function ChatWrapper() {
     };
 
     useEffect(() => {
-        handleSearchContacts()
+        handleSearchContacts();
 
-        return () => {
-            
-        };
+        return () => {};
     }, []);
 
     const { data: profileData } = useChatProfiles(searchedProfileIds ?? []);
@@ -106,6 +108,8 @@ function ChatWrapper() {
 }
 
 const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
+    const query = useSignal<string>('');
+
     return (
         <>
             <NewChatHeader
@@ -114,7 +118,7 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
             />
 
             <div>
-                <SearchInput placeholder="Поиск по всем..." />
+                <SearchInput query={query} placeholder="Поиск по всем..." />
                 <hr class="text-foreground-muted -mx-(--px) mt-2" />
             </div>
 
@@ -141,7 +145,7 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <ErrorBoundary>
                 <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
-                    <ChatWrapper />
+                    <ChatWrapper query={query} />
                 </Suspense>
             </ErrorBoundary>
         </>

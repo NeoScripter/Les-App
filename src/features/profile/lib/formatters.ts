@@ -6,13 +6,24 @@ export function combineChatAndProfileData(
     chats: PrivateChatInfo[],
     profiles: ProfileFields[],
 ): CombinedProfileInfo[] {
+    const newProfiles = [];
 
-    const map = new Map(chats.map((item) => [item.profile_id, item]));
+    for (const profile of profiles) {
+        const matchingChat = chats.find(
+            (chat) => chat.profile_id === profile.for_profile_id,
+        );
 
-    const completeProfiles = profiles.map((item) => ({
-        ...item,
-        ...map.get(item.for_profile_id),
-    })) as unknown as CombinedProfileInfo[];
+        if (!matchingChat) {
+            continue;
+        }
 
-    return completeProfiles;
+        const newProfile = {
+            ...matchingChat,
+            ...profile,
+        };
+
+        newProfiles.push(newProfile);
+    }
+
+    return newProfiles;
 }
