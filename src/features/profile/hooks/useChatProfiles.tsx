@@ -1,6 +1,6 @@
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import {
-    getProfileFileldsUrl,
+    getProfileFieldsUrl,
     type GetProfileFieldsRequest,
     type GetProfileFieldsResponse,
 } from '@/features/profile/services/api/chats';
@@ -12,7 +12,7 @@ export default function useChatProfiles(profileIds: string[]) {
         queryKey: [CACHE_KEYS.PROFILE_FIELDS, profileIds],
         queryFn: () =>
             apiPostOrFail<GetProfileFieldsResponse, GetProfileFieldsRequest>(
-                getProfileFileldsUrl,
+                getProfileFieldsUrl,
                 {
                     target_profile_ids: profileIds.slice(0, 20),
                     required_fields: [

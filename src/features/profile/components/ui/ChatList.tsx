@@ -1,8 +1,10 @@
+import { useChatWindowState } from '@/app/[profile]/Profile';
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import ChatShell from '@/features/profile/components/layout/ChatShell';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import {
     getUserChatIdsUrl,
+    type GetChatMessageIdsRequest,
     type GetUserChatIdsResponse,
 } from '@/features/profile/services/api/chats';
 import { apiPostOrFail } from '@/lib/api';
@@ -11,7 +13,6 @@ import { useSuspenseQuery } from '@tanstack/preact-query';
 import useChatProfiles from '../../hooks/useChatProfiles';
 import { combineChatAndProfileData } from '../../lib/formatters';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
-import { useChatWindowState } from '@/app/[profile]/Profile';
 
 function useMyChats() {
     return useSuspenseQuery({
@@ -28,7 +29,7 @@ type Props = {
 
 const ChatList = ({ selectedChatIds }: Props) => {
     const { data: chatData } = useMyChats();
-    const show = useChatWindowState();
+    const state = useChatWindowState();
 
     const profileIds = chatData.chats.map((chat) => chat.interlocutor_id);
 
@@ -39,18 +40,25 @@ const ChatList = ({ selectedChatIds }: Props) => {
         profileData.profile_looks,
     );
 
-    const handleChatClick = (id: string) => {
+    const handleChatClick = (
+        chatId: string,
+        lastReadMessageId: string | null,
+    ) => {
         if (selectedChatIds.value === null) {
-            show.value = true;
-            // TODO: open the chat messages
+            const newState: GetChatMessageIdsRequest = {
+                profile_id: null,
+                current_read_message_id: lastReadMessageId,
+                chat_id: chatId,
+            };
+            state.value = newState;
             return;
         }
-        if (selectedChatIds.value.includes(id)) {
+        if (selectedChatIds.value.includes(chatId)) {
             selectedChatIds.value = selectedChatIds.value.filter(
-                (val) => val !== id,
+                (val) => val !== chatId,
             );
         } else {
-            selectedChatIds.value = [...selectedChatIds.value, id];
+            selectedChatIds.value = [...selectedChatIds.value, chatId];
         }
     };
 
@@ -61,7 +69,12 @@ const ChatList = ({ selectedChatIds }: Props) => {
                     <ContactItem
                         key={chat.target_profile_id}
                         contact={convertToContactItemDTO(chat)}
-                        onClick={() => handleChatClick(chat.chat_id)}
+                        onClick={() =>
+                            handleChatClick(
+                                chat.chat_id,
+                                chat.last_read_message_id,
+                            )
+                        }
                         isSelected={selectedChatIds.value?.includes(
                             chat.chat_id,
                         )}

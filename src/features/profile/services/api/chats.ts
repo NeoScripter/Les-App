@@ -1,7 +1,3 @@
-import {
-    apiPostResult,
-    type ApiPostOptions,
-} from '../../../../services/api/apiPostResult';
 import type {
     ProfileSearchWithContactsV0Request,
     ProfileSearchWithContactsV0Response,
@@ -33,132 +29,72 @@ import type {
     PrivateChatSecondMessageGetIdsV0Result,
 } from '../../../../services/public-api-union/chat_private_chat_second';
 
-export type GetUserChatIdsResult = PrivateChatSecondGetChatsOneVOneV0Result;
-export type GetUserChatIdsRequest = PrivateChatSecondGetChatsOneVOneV0Request;
-export type GetUserChatIdsResponse = PrivateChatSecondGetChatsOneVOneV0Response;
-export type PrivateChatInfo =
-    PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo;
+// ============================================
+// Re-exports with aliases (Method 4)
+// ============================================
 
-export async function getUserChatIds(
-    body: GetUserChatIdsRequest,
-    options: ApiPostOptions = {},
-): Promise<GetUserChatIdsResult> {
-    return apiPostResult<GetUserChatIdsResponse>(
-        '/api/privateChatSecond/getChats/oneVOne/v0',
-        body,
-        options,
-    );
-}
+// GetUserChatIds
+export type {
+    PrivateChatSecondGetChatsOneVOneV0Result as GetUserChatIdsResult,
+    PrivateChatSecondGetChatsOneVOneV0Request as GetUserChatIdsRequest,
+    PrivateChatSecondGetChatsOneVOneV0Response as GetUserChatIdsResponse,
+    PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo as PrivateChatInfo,
+};
 
 export const getUserChatIdsUrl = '/api/privateChatSecond/getChats/oneVOne/v0';
 
-export type GetProfileFieldsRequest = ProfileViewOthersRequiredFieldsV0Request;
-export type GetProfileFieldsResult = ProfileViewOthersRequiredFieldsV0Result;
-export type GetProfileFieldsResponse =
-    ProfileViewOthersRequiredFieldsV0Response;
-export type ProfileFields =
-    ProfileViewOthersRequiredFieldsV0ResponseProfileLook;
-export type ContactInfo = ProfileViewOthersRequiredFieldsV0ResponseNamingData;
+// GetProfileFields
+export type {
+    ProfileViewOthersRequiredFieldsV0Request as GetProfileFieldsRequest,
+    ProfileViewOthersRequiredFieldsV0Result as GetProfileFieldsResult,
+    ProfileViewOthersRequiredFieldsV0Response as GetProfileFieldsResponse,
+    ProfileViewOthersRequiredFieldsV0ResponseProfileLook as ProfileFields,
+    ProfileViewOthersRequiredFieldsV0ResponseNamingData as ContactInfo,
+};
 
-export async function getProfileFields(
-    body: GetProfileFieldsRequest,
-    options: ApiPostOptions = {},
-): Promise<GetProfileFieldsResult> {
-    return apiPostResult<GetProfileFieldsResponse>(
-        '/api/profile/view/others/requiredFields/v0',
-        body,
-        options,
-    );
-}
-
-export const getProfileFileldsUrl =
+export const getProfileFieldsUrl =
     '/api/profile/view/others/requiredFields/v0';
 
-export type GetChatMessageIdsRequest = PrivateChatSecondMessageGetIdsV0Request;
-export type GetChatMessageIdsResult = PrivateChatSecondMessageGetIdsV0Result;
-export type GetChatMessageIdsResponse =
-    PrivateChatSecondMessageGetIdsV0Response;
-
-export async function getChatMessageIds(
-    body: GetChatMessageIdsRequest,
-    options: ApiPostOptions = {},
-): Promise<GetChatMessageIdsResult> {
-    return apiPostResult<GetChatMessageIdsResponse>(
-        '/api/privateChatSecond/message/getIds/v0',
-        body,
-        options,
-    );
-}
+// GetChatMessageIds
+export type {
+    PrivateChatSecondMessageGetIdsV0Request as GetChatMessageIdsRequest,
+    PrivateChatSecondMessageGetIdsV0Result as GetChatMessageIdsResult,
+    PrivateChatSecondMessageGetIdsV0Response as GetChatMessageIdsResponse,
+};
 
 export const getChatMessageIdsUrl = '/api/privateChatSecond/message/getIds/v0';
 
-export type GetChatMessagesRequest = PrivateChatSecondMessageGetByIdsV0Request;
-export type GetChatMessagesResult = PrivateChatSecondMessageGetByIdsV0Result;
-export type GetChatMessagesResponse =
-    PrivateChatSecondMessageGetByIdsV0Response;
-
-export async function getChatMessages(
-    body: GetChatMessagesRequest,
-    options: ApiPostOptions = {},
-): Promise<GetChatMessagesResult> {
-    return apiPostResult<GetChatMessagesResponse>(
-        '/api/privateChatSecond/message/getByIds/v0',
-        body,
-        options,
-    );
-}
+// GetChatMessages
+export type {
+    PrivateChatSecondMessageGetByIdsV0Request as GetChatMessagesRequest,
+    PrivateChatSecondMessageGetByIdsV0Result as GetChatMessagesResult,
+    PrivateChatSecondMessageGetByIdsV0Response as GetChatMessagesResponse,
+};
 
 export const getChatMessagesUrl = '/api/privateChatSecond/message/getByIds/v0';
 
+// AddUserToContacts
+export type {
+    ProfileRelationshipContactAddV0Request as AddUserToContactsRequest,
+    ProfileRelationshipContactAddV0Result as AddUserToContactsResult,
+    ProfileRelationshipContactAddV0Response as AddUserToContactsResponse,
+};
 
-export type AddUserToContactsRequest = ProfileRelationshipContactAddV0Request;
-export type AddUserToContactsResult = ProfileRelationshipContactAddV0Result;
-export type AddUserToContactsResponse = ProfileRelationshipContactAddV0Response;
-
-export async function addUsersToContacts(
-    body: AddUserToContactsRequest,
-    options: ApiPostOptions = {},
-): Promise<AddUserToContactsResult> {
-    return apiPostResult<AddUserToContactsResponse>(
-        '/api/profilesRelationship/contact/add/v0',
-        body,
-        options,
-    );
-}
-
-export type SearchNewChatProfilesRequest = ProfileSearchWithContactsV0Request;
-export type SearchNewChatProfilesResult = ProfileSearchWithContactsV0Result;
-export type SearchNewChatProfilesResponse = ProfileSearchWithContactsV0Response;
-
-export async function searchNewChatProfiles(
-    body: SearchNewChatProfilesRequest,
-    options: ApiPostOptions = {},
-): Promise<SearchNewChatProfilesResult> {
-    return apiPostResult<SearchNewChatProfilesResponse>(
-        '/api/profile/search/withContacts/v0',
-        body,
-        options,
-    );
-}
+// SearchNewChatProfiles
+export type {
+    ProfileSearchWithContactsV0Request as SearchNewChatProfilesRequest,
+    ProfileSearchWithContactsV0Result as SearchNewChatProfilesResult,
+    ProfileSearchWithContactsV0Response as SearchNewChatProfilesResponse,
+};
 
 export const searchNewChatProfilesUrl = '/api/profile/search/withContacts/v0';
 
-export type DeleteUserChatsRequest =
-    PrivateChatSecondDeleteChatsOneVOneV0Request;
-export type DeleteUserChatsResult = PrivateChatSecondDeleteChatsOneVOneV0Result;
-export type DeleteUserChatsResponse =
-    PrivateChatSecondDeleteChatsOneVOneV0Response;
-
-export async function deleteUserChats(
-    body: DeleteUserChatsRequest,
-    options: ApiPostOptions = {},
-): Promise<DeleteUserChatsResult> {
-    return apiPostResult<DeleteUserChatsResponse>(
-        '/api/privateChatSecond/deleteChats/oneVOne/v0',
-        body,
-        options,
-    );
-}
+// DeleteUserChats
+export type {
+    PrivateChatSecondDeleteChatsOneVOneV0Request as DeleteUserChatsRequest,
+    PrivateChatSecondDeleteChatsOneVOneV0Result as DeleteUserChatsResult,
+    PrivateChatSecondDeleteChatsOneVOneV0Response as DeleteUserChatsResponse,
+};
 
 export const deleteUserChatsUrl =
     '/api/privateChatSecond/deleteChats/oneVOne/v0';

@@ -1,3 +1,4 @@
+import type { GetChatMessageIdsRequest } from '@/features/profile/services/api/chats';
 import { useEscapeKey } from '@/hooks/useEscapeKey';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
@@ -7,23 +8,23 @@ import { useContext } from 'preact/hooks';
 import ChatListPanel from './partials/ChatListPanel';
 import ChatWindow from './partials/ChatWindow';
 
-const ChatWindowStateContext = createContext<Signal<boolean> | null>(null);
+const ChatWindowStateContext =
+    createContext<Signal<GetChatMessageIdsRequest | null> | null>(null);
 
 const Profile = () => {
-    const showChatWindow = useSignal<boolean>(false);
+    const chatWindowState = useSignal<GetChatMessageIdsRequest | null>(null);
     const isOnePanelWidth = useMediaQuery('(max-width: 48rem)');
-    useEscapeKey(() => (showChatWindow.value = false));
+    useEscapeKey(() => (chatWindowState.value = null));
 
-    const shouldHideChatList = isOnePanelWidth && showChatWindow.value === true;
-
-    const shouldShowChatWindow = showChatWindow.value === true;
+    const shouldShowChatWindow = chatWindowState.value != null;
+    const shouldHideChatList = isOnePanelWidth && shouldShowChatWindow;
 
     return (
         <main className="flex h-full gap-2 p-2 sm:gap-4 sm:p-4">
-            <ChatWindowStateContext value={showChatWindow}>
+            <ChatWindowStateContext value={chatWindowState}>
                 <ChatListPanel className={cn(shouldHideChatList && 'hidden')} />
 
-                {shouldShowChatWindow && <ChatWindow />}
+                {shouldShowChatWindow && <ChatWindow state={chatWindowState} />}
             </ChatWindowStateContext>
         </main>
     );

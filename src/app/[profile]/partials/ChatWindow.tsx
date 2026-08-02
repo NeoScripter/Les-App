@@ -1,16 +1,66 @@
 import PanelLayout from '@/components/layout/PanelLayout';
 import Headline from '@/components/ui/Headline';
 import Hex from '@/components/ui/Hex';
+import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import Input from '@/features/profile/components/form/Input';
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import getAvatarStyle from '@/features/profile/data/avatarStyles';
+import {
+    getChatMessageIdsUrl,
+    getChatMessagesUrl,
+    type GetChatMessageIdsRequest,
+    type GetChatMessageIdsResponse,
+    type GetChatMessagesRequest,
+    type GetChatMessagesResponse,
+} from '@/features/profile/services/api/chats';
+import { apiPostOrFail } from '@/lib/api';
+import type { Signal } from '@preact/signals';
+import { useSuspenseQuery } from '@tanstack/preact-query';
 import { AudioLines, ChevronLeft, Mic, Paperclip, Video } from 'lucide-preact';
 import { useMemo, type FC } from 'preact/compat';
-import { useChatWindowState } from '../Profile';
 
-const ChatWindow: FC<{ className?: string }> = ({ className }) => {
-    const show = useChatWindowState();
+function useChatMessageIds(request: GetChatMessageIdsRequest) {
+    return useSuspenseQuery({
+        queryKey: [CACHE_KEYS.CHAT_MESSAGE_IDS],
+        queryFn: () =>
+            apiPostOrFail<GetChatMessageIdsResponse, GetChatMessageIdsRequest>(
+                getChatMessageIdsUrl,
+                request,
+            ),
+        staleTime: CACHE_LIFETIME_MS,
+    });
+}
+
+type ChatMessagesProps = { chatId: string; messageIds: string[] };
+
+function useChatMessages({ chatId, messageIds }: ChatMessagesProps) {
+    return useSuspenseQuery({
+        queryKey: [CACHE_KEYS.CHAT_MESSAGE_IDS],
+        queryFn: () =>
+            apiPostOrFail<GetChatMessagesResponse, GetChatMessagesRequest>(
+                getChatMessagesUrl,
+                { chat_id: chatId, message_ids: messageIds, profile_id: null },
+            ),
+        staleTime: CACHE_LIFETIME_MS,
+    });
+}
+
+type Props = {
+    state: Signal<GetChatMessageIdsRequest | null>;
+};
+
+const ChatWindow: FC<Props> = ({ state }) => {
+    const request = state.value as GetChatMessageIdsRequest;
+    const { data: chatMessageIdData } = useChatMessageIds(request);
+    const chatId = request.chat_id,
+        messageIds = chatMessageIdData.messages_in_between.map(
+            (message) => message.message_id,
+        );
+
+    const { data: chatMessages } = useChatMessages({ chatId, messageIds });
+
+    console.log(chatMessages)
 
     const styles = useMemo(() => getAvatarStyle(), []);
     const colors = {
@@ -23,7 +73,7 @@ const ChatWindow: FC<{ className?: string }> = ({ className }) => {
             <PanelHeader>
                 <button
                     type="button"
-                    onClick={() => (show.value = false)}
+                    onClick={() => (state.value = null)}
                     class="size-10"
                 >
                     <ChevronLeft />

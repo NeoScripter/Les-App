@@ -11,4 +11,6 @@ export const CACHE_KEYS = {
     USER_CHAT_IDS: 'user_chat_ids',
     PROFILE_FIELDS: 'profile_fields',
     USER_CONTACTS: 'user_contacts',
+    CHAT_MESSAGE_IDS: 'chat_message_ids',
+    CHAT_MESSAGES: 'chat_messages',
 }
