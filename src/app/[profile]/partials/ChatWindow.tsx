@@ -7,8 +7,11 @@ import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import getAvatarStyle from '@/features/profile/data/avatarStyles';
 import { AudioLines, ChevronLeft, Mic, Paperclip, Video } from 'lucide-preact';
 import { useMemo, type FC } from 'preact/compat';
+import { useChatWindowState } from '../Profile';
 
 const ChatWindow: FC<{ className?: string }> = ({ className }) => {
+    const show = useChatWindowState();
+
     const styles = useMemo(() => getAvatarStyle(), []);
     const colors = {
         color: styles.color,
@@ -16,9 +19,13 @@ const ChatWindow: FC<{ className?: string }> = ({ className }) => {
     };
 
     return (
-        <PanelLayout className="flex-1 w-full">
+        <PanelLayout className="w-full flex-1">
             <PanelHeader>
-                <button class="size-10">
+                <button
+                    type="button"
+                    onClick={() => (show.value = false)}
+                    class="size-10"
+                >
                     <ChevronLeft />
                 </button>
 
@@ -32,7 +39,7 @@ const ChatWindow: FC<{ className?: string }> = ({ className }) => {
                     </Hex>
                     <Headline className="text-base">Alexey Ms</Headline>
                 </div>
-                <button class="size-10">
+                <button type="button" class="size-10">
                     <AudioLines />
                 </button>
             </PanelHeader>

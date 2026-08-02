@@ -11,6 +11,7 @@ import { useSuspenseQuery } from '@tanstack/preact-query';
 import useChatProfiles from '../../hooks/useChatProfiles';
 import { combineChatAndProfileData } from '../../lib/formatters';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
+import { useChatWindowState } from '@/app/[profile]/Profile';
 
 function useMyChats() {
     return useSuspenseQuery({
@@ -27,6 +28,7 @@ type Props = {
 
 const ChatList = ({ selectedChatIds }: Props) => {
     const { data: chatData } = useMyChats();
+    const show = useChatWindowState();
 
     const profileIds = chatData.chats.map((chat) => chat.interlocutor_id);
 
@@ -39,6 +41,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
 
     const handleChatClick = (id: string) => {
         if (selectedChatIds.value === null) {
+            show.value = true;
             // TODO: open the chat messages
             return;
         }
