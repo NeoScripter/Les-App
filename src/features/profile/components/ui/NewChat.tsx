@@ -1,12 +1,15 @@
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
-import { CACHE_KEYS } from '@/data/constants';
+import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { apiPostOrFail } from '@/lib/api';
-import { Signal, useSignal } from '@preact/signals';
-import { useMutation, useQueryClient } from '@tanstack/preact-query';
-import { Suspense, useState, type FC } from 'preact/compat';
-import { useEffect } from 'preact/hooks';
+import { useSignal } from '@preact/signals';
+import {
+    useMutation,
+    useQueryClient,
+    useSuspenseQuery,
+} from '@tanstack/preact-query';
+import { Suspense, type FC } from 'preact/compat';
 import useChatProfiles from '../../hooks/useChatProfiles';
 import {
     searchNewChatProfilesUrl,
@@ -42,61 +45,34 @@ const tabs: { path: TabType; label: string }[] = [
     },
 ];
 
-// function useMyContacts() {
-//     return useSuspenseQuery({
-//         queryKey: [CACHE_KEYS.USER_CHAT_IDS],
-//         queryFn: () =>
-//             apiPostOrFail<SearchNewChatProfilesResponse>(searchNewChatProfilesUrl, {}),
-//         staleTime: CACHE_LIFETIME_MS,
-//     });
-// }
-
-function useMyContacts() {
-    const queryClient = useQueryClient();
-
-    return useMutation({
-        mutationFn: (search: string) =>
+function useMyContacts({ query }: { query: string }) {
+    return useSuspenseQuery({
+        queryKey: [CACHE_KEYS.USER_CONTACTS, query],
+        queryFn: () =>
             apiPostOrFail<
                 SearchNewChatProfilesResponse,
                 SearchNewChatProfilesRequest
-            >(searchNewChatProfilesUrl, { search, search_limit: 1000 }),
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: [CACHE_KEYS.USER_CHAT_IDS, CACHE_KEYS.PROFILE_FIELDS],
-            });
-        },
+            >(searchNewChatProfilesUrl, { search: query, search_limit: 1000 }),
+        staleTime: CACHE_LIFETIME_MS,
     });
 }
 
 type WrapperProps = {
-    query: Signal<string>;
+    query: string;
 };
 
 function ChatWrapper({ query }: WrapperProps) {
-    const { mutate: fetchContacts, isPending } = useMyContacts();
-    const [searchedProfileIds, setSearchedProfileIds] = useState<string[]>([]);
+    const { data: contactData } = useMyContacts({ query });
 
-    const handleSearchContacts = () => {
-        fetchContacts(query.value, {
-            onSuccess: (data) => {
-                setSearchedProfileIds(data.contact_profile_ids);
-            },
-        });
-    };
+    const { data: profileData } = useChatProfiles(
+        contactData?.contact_profile_ids ?? [],
+    );
 
-    useEffect(() => {
-        handleSearchContacts();
-
-        return () => {};
-    }, []);
-
-    const { data: profileData } = useChatProfiles(searchedProfileIds ?? []);
-
-    console.log(profileData.profile_looks);
+    const profiles = profileData.profile_looks;
 
     return (
-        <ChatShell>
-            {profileData.profile_looks.map((contact) => (
+        <ChatShell isEmpty={profiles.length === 0}>
+            {profiles.map((contact) => (
                 <ContactItem
                     key={contact.target_profile_id}
                     contact={convertToContactItemDTO(contact)}
@@ -145,7 +121,7 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <ErrorBoundary>
                 <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
-                    <ChatWrapper query={query} />
+                    <ChatWrapper query={query.value} />
                 </Suspense>
             </ErrorBoundary>
         </>

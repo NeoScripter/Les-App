@@ -9,8 +9,8 @@ import { apiPostOrFail } from '@/lib/api';
 import type { Signal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
 import useChatProfiles from '../../hooks/useChatProfiles';
-import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
 import { combineChatAndProfileData } from '../../lib/formatters';
+import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
 
 function useMyChats() {
     return useSuspenseQuery({
@@ -32,7 +32,10 @@ const ChatList = ({ selectedChatIds }: Props) => {
 
     const { data: profileData } = useChatProfiles(profileIds);
 
-    const profiles = combineChatAndProfileData(chatData.chats, profileData.profile_looks);
+    const profiles = combineChatAndProfileData(
+        chatData.chats,
+        profileData.profile_looks,
+    );
 
     const handleChatClick = (id: string) => {
         if (selectedChatIds.value === null) {
@@ -49,7 +52,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
     };
 
     return (
-        <ChatShell>
+        <ChatShell isEmpty={profiles.length === 0}>
             {profiles.map((chat) => {
                 return (
                     <ContactItem
