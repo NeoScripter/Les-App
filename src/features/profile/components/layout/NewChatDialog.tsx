@@ -1,6 +1,6 @@
 import Headline from '@/components/ui/Headline';
 import DialogLayout from '@/components/layout/DialogLayout';
-import MenuLayout from '@/components/layout/MenuLayout';
+import MenuLayout from '@/components/layout/PanelLayout';
 import { cn  }from '@/lib/utils';
 import type { Signal } from '@preact/signals';
 import { useSignal } from '@preact/signals';
@@ -12,7 +12,7 @@ import InviteToLes from '../ui/InviteToLes';
 import MiniChat from '../ui/MiniChat';
 import NewChat from '../ui/NewChat';
 import SecretChat from '../ui/SecretChat';
-import MenuHeader from './MenuHeader';
+import PanelHeader from './PanelHeader';
 
 type Props = {
     className?: string;
@@ -68,7 +68,7 @@ export function NewChatHeader({
     headline: string;
 }) {
     return (
-        <MenuHeader>
+        <PanelHeader>
             <span class="flex-1">
                 <FramedIconBtn
                     onClick={onClick}
@@ -79,6 +79,6 @@ export function NewChatHeader({
             </span>
             <Headline as="h3">{headline}</Headline>
             <span class="flex-1" />
-        </MenuHeader>
+        </PanelHeader>
     );
 }

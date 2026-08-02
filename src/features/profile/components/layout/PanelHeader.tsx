@@ -2,7 +2,7 @@ import { cn  }from '@/lib/utils';
 import type { ComponentChildren } from 'preact';
 import type { FC } from 'preact/compat';
 
-const MenuHeader: FC<{ className?: string; children: ComponentChildren }> = ({
+const PanelHeader: FC<{ className?: string; children: ComponentChildren }> = ({
     className,
     children,
 }) => {
@@ -18,4 +18,4 @@ const MenuHeader: FC<{ className?: string; children: ComponentChildren }> = ({
     );
 };
 
-export default MenuHeader;
+export default PanelHeader;

@@ -7,12 +7,11 @@ type Props = {
     query?: Signal<string>;
 } & ComponentProps<'input'>;
 
-const SearchInput: FC<Props> = ({ className, query, ...props }) => {
+const Input: FC<Props> = ({ className, query, ...props }) => {
     return (
         <input
-            type="search"
             class={cn(
-                'border-foreground-muted rounded-primary mb-2 w-full border px-3 py-1',
+                'border-foreground-muted rounded-primary w-full border px-3 py-1',
                 className,
             )}
             onInput={(e) => (query.value = e.target.value)}
@@ -21,4 +20,4 @@ const SearchInput: FC<Props> = ({ className, query, ...props }) => {
     );
 };
 
-export default SearchInput;
+export default Input;

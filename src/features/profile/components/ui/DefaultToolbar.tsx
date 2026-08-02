@@ -13,11 +13,13 @@ const DefaultToolbar: FC<{
                 popovertarget="profile-popover"
                 style="anchor-name: --profile;"
                 icon={Ellipsis}
+                size="sm"
                 variant="ghost"
             />
             <Headline as="h1">Личка</Headline>
             <FramedIconBtn
                 icon={Plus}
+                size="sm"
                 onClick={() => (showMenu.value = true)}
             />
         </>

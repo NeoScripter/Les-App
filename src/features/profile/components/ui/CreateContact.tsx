@@ -1,6 +1,6 @@
+import Input from '@/features/profile/components/form/Input';
 import type { FC } from 'preact/compat';
 import { NewChatHeader, type ChatTabProps } from '../layout/NewChatDialog';
-import SearchInput from './SearchInput';
 
 const CreateContact: FC<ChatTabProps> = ({ currentTab }) => {
     return (
@@ -13,9 +13,7 @@ const CreateContact: FC<ChatTabProps> = ({ currentTab }) => {
                 <label>
                     <p class="text-foreground/50 font-medium">Контакты</p>
 
-                    <SearchInput placeholder="Поиск по нику..." />
-                    <SearchInput placeholder="Поиск по нику..." />
-                    <SearchInput placeholder="Поиск по нику..." />
+                    <Input placeholder="Поиск по нику..." className="mb-2" />
                 </label>
                 <hr class="text-foreground-muted -mx-(--px) mt-2" />
             </div>

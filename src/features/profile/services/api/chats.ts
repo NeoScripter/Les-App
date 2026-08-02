@@ -3,9 +3,6 @@ import {
     type ApiPostOptions,
 } from '../../../../services/api/apiPostResult';
 import type {
-    ProfileSearchV0Request,
-    ProfileSearchV0Response,
-    ProfileSearchV0Result,
     ProfileSearchWithContactsV0Request,
     ProfileSearchWithContactsV0Response,
     ProfileSearchWithContactsV0Result,
@@ -28,12 +25,19 @@ import type {
     PrivateChatSecondGetChatsOneVOneV0Response,
     PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo,
     PrivateChatSecondGetChatsOneVOneV0Result,
+    PrivateChatSecondMessageGetByIdsV0Request,
+    PrivateChatSecondMessageGetByIdsV0Response,
+    PrivateChatSecondMessageGetByIdsV0Result,
+    PrivateChatSecondMessageGetIdsV0Request,
+    PrivateChatSecondMessageGetIdsV0Response,
+    PrivateChatSecondMessageGetIdsV0Result,
 } from '../../../../services/public-api-union/chat_private_chat_second';
 
 export type GetUserChatIdsResult = PrivateChatSecondGetChatsOneVOneV0Result;
 export type GetUserChatIdsRequest = PrivateChatSecondGetChatsOneVOneV0Request;
 export type GetUserChatIdsResponse = PrivateChatSecondGetChatsOneVOneV0Response;
-export type PrivateChatInfo = PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo;
+export type PrivateChatInfo =
+    PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo;
 
 export async function getUserChatIds(
     body: GetUserChatIdsRequest,
@@ -70,26 +74,42 @@ export async function getProfileFields(
 export const getProfileFileldsUrl =
     '/api/profile/view/others/requiredFields/v0';
 
-// if the person is a contact, show first name, last name and short descritpion
-// otherwise name
-// if is blocked, display the blocked notification but don't delete the chat
+export type GetChatMessageIdsRequest = PrivateChatSecondMessageGetIdsV0Request;
+export type GetChatMessageIdsResult = PrivateChatSecondMessageGetIdsV0Result;
+export type GetChatMessageIdsResponse =
+    PrivateChatSecondMessageGetIdsV0Response;
 
-/// Don't forget to cache each separate response for unique contact id manually
-
-export type FindUserByNicknameRequest = ProfileSearchV0Request;
-export type FindUserByNicknameResult = ProfileSearchV0Result;
-export type FindUserByNicknameResponse = ProfileSearchV0Response;
-
-export async function findUsersByNickname(
-    body: FindUserByNicknameRequest,
+export async function getChatMessageIds(
+    body: GetChatMessageIdsRequest,
     options: ApiPostOptions = {},
-): Promise<FindUserByNicknameResult> {
-    return apiPostResult<FindUserByNicknameResponse>(
-        '/api/profile/search/v0',
+): Promise<GetChatMessageIdsResult> {
+    return apiPostResult<GetChatMessageIdsResponse>(
+        '/api/privateChatSecond/message/getIds/v0',
         body,
         options,
     );
 }
+
+export const getChatMessageIdsUrl = '/api/privateChatSecond/message/getIds/v0';
+
+export type GetChatMessagesRequest = PrivateChatSecondMessageGetByIdsV0Request;
+export type GetChatMessagesResult = PrivateChatSecondMessageGetByIdsV0Result;
+export type GetChatMessagesResponse =
+    PrivateChatSecondMessageGetByIdsV0Response;
+
+export async function getChatMessages(
+    body: GetChatMessagesRequest,
+    options: ApiPostOptions = {},
+): Promise<GetChatMessagesResult> {
+    return apiPostResult<GetChatMessagesResponse>(
+        '/api/privateChatSecond/message/getByIds/v0',
+        body,
+        options,
+    );
+}
+
+export const getChatMessagesUrl = '/api/privateChatSecond/message/getByIds/v0';
+
 
 export type AddUserToContactsRequest = ProfileRelationshipContactAddV0Request;
 export type AddUserToContactsResult = ProfileRelationshipContactAddV0Result;
@@ -123,7 +143,6 @@ export async function searchNewChatProfiles(
 
 export const searchNewChatProfilesUrl = '/api/profile/search/withContacts/v0';
 
-
 export type DeleteUserChatsRequest =
     PrivateChatSecondDeleteChatsOneVOneV0Request;
 export type DeleteUserChatsResult = PrivateChatSecondDeleteChatsOneVOneV0Result;
@@ -143,4 +162,3 @@ export async function deleteUserChats(
 
 export const deleteUserChatsUrl =
     '/api/privateChatSecond/deleteChats/oneVOne/v0';
-

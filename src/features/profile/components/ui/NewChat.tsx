@@ -1,7 +1,7 @@
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
+import Input from '@/features/profile/components/form/Input';
 import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
-import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { apiPostOrFail } from '@/lib/api';
 import { useSignal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
@@ -90,7 +90,11 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
             />
 
             <div>
-                <SearchInput query={query} placeholder="Поиск по всем..." />
+                <Input
+                    query={query}
+                    placeholder="Поиск по всем..."
+                    className="mb-2"
+                />
                 <hr class="text-foreground-muted -mx-(--px) mt-2" />
             </div>
 
