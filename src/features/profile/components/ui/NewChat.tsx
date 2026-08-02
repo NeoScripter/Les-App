@@ -4,11 +4,7 @@ import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShel
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import { apiPostOrFail } from '@/lib/api';
 import { useSignal } from '@preact/signals';
-import {
-    useMutation,
-    useQueryClient,
-    useSuspenseQuery,
-} from '@tanstack/preact-query';
+import { useSuspenseQuery } from '@tanstack/preact-query';
 import { Suspense, type FC } from 'preact/compat';
 import useChatProfiles from '../../hooks/useChatProfiles';
 import {
@@ -57,11 +53,11 @@ function useMyContacts({ query }: { query: string }) {
     });
 }
 
-type WrapperProps = {
+type ContactListProps = {
     query: string;
 };
 
-function ChatWrapper({ query }: WrapperProps) {
+function ContactList({ query }: ContactListProps) {
     const { data: contactData } = useMyContacts({ query });
 
     const { data: profileData } = useChatProfiles(
@@ -121,7 +117,7 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <ErrorBoundary>
                 <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
-                    <ChatWrapper query={query.value} />
+                    <ContactList query={query.value} />
                 </Suspense>
             </ErrorBoundary>
         </>
