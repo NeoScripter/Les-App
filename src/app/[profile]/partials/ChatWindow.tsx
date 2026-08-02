@@ -16,7 +16,7 @@ const ChatWindow: FC<{ className?: string }> = ({ className }) => {
     };
 
     return (
-        <PanelLayout className="ml-0 w-full sm:ml-0">
+        <PanelLayout className="flex-1 w-full">
             <PanelHeader>
                 <button class="size-10">
                     <ChevronLeft />

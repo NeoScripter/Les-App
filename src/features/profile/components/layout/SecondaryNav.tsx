@@ -16,7 +16,7 @@ const SecondaryNav: FC<{ className?: string; items: NavItem[] }> = ({
                 className,
             )}
         >
-            <ol class="xs:justify-between flex min-w-max">
+            <ol class="sm:justify-between flex flex-wrap">
                 {items.map((item) => (
                     <li
                         key={item.id}

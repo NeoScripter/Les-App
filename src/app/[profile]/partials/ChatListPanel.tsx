@@ -21,7 +21,7 @@ const ChatListPanel: FC<{ className?: string }> = ({ className }) => {
     const isSelecting = selectedChatIds.value !== null;
 
     return (
-        <PanelLayout>
+        <PanelLayout className='flex-1'>
             <PanelHeader>
                 {isSelecting ? (
                     <SelectionToolbar selectedIds={selectedChatIds} />
