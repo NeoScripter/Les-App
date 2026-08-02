@@ -2,16 +2,15 @@ import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import ChatShell from '@/features/profile/components/layout/ChatShell';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import {
-    getProfileFileldsUrl,
     getUserChatIdsUrl,
-    type GetProfileFieldsRequest,
-    type GetProfileFieldsResponse,
     type GetUserChatIdsResponse,
 } from '@/features/profile/services/api/chats';
 import { apiPostOrFail } from '@/lib/api';
 import type { Signal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
+import useChatProfiles from '../../hooks/useChatProfiles';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
+import { combineChatAndProfileData } from '../../lib/formatters';
 
 function useMyChats() {
     return useSuspenseQuery({
@@ -22,38 +21,18 @@ function useMyChats() {
     });
 }
 
-function useChatProfiles(chatIds: string[]) {
-    return useSuspenseQuery({
-        queryKey: [CACHE_KEYS.PROFILE_FIELDS, chatIds],
-        queryFn: () =>
-            apiPostOrFail<GetProfileFieldsResponse, GetProfileFieldsRequest>(
-                getProfileFileldsUrl,
-                {
-                    target_profile_ids: chatIds,
-                    required_fields: [
-                        'name',
-                        'nickname',
-                        'first_name',
-                        'last_name',
-                        'self_description',
-                        'avatars',
-                        'relationship_state.contact',
-                    ],
-                },
-            ),
-        staleTime: CACHE_LIFETIME_MS,
-    });
-}
-
 type Props = {
     selectedChatIds: Signal<string[] | null>;
 };
 
 const ChatList = ({ selectedChatIds }: Props) => {
     const { data: chatData } = useMyChats();
-    const { data: profileData } = useChatProfiles(
-        chatData.chats.map((chat) => chat.interlocutor_id),
-    );
+
+    const profileIds = chatData.chats.map((chat) => chat.interlocutor_id);
+
+    const { data: profileData } = useChatProfiles(profileIds);
+
+    const profiles = combineChatAndProfileData(chatData.chats, profileData.profile_looks);
 
     const handleChatClick = (id: string) => {
         if (selectedChatIds.value === null) {
@@ -71,16 +50,18 @@ const ChatList = ({ selectedChatIds }: Props) => {
 
     return (
         <ChatShell>
-            {profileData.profile_looks.map((chat) => (
-                <ContactItem
-                    key={chat.target_profile_id}
-                    contact={convertToContactItemDTO(chat)}
-                    onClick={() => handleChatClick(chat.target_profile_id)}
-                    isSelected={selectedChatIds.value?.includes(
-                        chat.target_profile_id,
-                    )}
-                />
-            ))}
+            {profiles.map((chat) => {
+                return (
+                    <ContactItem
+                        key={chat.target_profile_id}
+                        contact={convertToContactItemDTO(chat)}
+                        onClick={() => handleChatClick(chat.chat_id)}
+                        isSelected={selectedChatIds.value?.includes(
+                            chat.chat_id,
+                        )}
+                    />
+                );
+            })}
         </ChatShell>
     );
 };

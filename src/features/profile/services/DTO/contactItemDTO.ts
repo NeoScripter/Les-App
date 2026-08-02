@@ -1,4 +1,8 @@
-import type { ContactInfo, ProfileFields } from '../api/chats';
+import AvatarBlocked from '@/features/profile/assets/images/avatar-placeholder.webp';
+import type {
+    ContactInfo,
+    ProfileFields,
+} from '@/features/profile/services/api/chats';
 
 export type ContactItemDTO = {
     name: string;
@@ -7,21 +11,26 @@ export type ContactItemDTO = {
     unread: number;
     profileId: string;
     initials: string;
-} | null;
+};
 
 // /api/fileStorage/file/getContentByUniqueKey/v0?file_id=value&unique_key_hash=value&comphash=value
 
-export default function convertToContactItemDTO(item: ProfileFields): ContactItemDTO {
-    if (item.has_blocking_state) {
-        return null;
-    }
-
+export default function convertToContactItemDTO(
+    item: ProfileFields,
+): ContactItemDTO {
     let avatar = null;
 
     if (item.avatars.length > 0) {
         const avatarData = item.avatars[0];
-        avatar = `/api/fileStorage/file/getContentByUniqueKey/v0?file_id=${avatarData.file_id}&unique_key_hash=${avatarData.unique_key_hash}&comphash=${avatarData.comphash}`;
+        avatar = encodeURI(
+            `/api/fileStorage/file/getContentByUniqueKey/v0?file_id=${avatarData.file_id}&unique_key_hash=${avatarData.unique_key_hash}&comphash=${avatarData.comphash}`,
+        );
     }
+
+    if (item.has_blocking_state) {
+        avatar = AvatarBlocked;
+    }
+
     const profileId = item.for_profile_id;
     let name = item.name as string;
     let initials = name.at(0) as string;
@@ -32,14 +41,27 @@ export default function convertToContactItemDTO(item: ProfileFields): ContactIte
     ) {
         const contact = item.relationship_state.contact.contact as ContactInfo;
         const f_name = contact.first_name,
-            l_name = contact.last_name;
+            l_name = contact.last_name ?? '';
 
         name = `${f_name} ${l_name}`;
-        initials = `${f_name?.at(0)}${l_name?.at(0)}` as string;
+        initials = `${f_name?.at(0)}${l_name?.at(0) ?? ''}` as string;
+    }
+
+    if (item.has_blocking_state) {
+        name = 'Контакт заблокирован';
     }
 
     let lastMessage = null;
     let unread = 0;
+
+    if (
+        item.one_v_one_chat &&
+        item.one_v_one_chat.has &&
+        !item.has_blocking_state
+    ) {
+        console.error('Чат есть в списке, но профиль его не получил');
+    }
+
     if (item.one_v_one_chat && item.one_v_one_chat.has) {
         const privateChat = item.one_v_one_chat;
 
@@ -56,13 +78,18 @@ export default function convertToContactItemDTO(item: ProfileFields): ContactIte
         }
     }
 
+    if (item.has_blocking_state) {
+        unread = 0;
+        lastMessage = null;
+    }
+
     const contact: ContactItemDTO = {
         name,
         lastMessage,
         unread,
         profileId,
         avatar,
-        initials
+        initials,
     };
 
     return contact;

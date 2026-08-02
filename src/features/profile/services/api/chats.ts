@@ -6,6 +6,9 @@ import type {
     ProfileSearchV0Request,
     ProfileSearchV0Response,
     ProfileSearchV0Result,
+    ProfileSearchWithContactsV0Request,
+    ProfileSearchWithContactsV0Response,
+    ProfileSearchWithContactsV0Result,
     ProfileViewOthersRequiredFieldsV0Request,
     ProfileViewOthersRequiredFieldsV0Response,
     ProfileViewOthersRequiredFieldsV0ResponseNamingData,
@@ -23,12 +26,14 @@ import type {
     PrivateChatSecondDeleteChatsOneVOneV0Result,
     PrivateChatSecondGetChatsOneVOneV0Request,
     PrivateChatSecondGetChatsOneVOneV0Response,
+    PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo,
     PrivateChatSecondGetChatsOneVOneV0Result,
 } from '../../../../services/public-api-union/chat_private_chat_second';
 
 export type GetUserChatIdsResult = PrivateChatSecondGetChatsOneVOneV0Result;
 export type GetUserChatIdsRequest = PrivateChatSecondGetChatsOneVOneV0Request;
 export type GetUserChatIdsResponse = PrivateChatSecondGetChatsOneVOneV0Response;
+export type PrivateChatInfo = PrivateChatSecondGetChatsOneVOneV0ResponseChatInfo;
 
 export async function getUserChatIds(
     body: GetUserChatIdsRequest,
@@ -101,6 +106,24 @@ export async function addUsersToContacts(
     );
 }
 
+export type SearchNewChatProfilesRequest = ProfileSearchWithContactsV0Request;
+export type SearchNewChatProfilesResult = ProfileSearchWithContactsV0Result;
+export type SearchNewChatProfilesResponse = ProfileSearchWithContactsV0Response;
+
+export async function searchNewChatProfiles(
+    body: SearchNewChatProfilesRequest,
+    options: ApiPostOptions = {},
+): Promise<SearchNewChatProfilesResult> {
+    return apiPostResult<SearchNewChatProfilesResponse>(
+        '/api/profile/search/withContacts/v0',
+        body,
+        options,
+    );
+}
+
+export const searchNewChatProfilesUrl = '/api/profile/search/withContacts/v0';
+
+
 export type DeleteUserChatsRequest =
     PrivateChatSecondDeleteChatsOneVOneV0Request;
 export type DeleteUserChatsResult = PrivateChatSecondDeleteChatsOneVOneV0Result;
@@ -120,3 +143,4 @@ export async function deleteUserChats(
 
 export const deleteUserChatsUrl =
     '/api/privateChatSecond/deleteChats/oneVOne/v0';
+

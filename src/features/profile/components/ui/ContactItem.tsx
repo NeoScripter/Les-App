@@ -26,10 +26,6 @@ const ContactItem: FC<Props> = ({
         backgroundColor: styles.backgroundColor,
     };
 
-    if (contact == null) {
-        return 'You are blocked, my friend';
-    }
-
     return (
         <li>
             <article

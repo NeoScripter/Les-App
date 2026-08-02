@@ -1,16 +1,16 @@
-import ChatList from '@/features/profile/components/ui/ChatList';
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
+import MenuLayout from '@/components/layout/MenuLayout';
 import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
 import MenuHeader from '@/features/profile/components/layout/MenuHeader';
 import NewChatDialog from '@/features/profile/components/layout/NewChatDialog';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
+import ChatList from '@/features/profile/components/ui/ChatList';
 import DefaultToolbar from '@/features/profile/components/ui/DefaultToolbar';
 import Popover from '@/features/profile/components/ui/Popover';
 import SearchInput from '@/features/profile/components/ui/SearchInput';
 import SelectionToolbar from '@/features/profile/components/ui/SelectionToolbar';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
-import MenuLayout from '@/components/layout/MenuLayout';
 import { useSignal } from '@preact/signals';
 import { Suspense } from 'preact/compat';
 

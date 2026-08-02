@@ -23,7 +23,10 @@ function useDeleteMyChats() {
             ),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: [CACHE_KEYS.USER_CHAT_IDS, CACHE_KEYS.PROFILE_FIELDS],
+                queryKey: [CACHE_KEYS.USER_CHAT_IDS],
+            });
+            queryClient.invalidateQueries({
+                queryKey: [CACHE_KEYS.PROFILE_FIELDS],
             });
         },
     });
