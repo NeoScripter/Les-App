@@ -45,7 +45,7 @@ function useChatMessages({ chatId, messageIds }: ChatMessagesProps) {
     });
 }
 
-const ChatMessagesShell: FC<{
+const ChatMessages: FC<{
     windowState: CompleteChatInfo;
 }> = ({ windowState }) => {
     const { data: chatMessageIdData } = useChatMessageIds(windowState);
@@ -69,9 +69,9 @@ const ChatMessagesShell: FC<{
     );
 };
 
-export default ChatMessagesShell;
+export default ChatMessages;
 
-export const ChatMessagesShellSkeleton = () => {
+export const ChatMessagesSkeleton = () => {
     return (
         <ul
             key="chat-messsages-skeleton"

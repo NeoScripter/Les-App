@@ -3,9 +3,9 @@ import PanelLayout from '@/components/layout/PanelLayout';
 import Headline from '@/components/ui/Headline';
 import Hex from '@/components/ui/Hex';
 import Input from '@/features/profile/components/form/Input';
-import ChatMessagesShell, {
-    ChatMessagesShellSkeleton,
-} from '@/features/profile/components/layout/ChatMessagesShell';
+import ChatMessages, {
+    ChatMessagesSkeleton,
+} from '@/features/profile/components/layout/ChatMessages';
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import getAvatarStyle from '@/features/profile/data/avatarStyles';
@@ -59,8 +59,8 @@ const ChatWindow: FC<Props> = ({ chatWindowState }) => {
             </PanelHeader>
 
             <ErrorBoundary>
-                <Suspense fallback={<ChatMessagesShellSkeleton />}>
-                    <ChatMessagesShell windowState={windowState} />
+                <Suspense fallback={<ChatMessagesSkeleton />}>
+                    <ChatMessages windowState={windowState} />
                 </Suspense>
             </ErrorBoundary>
 
