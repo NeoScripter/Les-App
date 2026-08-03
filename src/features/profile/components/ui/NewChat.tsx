@@ -76,7 +76,8 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <div>
                 <Input
-                    query={query}
+                    value={query.value}
+                    onInput={(e) => (query.value = e.target.value)}
                     placeholder="Поиск по всем..."
                     className="mb-2"
                 />

@@ -3,6 +3,8 @@ import Input from '@/features/profile/components/form/Input';
 import ChatListShell, {
     ChatListShellSkeleton,
 } from '@/features/profile/components/layout/ChatListShell';
+import { Button } from '@/features/profile/components/ui/Button';
+import ContactItem from '@/features/profile/components/ui/ContactItem';
 import { useSignal } from '@preact/signals';
 import { Suspense, type FC } from 'preact/compat';
 import useChatProfiles from '../../hooks/useChatProfiles';
@@ -13,8 +15,6 @@ import {
     type ChatTabProps,
     type TabType,
 } from './NewChatDialog';
-import { Button } from '@/features/profile/components/ui/Button';
-import ContactItem from '@/features/profile/components/ui/ContactItem';
 
 const tabs: { path: TabType; label: string }[] = [
     {
@@ -76,7 +76,8 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <div>
                 <Input
-                    query={query}
+                    value={query.value}
+                    onInput={(e) => (query.value = e.target.value)}
                     placeholder="Поиск по всем..."
                     className="mb-2"
                 />

@@ -2,18 +2,18 @@ import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import PanelLayout from '@/components/layout/PanelLayout';
 import Input from '@/features/profile/components/form/Input';
 import { ChatListShellSkeleton } from '@/features/profile/components/layout/ChatListShell';
-import NewChatDialog from '@/features/profile/components/partials/NewChatDialog';
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
+import NewChatDialog from '@/features/profile/components/partials/NewChatDialog';
 import ChatList from '@/features/profile/components/ui/ChatList';
 import DefaultToolbar from '@/features/profile/components/ui/DefaultToolbar';
 import Popover from '@/features/profile/components/ui/Popover';
 import SelectionToolbar from '@/features/profile/components/ui/SelectionToolbar';
 import { navItems } from '@/features/profile/data/secondaryNavItems';
 import { cn } from '@/lib/utils';
-import { useSignal } from '@preact/signals';
-import { Suspense, type FC } from 'preact/compat';
+import { Signal, useSignal } from '@preact/signals';
+import { createContext, Suspense, useContext, type FC } from 'preact/compat';
 
 const ChatListPanel: FC<{ className?: string }> = ({ className }) => {
     const showChatMenu = useSignal(false);
@@ -44,7 +44,9 @@ const ChatListPanel: FC<{ className?: string }> = ({ className }) => {
                 </Suspense>
             </ErrorBoundary>
 
-            <NewChatDialog show={showChatMenu} />
+            <ChatMenuContext value={showChatMenu}>
+                <NewChatDialog show={showChatMenu} />
+            </ChatMenuContext>
 
             <PrimaryNav />
         </PanelLayout>
@@ -52,3 +54,13 @@ const ChatListPanel: FC<{ className?: string }> = ({ className }) => {
 };
 
 export default ChatListPanel;
+
+const ChatMenuContext = createContext<Signal<boolean> | null>(null);
+
+export function useChatMenu() {
+    const ctx = useContext(ChatMenuContext);
+    if (!ctx) {
+        throw new Error('useChatMenu must be used within ChatMenuProvider');
+    }
+    return ctx;
+}

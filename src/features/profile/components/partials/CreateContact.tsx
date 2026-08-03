@@ -10,6 +10,7 @@ import useChatProfiles from '../../hooks/useChatProfiles';
 import useMyContacts from '../../hooks/useMyContacts';
 import type { ProfileFields } from '../../services/api/chats';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
+import CreateContactForm from '../ui/CreateContactForm';
 import { NewChatHeader, type ChatTabProps } from './NewChatDialog';
 
 type ContactListProps = {
@@ -58,26 +59,26 @@ const CreateContact: FC<ChatTabProps> = ({ currentTab }) => {
             />
             <div>
                 {selectedContact.value == null ? (
-                    <label>
-                        <p class="text-foreground/50 font-medium">Контакты</p>
+                    <>
+                        <label>
+                            <p class="text-foreground/50 font-medium">
+                                Контакты
+                            </p>
 
-                        <Input
-                            placeholder="Поиск по нику..."
-                            className="my-2"
-                            query={query}
-                        />
-                    </label>
+                            <Input
+                                placeholder="Поиск по нику..."
+                                className="my-2"
+                                value={query.value}
+                                onInput={(e) => (query.value = e.target.value)}
+                            />
+                        </label>
+                        <hr class="text-foreground-muted -mx-(--px) mt-2" />
+                    </>
                 ) : (
-                    <ChatListShell>
-                        <ContactItem
-                            contact={convertToContactItemDTO(
-                                selectedContact.value,
-                            )}
-                            bg="bg-background"
-                        />
-                    </ChatListShell>
+                    <CreateContactForm
+                        selectedContact={selectedContact.value}
+                    />
                 )}
-                <hr class="text-foreground-muted -mx-(--px) mt-2" />
             </div>
 
             {query.value.length > 0 && (

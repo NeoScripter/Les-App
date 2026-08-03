@@ -82,6 +82,8 @@ export type {
     ProfileRelationshipContactAddV0Response as AddUserToContactsResponse,
 };
 
+export const addUserToContactsUrl = '/api/profilesRelationship/contact/add/v0';
+
 // SearchNewChatProfiles
 export type {
     ProfileSearchWithContactsV0Request as SearchNewChatProfilesRequest,

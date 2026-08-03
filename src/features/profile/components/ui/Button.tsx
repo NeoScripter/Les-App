@@ -7,7 +7,7 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                primary: '',
+                primary: 'border-foreground-muted overflow-clip text-foreground-accent px-3 py-2 border font-medium before:absolute before:inset-0 before:-z-1 before:bg-primary-gradient',
                 icon: 'flex aspect-square size-8 items-center justify-center rounded-sm [&>svg]:text-foreground-accent [&>svg]:size-1/2',
                 ghost: 'hover:bg-foreground-muted/50 focus-visible:bg-foreground-muted/50 px-3 py-2',
                 outline:
