@@ -12,9 +12,9 @@ import {
     NewChatHeader,
     type ChatTabProps,
     type TabType,
-} from '../partials/NewChatDialog';
-import { Button } from './Button';
-import ContactItem from './ContactItem';
+} from './NewChatDialog';
+import { Button } from '@/features/profile/components/ui/Button';
+import ContactItem from '@/features/profile/components/ui/ContactItem';
 
 const tabs: { path: TabType; label: string }[] = [
     {

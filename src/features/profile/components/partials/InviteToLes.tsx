@@ -1,5 +1,5 @@
 import type { FC } from 'preact/compat';
-import { NewChatHeader, type ChatTabProps } from '../layout/NewChatDialog';
+import { NewChatHeader, type ChatTabProps } from './NewChatDialog';
 
 const InviteToLes: FC<ChatTabProps> = ({ currentTab }) => {
     return (

@@ -33,7 +33,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
     const { data: chatData } = useMyChats();
     const chatWindowState = useChatWindowState();
 
-    const profileIds = chatData.chats.map((chat) => chat.interlocutor_id);
+    const profileIds = chatData.chats.map((chat) => chat.interlocutor_id).slice(14);
 
     const profileData = useChatProfiles(profileIds);
 

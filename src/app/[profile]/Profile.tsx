@@ -1,3 +1,5 @@
+import ChatListPanel from '@/features/profile/components/partials/ChatListPanel';
+import ChatWindow from '@/features/profile/components/partials/ChatWindow';
 import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
 import { useEscapeKey } from '@/hooks/useEscapeKey';
 import useMediaQuery from '@/hooks/useMediaQuery';
@@ -5,8 +7,6 @@ import { cn } from '@/lib/utils';
 import { Signal, useSignal } from '@preact/signals';
 import { createContext } from 'preact';
 import { useContext } from 'preact/hooks';
-import ChatListPanel from './partials/ChatListPanel';
-import ChatWindow from './partials/ChatWindow';
 
 const ChatWindowStateContext =
     createContext<Signal<CompleteChatInfo | null> | null>(null);

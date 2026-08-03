@@ -5,7 +5,7 @@ import Hex from '@/components/ui/Hex';
 import Input from '@/features/profile/components/form/Input';
 import ChatMessages, {
     ChatMessagesSkeleton,
-} from '@/features/profile/components/layout/ChatMessages';
+} from '@/features/profile/components/partials/ChatMessages';
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import getAvatarStyle from '@/features/profile/data/avatarStyles';

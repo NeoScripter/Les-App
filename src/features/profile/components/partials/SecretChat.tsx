@@ -1,5 +1,5 @@
 import type { FC } from 'preact/compat';
-import { NewChatHeader, type ChatTabProps } from '../layout/NewChatDialog';
+import { NewChatHeader, type ChatTabProps } from './NewChatDialog';
 
 const SecretChat: FC<ChatTabProps> = ({ currentTab }) => {
     return (

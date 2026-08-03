@@ -2,7 +2,7 @@ import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import PanelLayout from '@/components/layout/PanelLayout';
 import Input from '@/features/profile/components/form/Input';
 import { ChatListShellSkeleton } from '@/features/profile/components/layout/ChatListShell';
-import NewChatDialog from '@/features/profile/components/layout/NewChatDialog';
+import NewChatDialog from '@/features/profile/components/partials/NewChatDialog';
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
