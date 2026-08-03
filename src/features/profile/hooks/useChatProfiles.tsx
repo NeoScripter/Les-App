@@ -9,7 +9,7 @@ import { useSuspenseQuery } from '@tanstack/preact-query';
 
 export default function useChatProfiles(profileIds: string[]) {
     return useSuspenseQuery({
-        queryKey: [CACHE_KEYS.PROFILE_FIELDS, profileIds],
+        queryKey: [CACHE_KEYS.PROFILE_FIELDS],
         queryFn: () =>
             apiPostOrFail<GetProfileFieldsResponse, GetProfileFieldsRequest>(
                 getProfileFieldsUrl,
