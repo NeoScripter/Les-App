@@ -27,6 +27,7 @@ import type {
     PrivateChatSecondMessageGetIdsV0Request,
     PrivateChatSecondMessageGetIdsV0Response,
     PrivateChatSecondMessageGetIdsV0Result,
+    PrivateChatSecondMessageGetByIdsV0ResponseMessageInfo,
 } from '../../../../services/public-api-union/chat_private_chat_second';
 
 // ============================================
@@ -69,6 +70,7 @@ export type {
     PrivateChatSecondMessageGetByIdsV0Request as GetChatMessagesRequest,
     PrivateChatSecondMessageGetByIdsV0Result as GetChatMessagesResult,
     PrivateChatSecondMessageGetByIdsV0Response as GetChatMessagesResponse,
+    PrivateChatSecondMessageGetByIdsV0ResponseMessageInfo as ChatMessageType,
 };
 
 export const getChatMessagesUrl = '/api/privateChatSecond/message/getByIds/v0';

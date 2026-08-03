@@ -1,7 +1,7 @@
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import PanelLayout from '@/components/layout/PanelLayout';
 import Input from '@/features/profile/components/form/Input';
-import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
+import { ChatListShellSkeleton } from '@/features/profile/components/layout/ChatListShell';
 import NewChatDialog from '@/features/profile/components/layout/NewChatDialog';
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
@@ -39,7 +39,7 @@ const ChatListPanel: FC<{ className?: string }> = ({ className }) => {
                 <SecondaryNav items={navItems} />
             </div>
             <ErrorBoundary>
-                <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
+                <Suspense fallback={<ChatListShellSkeleton withTime={true} />}>
                     <ChatList selectedChatIds={selectedChatIds} />
                 </Suspense>
             </ErrorBoundary>

@@ -1,6 +1,6 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
-import ChatShell from '@/features/profile/components/layout/ChatShell';
+import ChatListShell from '@/features/profile/components/layout/ChatListShell';
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import {
     getUserChatIdsUrl,
@@ -33,6 +33,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
     const { data: chatData } = useMyChats();
     const chatWindowState = useChatWindowState();
 
+
     const profileIds = chatData.chats.map((chat) => chat.interlocutor_id);
 
     const { data: profileData } = useChatProfiles(profileIds);
@@ -63,11 +64,11 @@ const ChatList = ({ selectedChatIds }: Props) => {
     };
 
     return (
-        <ChatShell isEmpty={profiles.length === 0}>
+        <ChatListShell isEmpty={profiles.length === 0}>
             {profiles.map((chat) => {
                 return (
                     <ContactItem
-                        key={chat.target_profile_id}
+                        key={chat.chat_id}
                         contact={convertToContactItemDTO(chat)}
                         onClick={() => handleChatClick(chat)}
                         isSelected={selectedChatIds.value?.includes(
@@ -76,7 +77,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
                     />
                 );
             })}
-        </ChatShell>
+        </ChatListShell>
     );
 };
 

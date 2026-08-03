@@ -1,7 +1,9 @@
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import Input from '@/features/profile/components/form/Input';
-import { ChatShellSkeleton } from '@/features/profile/components/layout/ChatShell';
+import ChatListShell, {
+    ChatListShellSkeleton,
+} from '@/features/profile/components/layout/ChatListShell';
 import { apiPostOrFail } from '@/lib/api';
 import { useSignal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
@@ -13,7 +15,6 @@ import {
     type SearchNewChatProfilesResponse,
 } from '../../services/api/chats';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
-import ChatShell from '../layout/ChatShell';
 import {
     NewChatHeader,
     type ChatTabProps,
@@ -67,7 +68,7 @@ function ContactList({ query }: ContactListProps) {
     const profiles = profileData.profile_looks;
 
     return (
-        <ChatShell isEmpty={profiles.length === 0}>
+        <ChatListShell isEmpty={profiles.length === 0}>
             {profiles.map((contact) => (
                 <ContactItem
                     key={contact.target_profile_id}
@@ -75,7 +76,7 @@ function ContactList({ query }: ContactListProps) {
                     bg="bg-background"
                 />
             ))}
-        </ChatShell>
+        </ChatListShell>
     );
 }
 
@@ -120,7 +121,7 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
             <p class="text-foreground/50 font-medium">Контакты</p>
 
             <ErrorBoundary>
-                <Suspense fallback={<ChatShellSkeleton withTime={true} />}>
+                <Suspense fallback={<ChatListShellSkeleton withTime={true} />}>
                     <ContactList query={query.value} />
                 </Suspense>
             </ErrorBoundary>

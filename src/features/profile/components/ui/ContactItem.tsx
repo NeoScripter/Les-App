@@ -120,7 +120,7 @@ export function ContactItemSkeleton({ withTime }: { withTime: boolean }) {
                     className={cn(
                         'hexagon skeleton relative flex h-[calc(var(--avatar-w)/6*7)] w-(--avatar-w) shrink-0 items-center justify-center',
                     )}
-                ></figure>
+                />
 
                 <div className="min-w-0 flex-1">
                     <h2 className="xs:text-lg skeleton truncate font-medium">

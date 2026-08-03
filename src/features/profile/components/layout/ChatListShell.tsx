@@ -3,13 +3,14 @@ import type { ComponentChildren } from 'preact';
 import type { FC } from 'preact/compat';
 import { ContactItemSkeleton } from '../ui/ContactItem';
 
-const ChatShell: FC<{
+const ChatListShell: FC<{
     className?: string;
     children: ComponentChildren;
     isEmpty?: boolean;
-}> = ({ className, children, isEmpty = false }) => {
+    emptyText?: string;
+}> = ({ className, children, emptyText, isEmpty = false }) => {
     return isEmpty ? (
-        <p>Здесь пока ничего нет</p>
+        <p>{emptyText ?? 'Здесь пока ничего нет'}</p>
     ) : (
         <ul
             class={cn(
@@ -22,14 +23,14 @@ const ChatShell: FC<{
     );
 };
 
-export default ChatShell;
+export default ChatListShell;
 
-export function ChatShellSkeleton({ withTime }: { withTime: boolean }) {
+export function ChatListShellSkeleton({ withTime }: { withTime: boolean }) {
     return (
-        <ChatShell>
+        <ChatListShell>
             {range(1, 8).map((idx) => (
                 <ContactItemSkeleton key={idx} withTime={withTime} />
             ))}
-        </ChatShell>
+        </ChatListShell>
     );
 }

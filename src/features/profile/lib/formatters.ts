@@ -10,7 +10,7 @@ export function combineChatAndProfileData(
 
     for (const profile of profiles) {
         const matchingChat = chats.find(
-            (chat) => chat.profile_id === profile.for_profile_id,
+            (chat) => chat.interlocutor_id === profile.target_profile_id,
         );
 
         if (!matchingChat) {
