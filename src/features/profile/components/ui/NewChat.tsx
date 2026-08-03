@@ -61,9 +61,7 @@ type ContactListProps = {
 function ContactList({ query }: ContactListProps) {
     const { data: contactData } = useMyContacts({ query });
 
-    const { data: profileData } = useChatProfiles(
-        contactData?.contact_profile_ids ?? [],
-    );
+    const profileData = useChatProfiles(contactData?.contact_profile_ids ?? []);
 
     const profiles = profileData.profile_looks;
 

@@ -35,7 +35,7 @@ const ChatList = ({ selectedChatIds }: Props) => {
 
     const profileIds = chatData.chats.map((chat) => chat.interlocutor_id);
 
-    const { data: profileData } = useChatProfiles(profileIds);
+    const profileData = useChatProfiles(profileIds);
 
     const profiles = combineChatAndProfileData(
         chatData.chats,
