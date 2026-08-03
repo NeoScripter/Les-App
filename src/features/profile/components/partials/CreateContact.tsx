@@ -22,7 +22,7 @@ function ContactList({ query, selectedContact }: ContactListProps) {
     const { data: contactData } = useMyContacts({ query: query.value });
 
     const profileData = useChatProfiles(
-        contactData?.contact_profile_ids.slice(14) ?? [],
+        contactData?.profile_ids.slice(14) ?? [],
     );
 
     const profiles = profileData.profile_looks;
