@@ -1,11 +1,11 @@
 import type { PrivateChatInfo, ProfileFields } from '../services/api/chats';
 
-type CombinedProfileInfo = PrivateChatInfo & ProfileFields;
+export type CompleteChatInfo = PrivateChatInfo & ProfileFields;
 
 export function combineChatAndProfileData(
     chats: PrivateChatInfo[],
     profiles: ProfileFields[],
-): CombinedProfileInfo[] {
+): CompleteChatInfo[] {
     const newProfiles = [];
 
     for (const profile of profiles) {

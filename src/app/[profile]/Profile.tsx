@@ -1,4 +1,4 @@
-import type { GetChatMessageIdsRequest } from '@/features/profile/services/api/chats';
+import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
 import { useEscapeKey } from '@/hooks/useEscapeKey';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { cn } from '@/lib/utils';
@@ -9,10 +9,10 @@ import ChatListPanel from './partials/ChatListPanel';
 import ChatWindow from './partials/ChatWindow';
 
 const ChatWindowStateContext =
-    createContext<Signal<GetChatMessageIdsRequest | null> | null>(null);
+    createContext<Signal<CompleteChatInfo | null> | null>(null);
 
 const Profile = () => {
-    const chatWindowState = useSignal<GetChatMessageIdsRequest | null>(null);
+    const chatWindowState = useSignal<CompleteChatInfo | null>(null);
     const isOnePanelWidth = useMediaQuery('(max-width: 48rem)');
     useEscapeKey(() => (chatWindowState.value = null));
 
@@ -24,7 +24,9 @@ const Profile = () => {
             <ChatWindowStateContext value={chatWindowState}>
                 <ChatListPanel className={cn(shouldHideChatList && 'hidden')} />
 
-                {shouldShowChatWindow && <ChatWindow state={chatWindowState} />}
+                {shouldShowChatWindow && (
+                    <ChatWindow chatWindowState={chatWindowState} />
+                )}
             </ChatWindowStateContext>
         </main>
     );
