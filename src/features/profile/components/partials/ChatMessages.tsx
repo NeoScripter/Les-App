@@ -60,7 +60,7 @@ const ChatMessages: FC<{
     return (
         <ul
             key="chat-messsages"
-            class="scrollbar-hidden flex basis-full flex-col items-start gap-3 overflow-y-auto"
+            class="flex flex-col items-start gap-3"
         >
             {chatMessages.messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
@@ -75,7 +75,7 @@ export const ChatMessagesSkeleton = () => {
     return (
         <ul
             key="chat-messsages-skeleton"
-            class="scrollbar-hidden flex basis-full flex-col items-start gap-3 overflow-y-auto"
+            class="flex flex-col items-start gap-3"
         >
             {range(0, 10).map((idx) => (
                 <ChatMessageSkeleton key={idx} />
