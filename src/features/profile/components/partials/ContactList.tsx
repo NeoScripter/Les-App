@@ -11,10 +11,10 @@ import useChatProfiles from '../../hooks/useChatProfiles';
 import useMyContacts from '../../hooks/useMyContacts';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
 import {
-    NewChatHeader,
+    ContactHubHeader,
     type ChatTabProps,
     type TabType,
-} from './NewChatDialog';
+} from './ContactHub';
 
 const tabs: { path: TabType; label: string }[] = [
     {
@@ -39,7 +39,7 @@ type ContactListProps = {
     query: string;
 };
 
-function ContactList({ query }: ContactListProps) {
+function ContactListShell({ query }: ContactListProps) {
     const { data: contactData } = useMyContacts({ query });
 
     const profileData = useChatProfiles(
@@ -64,12 +64,12 @@ function ContactList({ query }: ContactListProps) {
     );
 }
 
-const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
+const ContactList: FC<ChatTabProps> = ({ show, currentTab }) => {
     const query = useSignal<string>('');
 
     return (
         <>
-            <NewChatHeader
+            <ContactHubHeader
                 onClick={() => (show.value = false)}
                 headline="Новый чат"
             />
@@ -107,11 +107,11 @@ const NewChat: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <ErrorBoundary>
                 <Suspense fallback={<ChatListShellSkeleton withTime={true} />}>
-                    <ContactList query={query.value} />
+                    <ContactListShell query={query.value} />
                 </Suspense>
             </ErrorBoundary>
         </>
     );
 };
 
-export default NewChat;
+export default ContactList;

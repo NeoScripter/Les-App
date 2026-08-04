@@ -9,7 +9,7 @@ import CreateContact from './CreateContact';
 import FramedIconBtn from '../ui/FramedIconBtn';
 import InviteToLes from './InviteToLes';
 import MiniChat from '../ui/MiniChat';
-import NewChat from '../ui/NewChat';
+import ContactList from '../ui/ContactList';
 import SecretChat from './SecretChat';
 import PanelHeader from '../layout/PanelHeader';
 
@@ -27,14 +27,14 @@ export type TabType =
     'new_chat' | 'secret_chat' | 'invite' | 'create_contact' | 'mini_chat';
 
 const tabMap: Record<TabType, FC<ChatTabProps>> = {
-    new_chat: NewChat,
+    new_chat: ContactList,
     invite: InviteToLes,
     create_contact: CreateContact,
     secret_chat: SecretChat,
     mini_chat: MiniChat,
 };
 
-const NewChatDialog: FC<Props> = ({ className, show }) => {
+const ContactHub: FC<Props> = ({ className, show }) => {
     const currentTab = useSignal<TabType>('new_chat');
 
     const Tab = tabMap[currentTab.value];
@@ -53,9 +53,9 @@ const NewChatDialog: FC<Props> = ({ className, show }) => {
     );
 };
 
-export default NewChatDialog;
+export default ContactHub;
 
-export function NewChatHeader({
+export function ContactHubHeader({
     onClick,
     headline,
 }: {

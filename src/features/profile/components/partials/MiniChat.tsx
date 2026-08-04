@@ -1,10 +1,10 @@
 import type { FC } from 'preact/compat';
-import { NewChatHeader, type ChatTabProps } from './NewChatDialog';
+import { ContactHubHeader, type ChatTabProps } from './ContactHub';
 
 const MiniChat: FC<ChatTabProps> = ({ currentTab }) => {
     return (
         <>
-            <NewChatHeader
+            <ContactHubHeader
                 onClick={() => (currentTab.value = 'new_chat')}
                 headline="Мини чат"
             />

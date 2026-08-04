@@ -11,7 +11,7 @@ import useMyContacts from '../../hooks/useMyContacts';
 import type { ProfileFields } from '../../services/api/chats';
 import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
 import CreateContactForm from '../ui/CreateContactForm';
-import { NewChatHeader, type ChatTabProps } from './NewChatDialog';
+import { ContactHubHeader, type ChatTabProps } from './ContactHub';
 
 type ContactListProps = {
     query: Signal<string>;
@@ -53,7 +53,7 @@ const CreateContact: FC<ChatTabProps> = ({ currentTab }) => {
 
     return (
         <>
-            <NewChatHeader
+            <ContactHubHeader
                 onClick={() => (currentTab.value = 'new_chat')}
                 headline="Создать контакт"
             />
