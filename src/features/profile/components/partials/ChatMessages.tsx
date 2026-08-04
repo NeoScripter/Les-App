@@ -12,7 +12,7 @@ import { apiPostOrFail } from '@/lib/api';
 import { range } from '@/lib/utils';
 import { useSuspenseQuery } from '@tanstack/preact-query';
 import type { FC } from 'preact/compat';
-import ChatMessage, { ChatMessageSkeleton } from './ChatMessage';
+import ChatMessage, { ChatMessageSkeleton } from '../ui/ChatMessage';
 
 function useChatMessageIds(chatWindowState: CompleteChatInfo) {
     const req: GetChatMessageIdsRequest = {
