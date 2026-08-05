@@ -1,3 +1,4 @@
+import { useChatWindowState } from '@/app/[profile]/Profile';
 import ErrorBoundary from '@/components/layout/ErrorBoundary';
 import PanelLayout from '@/components/layout/PanelLayout';
 import Headline from '@/components/ui/Headline';
@@ -9,16 +10,12 @@ import ChatMessages, {
 import getAvatarStyle from '@/features/profile/data/avatarStyles';
 import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
 import convertToContactItemDTO from '@/features/profile/services/DTO/contactItemDTO';
-import type { Signal } from '@preact/signals';
 import { AudioLines, ChevronLeft } from 'lucide-preact';
-import { Suspense, useMemo, type FC } from 'preact/compat';
+import { Suspense, useMemo } from 'preact/compat';
 import ChatMessageInput from '../ui/ChatMessageInput';
 
-type Props = {
-    chatWindowState: Signal<CompleteChatInfo | null>;
-};
-
-const ChatWindow: FC<Props> = ({ chatWindowState }) => {
+const ChatWindow = () => {
+    const chatWindowState = useChatWindowState();
     const windowState = chatWindowState.value as CompleteChatInfo;
 
     const styles = useMemo(() => getAvatarStyle(), []);
@@ -60,13 +57,12 @@ const ChatWindow: FC<Props> = ({ chatWindowState }) => {
             <div class="scrollbar-hidden basis-full overflow-y-auto">
                 <ErrorBoundary>
                     <Suspense fallback={<ChatMessagesSkeleton />}>
-                        <ChatMessages windowState={windowState} />
+                        <ChatMessages />
                     </Suspense>
                 </ErrorBoundary>
             </div>
 
             <ChatMessageInput />
-
         </PanelLayout>
     );
 };

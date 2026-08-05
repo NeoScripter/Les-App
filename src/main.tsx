@@ -1,6 +1,11 @@
-import { App } from './app/App';
 import { render } from 'preact';
+import { App } from './app/App';
 
 if (typeof window !== 'undefined') {
-    render(<App />, document.getElementById('app')!);
+    render(
+        <>
+            <App />
+        </>,
+        document.getElementById('app')!,
+    );
 }

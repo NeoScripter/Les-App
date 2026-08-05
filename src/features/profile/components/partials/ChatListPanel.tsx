@@ -5,7 +5,7 @@ import { ChatListShellSkeleton } from '@/features/profile/components/layout/Chat
 import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import PrimaryNav from '@/features/profile/components/layout/PrimaryNav';
 import SecondaryNav from '@/features/profile/components/layout/SecondaryNav';
-import ContactHub from '@/features/profile/components/partials/ContactHub';
+import NewChatDialog from '@/features/profile/components/partials/ContactHub';
 import ChatList from '@/features/profile/components/ui/ChatList';
 import DefaultToolbar from '@/features/profile/components/ui/DefaultToolbar';
 import Popover from '@/features/profile/components/ui/Popover';
@@ -45,7 +45,7 @@ const ChatListPanel: FC<{ className?: string }> = ({ className }) => {
             </ErrorBoundary>
 
             <ChatMenuContext value={showChatMenu}>
-                <ContactHub show={showChatMenu} />
+                <NewChatDialog show={showChatMenu} />
             </ChatMenuContext>
 
             <PrimaryNav />

@@ -25,7 +25,7 @@ const Profile = () => {
                 <ChatListPanel className={cn(shouldHideChatList && 'hidden')} />
 
                 {shouldShowChatWindow && (
-                    <ChatWindow chatWindowState={chatWindowState} />
+                    <ChatWindow />
                 )}
             </ChatWindowStateContext>
         </main>

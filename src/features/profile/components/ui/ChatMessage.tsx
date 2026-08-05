@@ -1,7 +1,7 @@
+import { useChatWindowState } from '@/app/[profile]/Profile';
 import { cn } from '@/lib/utils';
 import type { FC } from 'preact/compat';
 import type { ChatMessageType } from '../../services/api/chats';
-import { useChatWindowState } from '@/app/[profile]/Profile';
 
 const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
     className,
@@ -22,10 +22,10 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
                 <li
                     key={idx}
                     class={cn(
-                        'max-w-lg rounded-xl rounded-bl-sm px-3 py-2 text-sm',
+                        'max-w-lg rounded-xl px-3 py-2 text-sm',
                         isSentByUser
-                            ? 'text-foreground bg-zinc-800'
-                            : 'bg-primary text-foreground-accent self-end',
+                            ? 'text-foreground rounded-bl-sm bg-zinc-800'
+                            : 'bg-primary text-foreground-accent self-end rounded-br-sm',
                         className,
                     )}
                 >
@@ -33,7 +33,7 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
                     <p
                         class={cn(
                             'mt-1 text-xs text-current/75',
-                            !isSentByUser && 'ml-auto w-fit',
+                            !isSentByUser ? 'ml-auto w-fit' : '',
                         )}
                     >
                         19:00
@@ -43,6 +43,7 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
         </>
     );
 };
+// TODO: dynamic gradient orange: rgb(255, 116, 1), green : linear-gradient(rgb(177, 255, 29) 0%, rgb(177, 255, 29) 100%)
 
 export function ChatMessageSkeleton() {
     return (

@@ -1,3 +1,4 @@
+import { useChatWindowState } from '@/app/[profile]/Profile';
 import { CACHE_KEYS, CACHE_LIFETIME_MS } from '@/data/constants';
 import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
 import {
@@ -11,7 +12,6 @@ import {
 import { apiPostOrFail } from '@/lib/api';
 import { range } from '@/lib/utils';
 import { useSuspenseQuery } from '@tanstack/preact-query';
-import type { FC } from 'preact/compat';
 import ChatMessage, { ChatMessageSkeleton } from '../ui/ChatMessage';
 
 function useChatMessageIds(chatWindowState: CompleteChatInfo) {
@@ -45,9 +45,10 @@ function useChatMessages({ chatId, messageIds }: ChatMessagesProps) {
     });
 }
 
-const ChatMessages: FC<{
-    windowState: CompleteChatInfo;
-}> = ({ windowState }) => {
+const ChatMessages = () => {
+    const chatWindowState = useChatWindowState();
+    const windowState = chatWindowState.value as CompleteChatInfo;
+
     const { data: chatMessageIdData } = useChatMessageIds(windowState);
     const chatId = windowState.chat_id;
 
@@ -58,10 +59,7 @@ const ChatMessages: FC<{
     const { data: chatMessages } = useChatMessages({ chatId, messageIds });
 
     return (
-        <ul
-            key="chat-messsages"
-            class="flex flex-col items-start gap-3"
-        >
+        <ul key="chat-messsages" class="flex flex-col items-start gap-3">
             {chatMessages.messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
             ))}

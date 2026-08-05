@@ -32,6 +32,7 @@ import type {
     PrivateChatSecondMessageSendV0RequestBlockInput,
     PrivateChatSecondMessageSendV0Response,
     PrivateChatSecondMessageSendV0Result,
+    PrivateChatSecondMessageSendV0RequestVisibilityInput,
 } from '../../../../services/public-api-union/chat_private_chat_second';
 
 // ============================================
@@ -101,33 +102,59 @@ export type {
     PrivateChatSecondDeleteChatsOneVOneV0Request as DeleteUserChatsRequest,
     PrivateChatSecondDeleteChatsOneVOneV0Response as DeleteUserChatsResponse,
     PrivateChatSecondDeleteChatsOneVOneV0Result as DeleteUserChatsResult,
+    PrivateChatSecondMessageSendV0RequestVisibilityInput as ChatInputVisibility,
+    PrivateChatSecondMessageSendV0RequestBlockInput as ChatBlockInput
 };
 
 export const deleteUserChatsUrl =
     '/api/privateChatSecond/deleteChats/oneVOne/v0';
 
-type BlockOf<
-    T extends string,
-    K extends keyof PrivateChatSecondMessageSendV0RequestBlockInput,
-> = Pick<PrivateChatSecondMessageSendV0RequestBlockInput, K> & {
-    readonly type: T;
-};
 
-// PrivateChatSecondMessageSendV0Request
+interface TextBlock {
+    readonly type: 'text' | 'technical';
+    readonly content_text: PrivateChatSecondMessageSendV0RequestBlockInput['content_text'];
+}
+
+interface PictureBlock {
+    readonly type: 'picture';
+    readonly picture_spoiler: PrivateChatSecondMessageSendV0RequestBlockInput['picture_spoiler'];
+    readonly picture_file_id: PrivateChatSecondMessageSendV0RequestBlockInput['picture_file_id'];
+}
+
+interface VideoBlock {
+    readonly type: 'video';
+    readonly video_spoiler: PrivateChatSecondMessageSendV0RequestBlockInput['video_spoiler'];
+    readonly video_file_id: PrivateChatSecondMessageSendV0RequestBlockInput['video_file_id'];
+}
+
+interface FileBlock {
+    readonly type: 'file';
+    readonly content_text: PrivateChatSecondMessageSendV0RequestBlockInput['content_text'];
+    readonly file_spoiler: PrivateChatSecondMessageSendV0RequestBlockInput['file_spoiler'];
+    readonly file_file_id: PrivateChatSecondMessageSendV0RequestBlockInput['file_file_id'];
+}
+
+interface ReplyBlock {
+    readonly type: 'reply';
+    readonly reply_spoiler: PrivateChatSecondMessageSendV0RequestBlockInput['reply_spoiler'];
+    readonly reply_place: PrivateChatSecondMessageSendV0RequestBlockInput['reply_place'];
+    readonly reply_message_version: PrivateChatSecondMessageSendV0RequestBlockInput['reply_message_version'];
+    readonly reply_message_id: PrivateChatSecondMessageSendV0RequestBlockInput['reply_message_id'];
+}
+
+interface LinkButtonBlock {
+    readonly type: 'link_button';
+    readonly content_text: PrivateChatSecondMessageSendV0RequestBlockInput['content_text'];
+    readonly link_button_link: PrivateChatSecondMessageSendV0RequestBlockInput['link_button_link'];
+}
+
 export type SendMessageBlock =
-    | BlockOf<'text', 'content_text'>
-    | BlockOf<'technical', 'content_text'>
-    | BlockOf<'picture', 'picture_spoiler' | 'picture_file_id'>
-    | BlockOf<'video', 'video_spoiler' | 'video_file_id'>
-    | BlockOf<'file', 'content_text' | 'file_spoiler' | 'file_file_id'>
-    | BlockOf<
-          'reply',
-          | 'reply_spoiler'
-          | 'reply_place'
-          | 'reply_message_version'
-          | 'reply_message_id'
-      >
-    | BlockOf<'link_button', 'content_text' | 'link_button_link'>;
+    | TextBlock
+    | PictureBlock
+    | VideoBlock
+    | FileBlock
+    | ReplyBlock
+    | LinkButtonBlock;
 
 export type SendMessageRequest = Omit<
     PrivateChatSecondMessageSendV0Request,

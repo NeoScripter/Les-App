@@ -1,5 +1,6 @@
 import { routes } from '@/app/lib/routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/preact-query';
+import { PreactQueryDevtools } from '@tanstack/preact-query-devtools';
 import { ErrorBoundary, LocationProvider, Route, Router } from 'preact-iso';
 import './lib/styles.css';
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ export function App() {
                     </Router>
                 </ErrorBoundary>
             </LocationProvider>
+            <PreactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     );
 }
