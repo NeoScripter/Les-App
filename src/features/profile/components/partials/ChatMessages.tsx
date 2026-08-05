@@ -12,6 +12,8 @@ import {
 import { apiPostOrFail } from '@/lib/api';
 import { range } from '@/lib/utils';
 import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/preact-query';
+import { useEffect, useRef } from 'preact/hooks';
+import { EVENTS } from '../../data/constants';
 import ChatMessage, { ChatMessageSkeleton } from '../ui/ChatMessage';
 
 function useChatMessageIds(chatWindowState: CompleteChatInfo) {
@@ -31,9 +33,9 @@ function useChatMessageIds(chatWindowState: CompleteChatInfo) {
     });
 }
 
-type ChatMessagesProps = { chatId: string; messageIds: string[] };
+type ChatMessagesQueryProps = { chatId: string; messageIds: string[] };
 
-function useChatMessages({ chatId, messageIds }: ChatMessagesProps) {
+function useChatMessages({ chatId, messageIds }: ChatMessagesQueryProps) {
     return useSuspenseQueries({
         queries: messageIds.map((messageId) => ({
             queryKey: [CACHE_KEYS.CHAT_MESSAGES, messageId],
@@ -57,6 +59,7 @@ function useChatMessages({ chatId, messageIds }: ChatMessagesProps) {
 const ChatMessages = () => {
     const chatWindowState = useChatWindowState();
     const windowState = chatWindowState.value as CompleteChatInfo;
+    const listRef = useRef<HTMLUListElement | null>(null);
 
     const { data: chatMessageIdData } = useChatMessageIds(windowState);
     const chatId = windowState.chat_id;
@@ -67,8 +70,28 @@ const ChatMessages = () => {
 
     const chatMessages = useChatMessages({ chatId, messageIds });
 
+    useEffect(() => {
+        const handleNewMessage = () => {
+            setTimeout(() => {
+                if (!listRef.current) return;
+                listRef.current.scrollIntoView(false);
+            }, 10);
+        };
+        window.addEventListener(EVENTS.NEW_MESSAGES_ADDED, handleNewMessage);
+
+        return () =>
+            window.removeEventListener(
+                EVENTS.NEW_MESSAGES_ADDED,
+                handleNewMessage,
+            );
+    }, [chatMessages.messages.length]);
+
     return (
-        <ul key="chat-messsages" class="flex flex-col items-start gap-3">
+        <ul
+            ref={listRef}
+            key="chat-messsages"
+            class="flex flex-col items-start gap-3"
+        >
             {chatMessages.messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
             ))}

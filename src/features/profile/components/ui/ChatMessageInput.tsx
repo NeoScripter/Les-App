@@ -1,8 +1,5 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
-import { CACHE_KEYS } from '@/data/constants';
-import { apiPostOrFail } from '@/lib/api';
 import { useSignal } from '@preact/signals';
-import { useMutation } from '@tanstack/preact-query';
 import {
     Mic,
     Paperclip,
@@ -11,16 +8,10 @@ import {
     type LucideIcon,
 } from 'lucide-preact';
 import type { ComponentProps } from 'preact/compat';
-import type { CompleteChatInfo } from '../../lib/formatters';
-import {
-    sendMessageUrl,
-    type ChatInputVisibility,
-    type SendMessageBlock,
-    type SendMessageRequest,
-    type SendMessageResponse,
-} from '../../services/api/chats';
-import ChatTextarea from '../form/ChatTextarea';
 import useSendMessage from '../../hooks/useSendMessage';
+import type { CompleteChatInfo } from '../../lib/formatters';
+import { type SendMessageBlock } from '../../services/api/chats';
+import ChatTextarea from '../form/ChatTextarea';
 
 type SendMessageProps = {
     chatId: string;
@@ -72,19 +63,22 @@ const ChatMessageInput = () => {
     const handleSubmit = (e: SubmitEvent) => {
         e.preventDefault();
 
-        if (message.value.trim() === '') {
+        const normalizedMessage = message.value.trim();
+
+        if (normalizedMessage === '') {
             return;
         }
 
         const args: SendMessageProps = {
             chatId: windowState.chat_id,
             profileId: windowState.profile_id,
-            blocks: [{ type: 'text', content_text: message.value.trim() }],
+            blocks: [{ type: 'text', content_text: normalizedMessage }],
         };
 
+        message.value = '';
         sendMessage(args, {
-            onSuccess: () => {
-                message.value = '';
+            onError: () => {
+                message.value = normalizedMessage;
             },
         });
     };

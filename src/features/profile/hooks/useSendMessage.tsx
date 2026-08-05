@@ -10,6 +10,7 @@ import {
 import { apiPostOrFail } from '@/lib/api';
 import type { PrivateChatSecondMessageGetIdsV0ResponseMessageIdInfo } from '@/services/public-api-union/chat_private_chat_second';
 import { useMutation } from '@tanstack/preact-query';
+import { EVENTS } from '../data/constants';
 
 type SendMessageProps = {
     chatId: string;
@@ -93,6 +94,10 @@ export default function useSendMessage() {
                 [CACHE_KEYS.CHAT_MESSAGES, newMessageId],
                 { messages: [newMessage] },
             );
+
+            const customEvent = new CustomEvent(EVENTS.NEW_MESSAGES_ADDED);
+
+            window.dispatchEvent(customEvent)
 
             return { previousMessageIds, newMessageId };
         },
