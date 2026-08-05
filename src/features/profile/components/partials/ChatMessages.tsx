@@ -11,7 +11,7 @@ import {
 } from '@/features/profile/services/api/chats';
 import { apiPostOrFail } from '@/lib/api';
 import { range } from '@/lib/utils';
-import { useSuspenseQuery } from '@tanstack/preact-query';
+import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/preact-query';
 import ChatMessage, { ChatMessageSkeleton } from '../ui/ChatMessage';
 
 function useChatMessageIds(chatWindowState: CompleteChatInfo) {
@@ -34,14 +34,23 @@ function useChatMessageIds(chatWindowState: CompleteChatInfo) {
 type ChatMessagesProps = { chatId: string; messageIds: string[] };
 
 function useChatMessages({ chatId, messageIds }: ChatMessagesProps) {
-    return useSuspenseQuery({
-        queryKey: [CACHE_KEYS.CHAT_MESSAGES, chatId],
-        queryFn: () =>
-            apiPostOrFail<GetChatMessagesResponse, GetChatMessagesRequest>(
-                getChatMessagesUrl,
-                { chat_id: chatId, message_ids: messageIds, profile_id: null },
-            ),
-        staleTime: CACHE_LIFETIME_MS,
+    return useSuspenseQueries({
+        queries: messageIds.map((messageId) => ({
+            queryKey: [CACHE_KEYS.CHAT_MESSAGES, messageId],
+            queryFn: () =>
+                apiPostOrFail<GetChatMessagesResponse, GetChatMessagesRequest>(
+                    getChatMessagesUrl,
+                    {
+                        chat_id: chatId,
+                        message_ids: [messageId],
+                        profile_id: null,
+                    },
+                ),
+            staleTime: CACHE_LIFETIME_MS,
+        })),
+        combine: (results) => ({
+            messages: results.flatMap((r) => r.data.messages),
+        }),
     });
 }
 
@@ -56,7 +65,7 @@ const ChatMessages = () => {
         (message) => message.message_id,
     );
 
-    const { data: chatMessages } = useChatMessages({ chatId, messageIds });
+    const chatMessages = useChatMessages({ chatId, messageIds });
 
     return (
         <ul key="chat-messsages" class="flex flex-col items-start gap-3">

@@ -12,7 +12,6 @@ import {
 } from 'lucide-preact';
 import type { ComponentProps } from 'preact/compat';
 import type { CompleteChatInfo } from '../../lib/formatters';
-import { insertAtCursor } from '../../lib/utils';
 import {
     sendMessageUrl,
     type ChatInputVisibility,
@@ -20,41 +19,47 @@ import {
     type SendMessageRequest,
     type SendMessageResponse,
 } from '../../services/api/chats';
+import ChatTextarea from '../form/ChatTextarea';
+import useSendMessage from '../../hooks/useSendMessage';
 
-type SendMessageProps = { chatId: string; blocks: SendMessageBlock[] };
+type SendMessageProps = {
+    chatId: string;
+    profileId: string;
+    blocks: SendMessageBlock[];
+};
 
-function useSendMessage() {
-    return useMutation({
-        mutationFn: ({ chatId, blocks }: SendMessageProps) => {
-            const visibility: ChatInputVisibility = {
-                all: true,
-                roles: [],
-                members: [],
-            };
+// function useSendMessage() {
+//     return useMutation({
+//         mutationFn: ({ chatId, profileId, blocks }: SendMessageProps) => {
+//             const visibility: ChatInputVisibility = {
+//                 all: true,
+//                 roles: [],
+//                 members: [],
+//             };
 
-            const message: SendMessageRequest = {
-                profile_id: null,
-                chat_id: chatId,
-                blocks,
-                visibility,
-            };
+//             const message: SendMessageRequest = {
+//                 profile_id: profileId,
+//                 chat_id: chatId,
+//                 blocks,
+//                 visibility,
+//             };
 
-            return apiPostOrFail<SendMessageResponse, SendMessageRequest>(
-                sendMessageUrl,
-                message,
-                {},
-            );
-        },
-        onSuccess: (_data, variables, _onMutateResult, context) => {
-            context.client.invalidateQueries({
-                queryKey: [CACHE_KEYS.CHAT_MESSAGE_IDS, variables.chatId],
-            });
-            context.client.invalidateQueries({
-                queryKey: [CACHE_KEYS.CHAT_MESSAGES, variables.chatId],
-            });
-        },
-    });
-}
+//             return apiPostOrFail<SendMessageResponse, SendMessageRequest>(
+//                 sendMessageUrl,
+//                 message,
+//                 {},
+//             );
+//         },
+//         onSuccess: (_data, variables, _onMutateResult, context) => {
+//             context.client.invalidateQueries({
+//                 queryKey: [CACHE_KEYS.CHAT_MESSAGE_IDS, variables.chatId],
+//             });
+//             context.client.invalidateQueries({
+//                 queryKey: [CACHE_KEYS.CHAT_MESSAGES],
+//             });
+//         },
+//     });
+// }
 
 const ChatMessageInput = () => {
     const chatWindowState = useChatWindowState();
@@ -67,13 +72,14 @@ const ChatMessageInput = () => {
     const handleSubmit = (e: SubmitEvent) => {
         e.preventDefault();
 
-        if (message.value === '') {
+        if (message.value.trim() === '') {
             return;
         }
 
         const args: SendMessageProps = {
             chatId: windowState.chat_id,
-            blocks: [{ type: 'text', content_text: message.value }],
+            profileId: windowState.profile_id,
+            blocks: [{ type: 'text', content_text: message.value.trim() }],
         };
 
         sendMessage(args, {
@@ -83,26 +89,6 @@ const ChatMessageInput = () => {
         });
     };
 
-    const handleKeydown = (e: KeyboardEvent) => {
-        if (e.key !== 'Enter' || e.isComposing) {
-            return;
-        }
-        if (!e.ctrlKey && !e.shiftKey) {
-            e.preventDefault();
-            (e.currentTarget as HTMLTextAreaElement).form?.requestSubmit();
-            return;
-        }
-
-        if (e.ctrlKey) {
-            e.preventDefault();
-            message.value = insertAtCursor(
-                e.currentTarget as HTMLTextAreaElement,
-                message.value,
-                '\n',
-            );
-        }
-    };
-
     return (
         <form
             onSubmit={handleSubmit}
@@ -110,10 +96,9 @@ const ChatMessageInput = () => {
         >
             <Button icon={Paperclip} />
 
-            <textarea
+            <ChatTextarea
                 placeholder="Сообщение..."
                 value={message.value}
-                onKeyDown={handleKeydown}
                 onInput={(e) => (message.value = e.target.value)}
                 className="field-sizing-content max-h-full min-h-6 w-full resize-none overflow-y-auto px-1 text-base"
             />

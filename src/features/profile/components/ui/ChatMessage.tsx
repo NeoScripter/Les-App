@@ -24,8 +24,8 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
                     class={cn(
                         'max-w-lg rounded-xl px-3 py-2 text-sm',
                         isSentByUser
-                            ? 'text-foreground rounded-bl-sm bg-zinc-800'
-                            : 'bg-primary text-foreground-accent self-end rounded-br-sm',
+                            ? 'bg-primary text-foreground-accent self-end rounded-br-sm'
+                            : 'text-foreground rounded-bl-sm bg-zinc-800',
                         className,
                     )}
                 >
@@ -33,7 +33,7 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
                     <p
                         class={cn(
                             'mt-1 text-xs text-current/75',
-                            !isSentByUser ? 'ml-auto w-fit' : '',
+                            isSentByUser ? 'ml-auto w-fit' : '',
                         )}
                     >
                         19:00
