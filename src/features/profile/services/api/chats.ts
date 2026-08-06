@@ -117,7 +117,7 @@ export type {
 export const deleteUserChatsUrl =
     '/api/privateChatSecond/deleteChats/oneVOne/v0';
 
-interface TextBlock {
+export interface TextBlock {
     readonly type: 'text' | 'technical';
     readonly content_text: PrivateChatSecondMessageSendV0RequestBlockInput['content_text'];
 }

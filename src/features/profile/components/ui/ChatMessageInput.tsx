@@ -62,9 +62,7 @@ const ChatMessageInput = () => {
                 maxHeight: showFileUploader.value ? 'calc(20% + 178px)' : '20%',
             }}
         >
-            {showFileUploader.value && (
-                <ChatFileUploader show={showFileUploader} />
-            )}
+            <ChatFileUploader show={showFileUploader} />
             <form
                 onSubmit={handleSubmit}
                 class="flex items-end gap-2"

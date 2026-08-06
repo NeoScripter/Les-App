@@ -1,5 +1,6 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
 import { apiPostOrFail } from '@/lib/api';
+import { cn } from '@/lib/utils';
 import type { Signal } from '@preact/signals';
 import { File, X } from 'lucide-preact';
 import useSendMessage from '../../hooks/useSendMessage';
@@ -65,10 +66,10 @@ const ChatFileUploader = ({ show }: Props) => {
                 type: 'file',
                 file_file_id: containerResponse.file_id,
                 content_text: file.name,
-                file_spoiler: false
-            }
+                file_spoiler: false,
+            };
 
-            newFiles.push(newFile)
+            newFiles.push(newFile);
         }
 
         const args: SendMessageProps = {
@@ -78,6 +79,7 @@ const ChatFileUploader = ({ show }: Props) => {
         };
 
         input.value = '';
+        show.value = false;
         sendMessage(args, {
             onError: () => {
                 console.log('error');
@@ -86,7 +88,12 @@ const ChatFileUploader = ({ show }: Props) => {
     };
 
     return (
-        <article class="border-foreground-muted rounded-primary mb-6 border bg-black p-2">
+        <article
+            class={cn(
+                'border-foreground-muted rounded-primary mb-6 border bg-black p-2',
+                show.value === false && 'hidden',
+            )}
+        >
             <header class="flex items-center justify-between gap-2">
                 <FramedIconBtn
                     onClick={() => (show.value = false)}
