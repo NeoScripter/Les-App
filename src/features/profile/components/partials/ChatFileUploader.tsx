@@ -5,6 +5,7 @@ import { File, X } from 'lucide-preact';
 import useSendMessage from '../../hooks/useSendMessage';
 import type { CompleteChatInfo } from '../../lib/formatters';
 import {
+    containerAddFileUrl,
     containerCreateUrl,
     type ContainerAddFileRequest,
     type ContainerAddFileResponse,
@@ -46,7 +47,7 @@ const ChatFileUploader = ({ show }: Props) => {
 
         const newFiles = [];
         for (const file of input.files) {
-            const base64String = await readFileAsDataURL(file);
+            const base64String = (await readFileAsDataURL(file)).split(',')[1];
 
             const request: ContainerAddFileRequest = {
                 container_id: containerId,
@@ -58,7 +59,7 @@ const ChatFileUploader = ({ show }: Props) => {
             const containerResponse = await apiPostOrFail<
                 ContainerAddFileResponse,
                 ContainerAddFileRequest
-            >(containerCreateUrl, request);
+            >(containerAddFileUrl, request);
 
             const newFile: FileBlock = {
                 type: 'file',
