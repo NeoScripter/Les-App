@@ -30,10 +30,18 @@ import type {
     PrivateChatSecondMessageGetIdsV0Result,
     PrivateChatSecondMessageSendV0Request,
     PrivateChatSecondMessageSendV0RequestBlockInput,
+    PrivateChatSecondMessageSendV0RequestVisibilityInput,
     PrivateChatSecondMessageSendV0Response,
     PrivateChatSecondMessageSendV0Result,
-    PrivateChatSecondMessageSendV0RequestVisibilityInput,
 } from '../../../../services/public-api-union/chat_private_chat_second';
+import type {
+    ContainerAddFileV0Response,
+    ContainerAddFileV0Request,
+    ContainerAddFileV0Result,
+    ContainerCreateV0Result,
+    ContainerCreateV0Request,
+    ContainerCreateV0Response,
+} from '@/services/public-api-union/common-functions_file_storage';
 
 // ============================================
 // Re-exports with aliases (Method 4)
@@ -99,16 +107,15 @@ export const searchNewChatProfilesUrl = '/api/profile/search/withContacts/v0';
 
 // DeleteUserChats
 export type {
+    PrivateChatSecondMessageSendV0RequestBlockInput as ChatBlockInput,
+    PrivateChatSecondMessageSendV0RequestVisibilityInput as ChatInputVisibility,
     PrivateChatSecondDeleteChatsOneVOneV0Request as DeleteUserChatsRequest,
     PrivateChatSecondDeleteChatsOneVOneV0Response as DeleteUserChatsResponse,
     PrivateChatSecondDeleteChatsOneVOneV0Result as DeleteUserChatsResult,
-    PrivateChatSecondMessageSendV0RequestVisibilityInput as ChatInputVisibility,
-    PrivateChatSecondMessageSendV0RequestBlockInput as ChatBlockInput
 };
 
 export const deleteUserChatsUrl =
     '/api/privateChatSecond/deleteChats/oneVOne/v0';
-
 
 interface TextBlock {
     readonly type: 'text' | 'technical';
@@ -127,7 +134,7 @@ interface VideoBlock {
     readonly video_file_id: PrivateChatSecondMessageSendV0RequestBlockInput['video_file_id'];
 }
 
-interface FileBlock {
+export interface FileBlock {
     readonly type: 'file';
     readonly content_text: PrivateChatSecondMessageSendV0RequestBlockInput['content_text'];
     readonly file_spoiler: PrivateChatSecondMessageSendV0RequestBlockInput['file_spoiler'];
@@ -169,3 +176,15 @@ export type {
 };
 
 export const sendMessageUrl = '/api/privateChatSecond/message/send/v0';
+
+export type {
+    ContainerAddFileV0Request as ContainerAddFileRequest,
+    ContainerAddFileV0Response as ContainerAddFileResponse,
+    ContainerAddFileV0Result as ContainerAddFileResult,
+    ContainerCreateV0Request as ContainerCreateRequest,
+    ContainerCreateV0Response as ContainerCreateResponse,
+    ContainerCreateV0Result as ContainerCreateResult,
+};
+
+export const containerCreateUrl = '/api/fileStorage/container/create/v0';
+export const containerAddFileUrl = '/api/fileStorage/container/addFile/v0';

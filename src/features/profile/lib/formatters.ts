@@ -27,3 +27,12 @@ export function combineChatAndProfileData(
 
     return newProfiles;
 }
+
+export function convertDateToISOWithoutMillis(date: Date) {
+    return date.toISOString().replace(/\.\d{3}Z$/, 'Z');
+}
+
+export function covertDateFromISOToHourAndMinute(date: string) {
+    const temporalDate = Temporal.PlainDateTime.from(date.slice(0, -1));
+    return `${temporalDate.hour}:${temporalDate.minute.toString().padStart(2, '0')}`;
+}

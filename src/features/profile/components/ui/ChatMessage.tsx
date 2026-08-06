@@ -1,6 +1,7 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
 import { cn } from '@/lib/utils';
 import type { FC } from 'preact/compat';
+import { covertDateFromISOToHourAndMinute } from '../../lib/formatters';
 import type { ChatMessageType } from '../../services/api/chats';
 
 const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
@@ -36,7 +37,10 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
                             isSentByUser ? 'ml-auto w-fit' : '',
                         )}
                     >
-                        19:00
+                        {message.created_at &&
+                            covertDateFromISOToHourAndMinute(
+                                message.created_at,
+                            )}
                     </p>
                 </li>
             ))}

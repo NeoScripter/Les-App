@@ -45,3 +45,7 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
         }
     };
 }
+
+export function isBlankString(str: null | string) {
+    return str == null || typeof str != 'string' || str.trim() === '';
+}

@@ -1,4 +1,5 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
+import { isBlankString } from '@/lib/utils';
 import { useSignal } from '@preact/signals';
 import {
     Mic,
@@ -12,49 +13,18 @@ import useSendMessage from '../../hooks/useSendMessage';
 import type { CompleteChatInfo } from '../../lib/formatters';
 import { type SendMessageBlock } from '../../services/api/chats';
 import ChatTextarea from '../form/ChatTextarea';
+import ChatFileUploader from '../partials/ChatFileUploader';
 
-type SendMessageProps = {
+export type SendMessageProps = {
     chatId: string;
     profileId: string;
     blocks: SendMessageBlock[];
 };
 
-// function useSendMessage() {
-//     return useMutation({
-//         mutationFn: ({ chatId, profileId, blocks }: SendMessageProps) => {
-//             const visibility: ChatInputVisibility = {
-//                 all: true,
-//                 roles: [],
-//                 members: [],
-//             };
-
-//             const message: SendMessageRequest = {
-//                 profile_id: profileId,
-//                 chat_id: chatId,
-//                 blocks,
-//                 visibility,
-//             };
-
-//             return apiPostOrFail<SendMessageResponse, SendMessageRequest>(
-//                 sendMessageUrl,
-//                 message,
-//                 {},
-//             );
-//         },
-//         onSuccess: (_data, variables, _onMutateResult, context) => {
-//             context.client.invalidateQueries({
-//                 queryKey: [CACHE_KEYS.CHAT_MESSAGE_IDS, variables.chatId],
-//             });
-//             context.client.invalidateQueries({
-//                 queryKey: [CACHE_KEYS.CHAT_MESSAGES],
-//             });
-//         },
-//     });
-// }
-
 const ChatMessageInput = () => {
     const chatWindowState = useChatWindowState();
     const windowState = chatWindowState.value as CompleteChatInfo;
+    const showFileUploader = useSignal(false);
 
     const message = useSignal<string>('');
 
@@ -63,11 +33,13 @@ const ChatMessageInput = () => {
     const handleSubmit = (e: SubmitEvent) => {
         e.preventDefault();
 
-        const normalizedMessage = message.value.trim();
+        const rawMessage = message.value;
 
-        if (normalizedMessage === '') {
+        if (isBlankString(rawMessage)) {
             return;
         }
+
+        const normalizedMessage = message.value.trim();
 
         const args: SendMessageProps = {
             chatId: windowState.chat_id,
@@ -84,27 +56,47 @@ const ChatMessageInput = () => {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            class="flex max-h-1/5 shrink-0 items-end gap-2"
+        <div
+            class="flex shrink-0 flex-col"
+            style={{
+                maxHeight: showFileUploader.value ? 'calc(20% + 178px)' : '20%',
+            }}
         >
-            <Button icon={Paperclip} />
+            {showFileUploader.value && (
+                <ChatFileUploader show={showFileUploader} />
+            )}
+            <form
+                onSubmit={handleSubmit}
+                class="flex items-end gap-2"
+                style={{
+                    maxHeight: showFileUploader.value
+                        ? 'calc(100% - 178px - 1.5rem)'
+                        : '100%',
+                }}
+            >
+                <Button
+                    onClick={() =>
+                        (showFileUploader.value = !showFileUploader.value)
+                    }
+                    icon={Paperclip}
+                />
 
-            <ChatTextarea
-                placeholder="Сообщение..."
-                value={message.value}
-                onInput={(e) => (message.value = e.target.value)}
-                className="field-sizing-content max-h-full min-h-6 w-full resize-none overflow-y-auto px-1 text-base"
-            />
+                <ChatTextarea
+                    placeholder="Сообщение..."
+                    value={message.value}
+                    onInput={(e) => (message.value = e.target.value)}
+                    className="field-sizing-content max-h-full min-h-6 w-full resize-none overflow-y-auto px-1 text-base"
+                />
 
-            <div class="flex flex-col items-end justify-between gap-2">
-                {message.value !== '' ? (
-                    <Button icon={SendHorizonal} />
-                ) : (
-                    <RecordButton />
-                )}
-            </div>
-        </form>
+                <div class="flex flex-col items-end justify-between gap-2">
+                    {message.value !== '' ? (
+                        <Button icon={SendHorizonal} />
+                    ) : (
+                        <RecordButton />
+                    )}
+                </div>
+            </form>
+        </div>
     );
 };
 
