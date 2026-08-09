@@ -11,7 +11,7 @@ import InviteToLes from './InviteToLes';
 import MiniChat from '../ui/MiniChat';
 import ContactList from '../ui/ContactList';
 import SecretChat from './SecretChat';
-import PanelHeader from '../layout/PanelHeader';
+import PanelHeader from './PanelHeader';
 
 type Props = {
     className?: string;

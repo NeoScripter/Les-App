@@ -3,8 +3,8 @@ import { apiPostOrFail } from '@/lib/api';
 import { cn } from '@/lib/utils';
 import type { Signal } from '@preact/signals';
 import { File, X } from 'lucide-preact';
-import useSendMessage from '../../hooks/useSendMessage';
-import type { CompleteChatInfo } from '../../lib/formatters';
+import useSendMessage from "@/features/profile/hooks/useSendMessage";
+import type { CompleteChatInfo } from "@/features/profile/lib/formatters";
 import {
     containerAddFileUrl,
     containerCreateUrl,
@@ -13,9 +13,9 @@ import {
     type ContainerCreateRequest,
     type ContainerCreateResponse,
     type FileBlock,
-} from '../../services/api/chats';
-import type { SendMessageProps } from '../ui/ChatMessageInput';
-import FramedIconBtn from '../ui/FramedIconBtn';
+} from "@/features/profile/services/api/chats";
+import type { SendMessageProps } from "@/features/profile/components/ui/ChatMessageInput";
+import FramedIconBtn from "@/features/profile/components/ui/FramedIconBtn";
 
 type Props = {
     show: Signal<boolean>;

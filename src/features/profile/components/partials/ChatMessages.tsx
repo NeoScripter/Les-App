@@ -13,8 +13,8 @@ import { apiPostOrFail } from '@/lib/api';
 import { range } from '@/lib/utils';
 import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/preact-query';
 import { useEffect, useRef } from 'preact/hooks';
-import { EVENTS } from '../../data/constants';
-import ChatMessage, { ChatMessageSkeleton } from '../ui/ChatMessage';
+import { EVENTS } from "@/features/profile/data/constants";
+import ChatMessage, { ChatMessageSkeleton } from "@/features/profile/components/ui/ChatMessage";
 
 function useChatMessageIds(chatWindowState: CompleteChatInfo) {
     const req: GetChatMessageIdsRequest = {

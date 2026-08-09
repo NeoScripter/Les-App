@@ -6,11 +6,11 @@ import ChatListShell, {
 import ContactItem from '@/features/profile/components/ui/ContactItem';
 import { Signal, useSignal } from '@preact/signals';
 import { Suspense, type FC } from 'preact/compat';
-import useChatProfiles from '../../hooks/useChatProfiles';
-import useMyContacts from '../../hooks/useMyContacts';
-import type { ProfileFields } from '../../services/api/chats';
-import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
-import CreateContactForm from '../ui/CreateContactForm';
+import useChatProfiles from "@/features/profile/hooks/useChatProfiles";
+import useMyContacts from "@/features/profile/hooks/useMyContacts";
+import type { ProfileFields } from "@/features/profile/services/api/chats";
+import convertToContactItemDTO from "@/features/profile/services/DTO/contactItemDTO";
+import CreateContactForm from "@/features/profile/components/ui/CreateContactForm";
 import { ContactHubHeader, type ChatTabProps } from './ContactHub';
 
 type ContactListProps = {

@@ -10,8 +10,8 @@ import {
 } from '@/features/profile/services/api/chats';
 import { apiPostOrFail } from '@/lib/api';
 import { useMutation } from '@tanstack/preact-query';
-import { EVENTS } from '../data/constants';
-import { convertDateToISOWithoutMillis } from '../lib/formatters';
+import { EVENTS } from "@/features/profile/data/constants";
+import { convertDateToISOWithoutMillis } from "@/features/profile/lib/formatters";
 
 type SendMessageProps = {
     chatId: string;

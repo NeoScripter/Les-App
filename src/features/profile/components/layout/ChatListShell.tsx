@@ -1,7 +1,7 @@
 import { cn, range } from '@/lib/utils';
 import type { ComponentChildren } from 'preact';
 import type { FC } from 'preact/compat';
-import { ContactItemSkeleton } from '../ui/ContactItem';
+import { ContactItemSkeleton } from "@/features/profile/components/ui/ContactItem";
 
 const ChatListShell: FC<{
     className?: string;

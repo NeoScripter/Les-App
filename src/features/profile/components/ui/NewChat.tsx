@@ -5,14 +5,14 @@ import ChatListShell, {
 } from '@/features/profile/components/layout/ChatListShell';
 import { useSignal } from '@preact/signals';
 import { Suspense, type FC } from 'preact/compat';
-import useChatProfiles from '../../hooks/useChatProfiles';
-import useMyContacts from '../../hooks/useMyContacts';
-import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
+import useChatProfiles from "@/features/profile/hooks/useChatProfiles";
+import useMyContacts from "@/features/profile/hooks/useMyContacts";
+import convertToContactItemDTO from "@/features/profile/services/DTO/contactItemDTO";
 import {
     ContactHubHeader,
     type ChatTabProps,
     type TabType,
-} from '../partials/ContactHub';
+} from "@/features/profile/components/partials/ContactHub";
 import { Button } from './Button';
 import ContactItem from './ContactItem';
 
@@ -39,7 +39,7 @@ type ContactListProps = {
     query: string;
 };
 
-function ContactList({ query }: ContactListProps) {
+function ContactItems({ query }: ContactListProps) {
     const { data: contactData } = useMyContacts({ query });
 
     const profileData = useChatProfiles(
@@ -107,7 +107,7 @@ const ContactList: FC<ChatTabProps> = ({ show, currentTab }) => {
 
             <ErrorBoundary>
                 <Suspense fallback={<ChatListShellSkeleton withTime={true} />}>
-                    <ContactList query={query.value} />
+                    <ContactItems query={query.value} />
                 </Suspense>
             </ErrorBoundary>
         </>

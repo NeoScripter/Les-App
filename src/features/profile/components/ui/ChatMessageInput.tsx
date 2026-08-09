@@ -1,4 +1,9 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
+import ChatTextarea from '@/features/profile/components/form/ChatTextarea';
+import ChatFileUploader from '@/features/profile/components/partials/ChatFileUploader';
+import useSendMessage from '@/features/profile/hooks/useSendMessage';
+import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
+import { type SendMessageBlock } from '@/features/profile/services/api/chats';
 import { isBlankString } from '@/lib/utils';
 import { useSignal } from '@preact/signals';
 import {
@@ -9,11 +14,6 @@ import {
     type LucideIcon,
 } from 'lucide-preact';
 import type { ComponentProps } from 'preact/compat';
-import useSendMessage from '../../hooks/useSendMessage';
-import type { CompleteChatInfo } from '../../lib/formatters';
-import { type SendMessageBlock } from '../../services/api/chats';
-import ChatTextarea from '../form/ChatTextarea';
-import ChatFileUploader from '../partials/ChatFileUploader';
 
 export type SendMessageProps = {
     chatId: string;

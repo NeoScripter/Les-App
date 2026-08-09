@@ -1,7 +1,7 @@
 import { cn  }from '@/lib/utils';
 import type { FC } from 'preact/compat';
 import { useState } from 'preact/hooks';
-import type { NavItem } from '../../data/secondaryNavItems';
+import type { NavItem } from "@/features/profile/data/secondaryNavItems";
 
 const SecondaryNav: FC<{ className?: string; items: NavItem[] }> = ({
     className,

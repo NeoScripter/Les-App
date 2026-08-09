@@ -2,8 +2,8 @@ import Hex from '@/components/ui/Hex';
 import { cn  }from '@/lib/utils';
 import { useLocation } from 'preact-iso';
 import type { FC } from 'preact/compat';
-import { navItems, type PrimaryNavItemType } from '../../data/primaryNavItems';
-import Logo from '../ui/Logo';
+import { navItems, type PrimaryNavItemType } from "@/features/profile/data/primaryNavItems";
+import Logo from "@/features/profile/components/ui/Logo";
 
 const PrimaryNav: FC<{ className?: string }> = ({ className }) => {
     return (

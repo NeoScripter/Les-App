@@ -3,7 +3,7 @@ import { Button } from '@/features/profile/components/ui/Button';
 import type { Signal } from '@preact/signals';
 import { CheckCheck, Trash2 } from 'lucide-preact';
 import type { FC } from 'preact/compat';
-import useDeleteChats from '../../hooks/useDeleteChats';
+import useDeleteChats from "@/features/profile/hooks/useDeleteChats";
 
 const SelectionToolbar: FC<{ selectedIds: Signal<string[] | null> }> = ({
     selectedIds,

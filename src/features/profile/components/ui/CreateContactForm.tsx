@@ -4,15 +4,15 @@ import ContactItem from '@/features/profile/components/ui/ContactItem';
 import { apiPostOrFail } from '@/lib/api';
 import { useMutation } from '@tanstack/preact-query';
 import type { FC } from 'preact/compat';
-import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
+import convertToContactItemDTO from "@/features/profile/services/DTO/contactItemDTO";
 import {
     addUserToContactsUrl,
     type AddUserToContactsRequest,
     type AddUserToContactsResponse,
     type ProfileFields,
-} from '../../services/api/chats';
-import Input from '../form/Input';
-import { useChatMenu } from '../partials/ChatListPanel';
+} from "@/features/profile/services/api/chats";
+import Input from "@/features/profile/components/form/Input";
+import { useChatMenu } from "@/features/profile/components/partials/ChatListPanel";
 import { Button } from './Button';
 
 type UserData = Omit<

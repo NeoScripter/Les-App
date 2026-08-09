@@ -1,17 +1,17 @@
 import DialogLayout from '@/components/layout/DialogLayout';
 import PanelLayout from '@/components/layout/PanelLayout';
 import Headline from '@/components/ui/Headline';
-import PanelHeader from '@/features/profile/components/layout/PanelHeader';
-import ContactList from '@/features/profile/components/partials/ContactList';
-import MiniChat from '@/features/profile/components/partials/MiniChat';
-import SecretChat from '@/features/profile/components/partials/SecretChat';
-import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
 import { cn } from '@/lib/utils';
 import { useSignal, type Signal } from '@preact/signals';
 import { ChevronLeft } from 'lucide-preact';
 import type { FC } from 'preact/compat';
-import CreateContact from './CreateContact';
-import InviteToLes from './InviteToLes';
+import PanelHeader from './PanelHeader';
+import ContactList from "@/features/profile/components/partials/ContactList";
+import InviteToLes from "@/features/profile/components/partials/InviteToLes";
+import CreateContact from "@/features/profile/components/partials/CreateContact";
+import SecretChat from "@/features/profile/components/partials/SecretChat";
+import MiniChat from "@/features/profile/components/partials/MiniChat";
+import FramedIconBtn from "@/features/profile/components/ui/FramedIconBtn";
 
 type Props = {
     className?: string;

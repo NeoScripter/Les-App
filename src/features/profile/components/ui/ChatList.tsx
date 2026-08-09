@@ -9,12 +9,12 @@ import {
 import { apiPostOrFail } from '@/lib/api';
 import type { Signal } from '@preact/signals';
 import { useSuspenseQuery } from '@tanstack/preact-query';
-import useChatProfiles from '../../hooks/useChatProfiles';
+import useChatProfiles from "@/features/profile/hooks/useChatProfiles";
 import {
     combineChatAndProfileData,
     type CompleteChatInfo,
-} from '../../lib/formatters';
-import convertToContactItemDTO from '../../services/DTO/contactItemDTO';
+} from "@/features/profile/lib/formatters";
+import convertToContactItemDTO from "@/features/profile/services/DTO/contactItemDTO";
 
 function useMyChats() {
     return useSuspenseQuery({

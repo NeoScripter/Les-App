@@ -2,8 +2,8 @@ import { useChatWindowState } from '@/app/[profile]/Profile';
 import { cn } from '@/lib/utils';
 import { File } from 'lucide-preact';
 import type { FC } from 'preact/compat';
-import { covertDateFromISOToHourAndMinute } from '../../lib/formatters';
-import type { ChatMessageType } from '../../services/api/chats';
+import { covertDateFromISOToHourAndMinute } from "@/features/profile/lib/formatters";
+import type { ChatMessageType } from "@/features/profile/services/api/chats";
 
 const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
     className,

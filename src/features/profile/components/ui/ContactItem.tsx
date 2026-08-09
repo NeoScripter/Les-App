@@ -3,7 +3,7 @@ import getAvatarStyle from '@/features/profile/data/avatarStyles';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-preact';
 import { useMemo, type FC } from 'preact/compat';
-import type { ContactItemDTO } from '../../services/DTO/contactItemDTO';
+import type { ContactItemDTO } from "@/features/profile/services/DTO/contactItemDTO";
 
 type Props = {
     contact: ContactItemDTO;
