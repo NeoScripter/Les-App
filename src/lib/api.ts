@@ -35,3 +35,22 @@ export async function apiPostOrFail<T, B extends object = object>(
 
     return result.value as T;
 }
+
+export function composeFileUrl(
+    fileId: string,
+    keyHash: string,
+    comphash: string,
+) {
+    const url =
+        'https://les.myfantasy.ru/api/fileStorage/file/downloadByUniqueKey/v0?';
+
+    const queryParams = {
+        file_id: fileId,
+        unique_key_hash: keyHash,
+        comphash,
+    };
+
+    const params = new URLSearchParams(queryParams).toString();
+
+    return `${url}${params}`;
+}

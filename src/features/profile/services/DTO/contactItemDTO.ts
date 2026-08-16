@@ -3,6 +3,7 @@ import type {
     ContactInfo,
     ProfileFields,
 } from '@/features/profile/services/api/chats';
+import { composeFileUrl } from '@/lib/api';
 
 export type ContactItemDTO = {
     name: string;
@@ -13,8 +14,6 @@ export type ContactItemDTO = {
     initials: string;
 };
 
-// /api/fileStorage/file/getContentByUniqueKey/v0?file_id=value&unique_key_hash=value&comphash=value
-
 export default function convertToContactItemDTO(
     item: ProfileFields,
 ): ContactItemDTO {
@@ -22,18 +21,12 @@ export default function convertToContactItemDTO(
 
     if (item.avatars.length > 0) {
         const avatarData = item.avatars[0];
-        const url =
-            'https://les.myfantasy.ru/api/fileStorage/file/downloadByUniqueKey/v0?';
-        const queryParams = {
-            file_id: avatarData.file_id,
-            unique_key_hash: avatarData.unique_key_hash,
-            comphash: avatarData.comphash,
-        };
-        const params = new URLSearchParams(
-            queryParams
-        ).toString();
-        avatar = url + params;
-        console.log(avatar);
+
+        avatar = composeFileUrl(
+            avatarData.file_id,
+            avatarData.unique_key_hash,
+            avatarData.comphash,
+        );
     }
 
     if (item.has_blocking_state) {

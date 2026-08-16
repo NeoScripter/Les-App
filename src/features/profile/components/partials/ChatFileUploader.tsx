@@ -1,33 +1,18 @@
 import { useChatWindowState } from '@/app/[profile]/Profile';
-import { apiPostOrFail } from '@/lib/api';
+import type { SendMessageProps } from '@/features/profile/components/ui/ChatMessageInput';
+import FramedIconBtn from '@/features/profile/components/ui/FramedIconBtn';
+import useSendMessage from '@/features/profile/hooks/useSendMessage';
+import {
+    createContainer,
+    populateContainer,
+} from '@/features/profile/lib/fetchers';
+import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
 import { cn } from '@/lib/utils';
 import type { Signal } from '@preact/signals';
 import { File, X } from 'lucide-preact';
-import useSendMessage from "@/features/profile/hooks/useSendMessage";
-import type { CompleteChatInfo } from "@/features/profile/lib/formatters";
-import {
-    containerAddFileUrl,
-    containerCreateUrl,
-    type ContainerAddFileRequest,
-    type ContainerAddFileResponse,
-    type ContainerCreateRequest,
-    type ContainerCreateResponse,
-    type FileBlock,
-} from "@/features/profile/services/api/chats";
-import type { SendMessageProps } from "@/features/profile/components/ui/ChatMessageInput";
-import FramedIconBtn from "@/features/profile/components/ui/FramedIconBtn";
 
 type Props = {
     show: Signal<boolean>;
-};
-
-const readFileAsDataURL = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
 };
 
 const ChatFileUploader = ({ show }: Props) => {
@@ -39,38 +24,9 @@ const ChatFileUploader = ({ show }: Props) => {
         const input = e.currentTarget as HTMLInputElement;
         if (!input.files) return;
 
-        const createContainerResult = await apiPostOrFail<
-            ContainerCreateResponse,
-            ContainerCreateRequest
-        >(containerCreateUrl, { max_file_count: 0, allowed_content_type: '' });
+        const containerId = await createContainer();
 
-        const containerId = createContainerResult.container_id;
-
-        const newFiles = [];
-        for (const file of input.files) {
-            const base64String = (await readFileAsDataURL(file)).split(',')[1];
-
-            const request: ContainerAddFileRequest = {
-                container_id: containerId,
-                file_name: file.name,
-                file_content: base64String,
-                meta: '',
-                description: '',
-            };
-            const containerResponse = await apiPostOrFail<
-                ContainerAddFileResponse,
-                ContainerAddFileRequest
-            >(containerAddFileUrl, request);
-
-            const newFile: FileBlock = {
-                type: 'file',
-                file_file_id: containerResponse.file_id,
-                content_text: file.name,
-                file_spoiler: false,
-            };
-
-            newFiles.push(newFile);
-        }
+        const newFiles = await populateContainer(input.files, containerId);
 
         const args: SendMessageProps = {
             chatId: windowState.chat_id,
