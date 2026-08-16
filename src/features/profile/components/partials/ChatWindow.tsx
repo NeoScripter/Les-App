@@ -7,12 +7,12 @@ import PanelHeader from '@/features/profile/components/layout/PanelHeader';
 import ChatMessages, {
     ChatMessagesSkeleton,
 } from '@/features/profile/components/partials/ChatMessages';
+import ChatMessageInput from '@/features/profile/components/ui/ChatMessageInput';
 import getAvatarStyle from '@/features/profile/data/avatarStyles';
 import type { CompleteChatInfo } from '@/features/profile/lib/formatters';
 import convertToContactItemDTO from '@/features/profile/services/DTO/contactItemDTO';
 import { AudioLines, ChevronLeft } from 'lucide-preact';
 import { Suspense, useMemo } from 'preact/compat';
-import ChatMessageInput from '../ui/ChatMessageInput';
 
 const ChatWindow = () => {
     const chatWindowState = useChatWindowState();
@@ -36,17 +36,27 @@ const ChatWindow = () => {
                 >
                     <ChevronLeft />
                 </button>
-
                 <div class="flex items-center gap-3">
                     <Hex
                         styles={{ ...colors }}
                         className="relative h-10"
                         as="figure"
                     >
-                        <span className="text-xs font-bold">
-                            {personData.initials}
-                        </span>
+                        {personData.avatar ? (
+                            <figure class="size-full">
+                                <img
+                                    src={personData.avatar}
+                                    alt=""
+                                    class="size-full object-contain object-center"
+                                />
+                            </figure>
+                        ) : (
+                            <span className="xs:text-sm text-xs font-bold">
+                                {personData.initials}
+                            </span>
+                        )}
                     </Hex>
+
                     <Headline className="text-base">{personData.name}</Headline>
                 </div>
                 <button type="button" class="size-10">

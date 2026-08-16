@@ -23,7 +23,7 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
             class={cn(
                 'max-w-lg rounded-xl px-3 py-2 text-sm',
                 isSentByUser
-                    ? 'bg-primary text-foreground-accent self-end rounded-br-sm'
+                    ? 'view-bg-shift text-foreground-accent self-end rounded-br-sm'
                     : 'text-foreground rounded-bl-sm bg-zinc-800',
                 className,
             )}
@@ -57,7 +57,6 @@ const ChatMessage: FC<{ className?: string; message: ChatMessageType }> = ({
         </li>
     );
 };
-// TODO: dynamic gradient orange: rgb(255, 116, 1), green : linear-gradient(rgb(177, 255, 29) 0%, rgb(177, 255, 29) 100%)
 
 export function ChatMessageSkeleton() {
     return (

@@ -38,7 +38,7 @@ export default [
                 {
                     mode: 'full',
                     type: 'app',
-                    capture: ['_', 'fileName'],
+                    capture: ['featureName', 'fileName'],
                     pattern: ['src/app/**/*'],
                 },
                 {
@@ -68,12 +68,16 @@ export default [
                                     'feature',
                                     { featureName: '${from.featureName}' },
                                 ],
+                                [
+                                    'app',
+                                    { featureName: '[${from.featureName}]' },
+                                ],
                             ],
                         },
                         {
                             from: ['app', 'neverImport'],
                             allow: ['shared', 'feature', 'app'],
-                        }
+                        },
                     ],
                 },
             ],

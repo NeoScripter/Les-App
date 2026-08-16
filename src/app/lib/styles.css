@@ -163,3 +163,17 @@
         }
     }
 }
+
+@keyframes viewBgShift {
+    0% {
+        background-color: rgb(255, 106, 1);
+    }
+    100% {
+        background-color: rgb(177, 255, 29);
+    }
+}
+
+.view-bg-shift {
+    animation: viewBgShift;
+    animation-timeline: view();
+}

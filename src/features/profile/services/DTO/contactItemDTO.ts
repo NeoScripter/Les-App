@@ -22,9 +22,18 @@ export default function convertToContactItemDTO(
 
     if (item.avatars.length > 0) {
         const avatarData = item.avatars[0];
-        avatar = encodeURI(
-            `/api/fileStorage/file/getContentByUniqueKey/v0?file_id=${avatarData.file_id}&unique_key_hash=${avatarData.unique_key_hash}&comphash=${avatarData.comphash}`,
-        );
+        const url =
+            'https://les.myfantasy.ru/api/fileStorage/file/downloadByUniqueKey/v0?';
+        const queryParams = {
+            file_id: avatarData.file_id,
+            unique_key_hash: avatarData.unique_key_hash,
+            comphash: avatarData.comphash,
+        };
+        const params = new URLSearchParams(
+            queryParams
+        ).toString();
+        avatar = url + params;
+        console.log(avatar);
     }
 
     if (item.has_blocking_state) {
